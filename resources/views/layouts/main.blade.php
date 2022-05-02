@@ -29,7 +29,7 @@
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
     <meta name='robots' content='max-image-preview:large' />
     <link rel='dns-prefetch' href='//s.w.org' />
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         window._wpemojiSettings = {
             "baseUrl": "https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/",
             "ext": ".png",
@@ -78,8 +78,8 @@
                 "complete" === a.readyState && t.readyCallback()
             })), (n = t.source || {}).concatemoji ? c(n.concatemoji) : n.wpemoji && n.twemoji && (c(n.twemoji), c(n.wpemoji)))
         }(window, document, window._wpemojiSettings);
-    </script>
-    <style type="text/css">
+    </script> --}}
+    {{-- <style type="text/css">
         img.wp-smiley,
         img.emoji {
             display: inline !important;
@@ -93,7 +93,7 @@
             padding: 0 !important;
         }
 
-    </style>
+    </style> --}}
     <link rel='stylesheet' id='wp-customer-reviews-3-frontend-css' href='https://a-advokat.ru/wp-content/plugins/wp-customer-reviews/css/wp-customer-reviews.css?ver=3.6.2' type='text/css' media='all' />
     {{-- <link rel='stylesheet' id='dashicons-css' href='https://a-advokat.ru/wp-includes/css/dashicons.min.css?ver=5.9.3' type='text/css' media='all' /> --}}
     {{-- <link rel='stylesheet' id='admin-bar-css' href='https://a-advokat.ru/wp-includes/css/admin-bar.min.css?ver=5.9.3' type='text/css' media='all' /> --}}
@@ -371,6 +371,14 @@
     <link rel='shortlink' href='https://a-advokat.ru/' />
     {{-- <link rel="alternate" type="application/json+oembed" href="https://a-advokat.ru/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fa-advokat.ru%2F" /> --}}
     {{-- <link rel="alternate" type="text/xml+oembed" href="https://a-advokat.ru/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fa-advokat.ru%2F&#038;format=xml" /> --}}
+    <style>
+        .hidden {
+            display: none;
+            visibility: hidden;
+            z-index: -999;
+        }
+
+    </style>
 </head>
 
 <body class="body">
@@ -459,26 +467,22 @@
     </header>
     <section class="bread">
         <div class="container">
-            <!-- Breadcrumb NavXT 6.6.0 -->
             <span property="itemListElement" typeof="ListItem"><span property="name" class="home current-item">Почетный Адвокатъ</span>
                 <meta property="url" content="https://a-advokat.ru">
                 <meta property="position" content="1">
             </span>
         </div>
     </section>
-    {{-- <style>
-        .bread {
-            display: none;
-        }
-
-    </style> --}}
     <section class="home-one">
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" style="background: url({{ asset('images/advokat-v-rasrochku.jpg') }}) top center; background-size: cover;">
                     <div class="container">
-                        <h1><span>Услуги адвокатов в рассрочку!</span></h1>
-                        <span class="home-one-text"><span>Своевременная помощь</span>
+                        <h1>
+                            <span>Услуги адвокатов в рассрочку!</span>
+                        </h1>
+                        <span class="home-one-text">
+                            <span>Своевременная помощь</span>
                             <span>от квалифицированных</span>
                             <span>адвокатов и юристов</span></span>
                         <a href="/news/uslugi-advokatov-v-rassrochku/" class="button">Подробнее</a>
@@ -486,16 +490,17 @@
                 </div>
                 <div class="swiper-slide" style="background: url({{ asset('images/yurist.jpg') }}) top center; background-size: cover;">
                     <div class="container">
-                        <h1><span>Бесплатные консультации!</span>
+                        <h1>
+                            <span>Бесплатные консультации!</span>
                             <span>В последнюю субботу месяца.</span>
                         </h1>
-                        <span class="home-one-text"><span>День открытых дверей!</span>
+                        <span class="home-one-text">
+                            <span>День открытых дверей!</span>
                             <span>с 10:00 до 18:00</span></span>
                         <a href="/news/besplatnie-konsultatsii/" class="button">Подробнее</a>
                     </div>
                 </div>
             </div>
-            <!-- Add Arrows -->
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
         </div>
@@ -868,94 +873,88 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="oz_back_btn fadeOutTop">Назад</div> --}}
-                        <div class="oz_back_btn">Назад</div>
-                        {{-- <h3 class="stepname">Выберите дату</h3> --}}
+                        <div class="oz_back_btn fadeOutTop">Назад</div>
+                        {{-- <div class="oz_back_btn">Назад</div> --}}
+                        <h3 class="stepname">Выберите дату</h3>
                         {{-- <h3 class="stepname">Выберите время записи</h3> --}}
-                        <h3 class="stepname">Выберите услугу</h3>
+                        {{-- <h3 class="stepname">Выберите услугу</h3> --}}
                     </div>
                     <div class="oz_hid default-theme ">
-                        {{-- <div class="oz_hid_carousel" style="transform: translateX(0%);"> --}}
-                        <div class="oz_hid_carousel" style="transform: translateX(0);">
-                            {{-- <div class="oz_date">
-                                <div class="inlinedatepicker hasDatepicker" id="dp1650912534057">
-                                    <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;">
-                                        <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all"><a class="ui-datepicker-prev ui-corner-all ui-state-disabled" title="Назад"><span class="ui-icon ui-icon-circle-triangle-w">Назад</span></a><a
-                                                class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click" title="Далее"><span class="ui-icon ui-icon-circle-triangle-e">Далее</span></a>
-                                            <div class="ui-datepicker-title"><span class="ui-datepicker-month">Апрель</span>&nbsp;<span class="ui-datepicker-year">2022</span></div>
+                        <div class="oz_hid_carousel" style="transform: translateX();">
+                            <div class="oz_date active">
+                                <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;">
+                                    <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+                                        <a class="ui-datepicker-prev ui-corner-all ui-state-disabled" title="Назад">
+                                            <span class="ui-icon ui-icon-circle-triangle-w calendar_last">Назад</span>
+                                        </a>
+                                        <a class="ui-datepicker-next ui-corner-all" title="Далее">
+                                            <span class="ui-icon ui-icon-circle-triangle-e calendar_next">Далее</span>
+                                        </a>
+                                        <div class="ui-datepicker-title">
+                                            <span class="ui-datepicker-month" data-thismonth='{{ $thisMonth['name'] }}' data-nextmonth="{{ $nextMonth['name'] }}">{{ $thisMonth['name'] }}</span>
+                                            &nbsp;
+                                            <span class="ui-datepicker-year">{{ Carbon\Carbon::now()->format('Y') }}</span>
                                         </div>
-                                        <table class="ui-datepicker-calendar">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col"><span title="Понедельник">Пн</span></th>
-                                                    <th scope="col"><span title="Вторник">Вт</span></th>
-                                                    <th scope="col"><span title="Среда">Ср</span></th>
-                                                    <th scope="col"><span title="Четверг">Чт</span></th>
-                                                    <th scope="col"><span title="Пятница">Пт</span></th>
-                                                    <th scope="col" class="ui-datepicker-week-end"><span title="Суббота">Сб</span></th>
-                                                    <th scope="col" class="ui-datepicker-week-end"><span title="Воскресенье">Вс</span></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
-                                                    <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
-                                                    <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
-                                                    <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">1</span></td>
-                                                    <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">2</span></td>
-                                                    <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">3</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">4</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">5</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">6</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">7</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">8</span></td>
-                                                    <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">9</span></td>
-                                                    <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">10</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">11</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">12</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">13</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">14</span></td>
-                                                    <td class=" time-08:00-09:00-163 " data-handler="selectDay" data-event="click" data-month="3" data-year="2022">
-                                                        <a class="ui-state-default" href="#" aria-current="false" data-date="15">15</a>
-                                                    </td>
-                                                    <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">16</span></td>
-                                                    <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">17</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">18</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">19</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">20</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">21</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">22</span></td>
-                                                    <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">23</span></td>
-                                                    <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">24</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class=" ui-datepicker-days-cell-over ui-datepicker-unselectable ui-state-disabled undefined ui-datepicker-current-day ui-datepicker-today"><span class="ui-state-default">25</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">26</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">27</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">28</span></td>
-                                                    <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">29</span></td>
-                                                    <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">30</span></td>
-                                                    <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        {{-- <div class="ui-datepicker-title"><span class="ui-datepicker-month">Апрель</span>&nbsp;<span class="ui-datepicker-year">2022</span></div> --}}
                                     </div>
+                                    <table class="ui-datepicker-calendar">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"><span title="Понедельник">Пн</span></th>
+                                                <th scope="col"><span title="Вторник">Вт</span></th>
+                                                <th scope="col"><span title="Среда">Ср</span></th>
+                                                <th scope="col"><span title="Четверг">Чт</span></th>
+                                                <th scope="col"><span title="Пятница">Пт</span></th>
+                                                <th scope="col" class="ui-datepicker-week-end"><span title="Суббота">Сб</span></th>
+                                                <th scope="col" class="ui-datepicker-week-end"><span title="Воскресенье">Вс</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="thisMonth" class="">
+                                            @foreach ($thisMonth['weeks'] as $week)
+                                                <tr>
+                                                    @foreach ($week as $day)
+                                                        @if ($day['view'])
+                                                            <td class="ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">{{ $day['current'] }}</span></td>
+                                                        @else
+                                                            <td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                            @endforeach
+                                            {{-- <tr>
+                                                <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">11</span></td>
+                                                <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">12</span></td>
+                                                <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">13</span></td>
+                                                <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">14</span></td>
+                                                <td class=" time-08:00-09:00-163 " data-handler="selectDay" data-event="click" data-month="3" data-year="2022">
+                                                    <a class="ui-state-default" href="#" aria-current="false" data-date="15">15</a>
+                                                </td>
+                                                <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">16</span></td>
+                                                <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">17</span></td>
+                                            </tr> --}}
+                                        </tbody>
+                                        <tbody id="nextMonth" class="hidden">
+                                            @foreach ($nextMonth['weeks'] as $week)
+                                                <tr>
+                                                    @foreach ($week as $day)
+                                                        @if ($day['view'])
+                                                            <td class="ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">{{ $day['current'] }}</span></td>
+                                                        @else
+                                                            <td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div> --}}
+                            </div>
                             {{-- <div class="oz_time">Нет доступного времени на выбранную дату</div> --}}
-                            {{-- <div class="oz_time active">Нет доступного времени на выбранную дату</div> --}}
-                            {{-- <div class="oz_time">
+                            <div class="oz_time">
                                 <ul>
                                     <li class=" zagday timerU squaredThree ">Утро</li>
                                     <li data-persids=" 163" class="squaredThree "><input id="time-0" class="checkb" type="checkbox" value="08:00"><label for="time-0">08:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-1" class="checkb" type="checkbox" value="09:00"><label for="time-1">09:00 </label></li>
+                                    <li data-persids="163" class="squaredThree"><input id="time-1" class="checkb" type="checkbox" value="09:00"><label for="time-1">09:00 </label></li>
                                     <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-2" class="checkb" type="checkbox" value="10:00"><label for="time-2">10:00 </label></li>
                                     <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-3" class="checkb" type="checkbox" value="11:00"><label for="time-3">11:00 </label></li>
                                     <li class="zagday timerD squaredThree no_slots">День</li>
@@ -973,12 +972,12 @@
                                     <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-14" class="checkb" type="checkbox" value="22:00"><label for="time-14">22:00 </label></li>
                                     <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-15" class="checkb" type="checkbox" value="23:00"><label for="time-15">23:00 </label></li>
                                 </ul>
-                            </div> --}}
-                            {{-- <div class="oz_services">
+                            </div>
+                            <div class="oz_services">
                                 <ul class="listUslug"></ul>
                                 <div class="oz_btn oz_multiselect_step">Далее</div>
-                            </div> --}}
-                            {{-- <div class="oz_services active">
+                            </div> -
+                            <div class="oz_services">
                                 <ul class="listUslug">
                                     <li class="usluga">
                                         <p class="uslname">Консультация по семейным отношениям</p>
@@ -989,7 +988,7 @@
                                     </li>
                                 </ul>
                                 <div class="oz_btn oz_multiselect_step">Далее</div>
-                            </div> --}}
+                            </div>
                             {{-- <div class="oz_employees">
                                 <ul class="personals">
                                     <li id="oz_employee-181" class="personal ">
@@ -1023,7 +1022,7 @@
                                     </li>
                                 </ul>
                             </div> --}}
-                            <div id="timeForm" class="active">
+                            {{-- <div id="timeForm" class="active">
                                 <div class="oz_form_wrap">
                                     <div class="oz_zapis_info">
                                         <p><span class="oz_spec_info">Сотрудник: <span>Трофимук Александр Николаевич</span></span><span class="oz_datetime_info"><span class="oz_datetime_info-date">Дата: <span class="oz_date_info">27.04.2022</span></span><span class="oz_datetime_time"> в
@@ -1058,7 +1057,7 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -1336,8 +1335,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="clear:both;"></div> <span>Какое везение, что нам посчастливилось найти такого профессионального адвоката и главное такого чуткого человека Юлию Владимировну Волоцкую. Очень быстро и тонко нашла такие моменты в нашем деле, правильно и грамотно
-                                            расставила приоритеты, которые помогли ОТМЕНИТЬ уже вынесенный приговор ранее. Все её действия не подлежали никаким сомнениям, поэтому полностью доверились защите и получили результат! Юлия Владимировна полностью отдает себя работе, если вам нужен адвокат
+                                        <div style="clear:both;"></div> <span>Какое везение, что нам посчастливилось найти такого профессионального адвоката и главное такого чуткого человека Юлию Владимировну Волоцкую. Очень быстро и тонко нашла такие моменты в нашем деле,
+                                            правильно и грамотно
+                                            расставила приоритеты, которые помогли ОТМЕНИТЬ уже вынесенный приговор ранее. Все её действия не подлежали никаким сомнениям, поэтому полностью доверились защите и получили результат! Юлия Владимировна полностью отдает себя работе,
+                                            если вам нужен адвокат
                                             по судебным делам - то без сомнений только сюда! Уважаемая, Юлия Владимировна спасибо вам, что не отказали нам в помощи! Желаем от всей души всего самого наилучшего в жизни и работе!!!</span>
                                     </div>
                                 </div>
@@ -1351,10 +1352,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="clear:both;"></div> <span>Два с лишним года длилось разбирательство по уголовному делу моего отца и брата, которое в итоге закончилось оправдательным приговором моего отца и прекращением дела в отношении брата. Их обоих обвиняли в мошенничестве.
-                                            Отец на тот момент занимал должность главы одного из районов. Три месяца изначально мы не понимали, что происходит, неожиданно для всех отца и брата арестовали. Местные адвокаты ничего нам толком не объясняли и не говорили. Мы были вынуждены обратиться к
-                                            московским адвокатам, в частности к Волоцкой Юлии и ее коллеге, которая взялась защищать моего отца. В марте 2019 года, благодаря ее усилиям, суд освободил отца из-под стражи. С самого начала она и ее коллега настроили нас на борьбу, и разъяснили, что
-                                            никакого преступления мой отец и брат не совершали и доказательства у следствия отсутствуют. Была проделана огромная работа по истребованию документов, по опросам свидетелей, делалось все, чтобы опровергнуть версию обвинения. Хотим сказать огромное,
+                                        <div style="clear:both;"></div> <span>Два с лишним года длилось разбирательство по уголовному делу моего отца и брата, которое в итоге закончилось оправдательным приговором моего отца и прекращением дела в отношении брата. Их обоих
+                                            обвиняли в мошенничестве.
+                                            Отец на тот момент занимал должность главы одного из районов. Три месяца изначально мы не понимали, что происходит, неожиданно для всех отца и брата арестовали. Местные адвокаты ничего нам толком не объясняли и не говорили. Мы были
+                                            вынуждены обратиться к
+                                            московским адвокатам, в частности к Волоцкой Юлии и ее коллеге, которая взялась защищать моего отца. В марте 2019 года, благодаря ее усилиям, суд освободил отца из-под стражи. С самого начала она и ее коллега настроили нас на
+                                            борьбу, и разъяснили, что
+                                            никакого преступления мой отец и брат не совершали и доказательства у следствия отсутствуют. Была проделана огромная работа по истребованию документов, по опросам свидетелей, делалось все, чтобы опровергнуть версию обвинения. Хотим
+                                            сказать огромное,
                                             огромное спасибо Юлии Владимировне и ее коллеге за такие старания, за титанический труд и веру в невиновность моих близких!</span>
                                     </div>
                                 </div>
@@ -1368,18 +1373,30 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="clear:both;"></div> <span>Всем добрый день! Если Вы находитесь на этом сайте,то скорее всего в Вашей семье случилась беда! Я очень хочу поделиться своей историей и рассказать о Волоцкой Юлии Владимировне. В январе 2019 года с моим ребенком
-                                            случилась БЕДА! Задерживают сотрудники полиции по подозрению в незаконном обороте наркотиков. Конечно, сейчас многие скажут, что если с наркотиками не связан то и бояться нечего! Согласна! Но к сожалению наши дети не всегда делятся с родителями своими
-                                            бедами. Да, находясь далеко от дома моя дочь стала употреблять эту гадость. Через сутки ей дали мне позвонить. И вот тут начались мои метания.Бесплатный адвокат (который прям в цвет работает на полицию) убедил мою дочь соглашаться со всем что напишут в
-                                            протоколе и тогда она из разряда подозреваемых станет свидетелем! Люди!!! Знайте, ничего нельзя говорить без СВОЕГО адвоката. Проштудировав огромное количество сайтов нахожу адвоката. Назовем его Роман. Приличный, среднего возраста, грамотно разговаривает.
-                                            Заключаем договор и...в течении 7 месяцев этот Роман был всего 1 раз в СИЗО (и то после моих бурно выраженных негативных эмоций). Единственное что он делал, приезжал на продление в суд. Ни работы со свидетелями с нашей стороны,в принципе ничего не было.
-                                            Друзья и родственники параллельно общаются с адвокатами и те предсказывают нам срок 12 лет не сотрудничая со следствием и 10,5 сотрудничая. Жить конечно не хотелось. Единственная мысль была, ну не может быть так все плохо! Нельзя человека сажать на такой
-                                            срок только за то что он и так болен! В раздумьях и муках была около двух месяцев-менять или не менять адвоката. Дочь сама мне подсказала фамилию Волоцкая. Информации много про нее нет (не то что мой первый адвокат-и активный пользователь инста и на первом
-                                            канале почетный гость). Решилась!Связалась! Юлия Владимировна обещала подумать,мотивируя тем что у нее сейчас 3 дела на стадии суда. Умоляла нас взять! И сердце этой замечательной женщины не смогло мне отказать!Началась наша с ней РАБОТА!Она моментально
-                                            приехала в отдел,пришла в СИЗО к моей дочери-начались трудовые будни!Многого рассказать не смогу. Но-когда нам предъявили обвинение и адвокату дали знакомиться с делом Юлия Владимировна часа 2 только снимала телефон и все что вызывает сомнения. И она
-                                            нашла!Нашла то, что помогло переквалифицировать обвинение с 4 части 228 статьи на часть 2. Про суд рассказывать не буду-там тоже был треш! И тут тоже огромную роль сыграл опыт и профессионализм Юлии Владимировны! ИТОГ: 3 года общего режима!Наверное кто то
-                                            подумает чему радоваться! А радоваться есть чему-мой ребенок через год будет дома! За этот срок она не деградирует и самое важное успеет начать жизнь СНАЧАЛА! Я безумно благодарна нашей дорогой Юлии Владимировне! Ваш профессионализм,ваш цепкий ум,ваша
-                                            настойчивость и вера спасли всю мою семью! Я снова хочу жить! И жду ребенка своего! Уважаемая Юлия Владимировна! Огромного Вам счастья,сибирского здоровья! Пусть все мечты станут реальностью! Мы Вас очень любим! Спасибо Господу, что я все таки смогла
+                                        <div style="clear:both;"></div> <span>Всем добрый день! Если Вы находитесь на этом сайте,то скорее всего в Вашей семье случилась беда! Я очень хочу поделиться своей историей и рассказать о Волоцкой Юлии Владимировне. В январе 2019 года
+                                            с моим ребенком
+                                            случилась БЕДА! Задерживают сотрудники полиции по подозрению в незаконном обороте наркотиков. Конечно, сейчас многие скажут, что если с наркотиками не связан то и бояться нечего! Согласна! Но к сожалению наши дети не всегда делятся
+                                            с родителями своими
+                                            бедами. Да, находясь далеко от дома моя дочь стала употреблять эту гадость. Через сутки ей дали мне позвонить. И вот тут начались мои метания.Бесплатный адвокат (который прям в цвет работает на полицию) убедил мою дочь соглашаться
+                                            со всем что напишут в
+                                            протоколе и тогда она из разряда подозреваемых станет свидетелем! Люди!!! Знайте, ничего нельзя говорить без СВОЕГО адвоката. Проштудировав огромное количество сайтов нахожу адвоката. Назовем его Роман. Приличный, среднего возраста,
+                                            грамотно разговаривает.
+                                            Заключаем договор и...в течении 7 месяцев этот Роман был всего 1 раз в СИЗО (и то после моих бурно выраженных негативных эмоций). Единственное что он делал, приезжал на продление в суд. Ни работы со свидетелями с нашей стороны,в
+                                            принципе ничего не было.
+                                            Друзья и родственники параллельно общаются с адвокатами и те предсказывают нам срок 12 лет не сотрудничая со следствием и 10,5 сотрудничая. Жить конечно не хотелось. Единственная мысль была, ну не может быть так все плохо! Нельзя
+                                            человека сажать на такой
+                                            срок только за то что он и так болен! В раздумьях и муках была около двух месяцев-менять или не менять адвоката. Дочь сама мне подсказала фамилию Волоцкая. Информации много про нее нет (не то что мой первый адвокат-и активный
+                                            пользователь инста и на первом
+                                            канале почетный гость). Решилась!Связалась! Юлия Владимировна обещала подумать,мотивируя тем что у нее сейчас 3 дела на стадии суда. Умоляла нас взять! И сердце этой замечательной женщины не смогло мне отказать!Началась наша с ней
+                                            РАБОТА!Она моментально
+                                            приехала в отдел,пришла в СИЗО к моей дочери-начались трудовые будни!Многого рассказать не смогу. Но-когда нам предъявили обвинение и адвокату дали знакомиться с делом Юлия Владимировна часа 2 только снимала телефон и все что
+                                            вызывает сомнения. И она
+                                            нашла!Нашла то, что помогло переквалифицировать обвинение с 4 части 228 статьи на часть 2. Про суд рассказывать не буду-там тоже был треш! И тут тоже огромную роль сыграл опыт и профессионализм Юлии Владимировны! ИТОГ: 3 года общего
+                                            режима!Наверное кто то
+                                            подумает чему радоваться! А радоваться есть чему-мой ребенок через год будет дома! За этот срок она не деградирует и самое важное успеет начать жизнь СНАЧАЛА! Я безумно благодарна нашей дорогой Юлии Владимировне! Ваш
+                                            профессионализм,ваш цепкий ум,ваша
+                                            настойчивость и вера спасли всю мою семью! Я снова хочу жить! И жду ребенка своего! Уважаемая Юлия Владимировна! Огромного Вам счастья,сибирского здоровья! Пусть все мечты станут реальностью! Мы Вас очень любим! Спасибо Господу, что
+                                            я все таки смогла
                                             решиться на смену адвоката и на нашем жизненном путь встретились ВЫ! Вы настоящая волшебница! Мы Вас любим! Всю жизнь будем молить Бога о Вас. С уважением Марина К.</span>
                                     </div>
                                 </div>
@@ -1393,8 +1410,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="clear:both;"></div> <span>Хочу поблагодарить настоящего адвоката Ищенко Анну Александровну. Она помогла мне решить в свою пользу непростое гражданское дело. Анна Александровна очень доброжелательна и внимательна к своим клиентам. Не жалея сил и
-                                            времени старается разобраться во всех деталях дела, дает возможность высказаться о наболевшем. Очень пунктуальна во всем. На суде без лишних эмоций отстаивает выработанную точку зрения, хорошо владея законом. Побольше бы таких адвокатов!</span>
+                                        <div style="clear:both;"></div> <span>Хочу поблагодарить настоящего адвоката Ищенко Анну Александровну. Она помогла мне решить в свою пользу непростое гражданское дело. Анна Александровна очень доброжелательна и внимательна к своим
+                                            клиентам. Не жалея сил и
+                                            времени старается разобраться во всех деталях дела, дает возможность высказаться о наболевшем. Очень пунктуальна во всем. На суде без лишних эмоций отстаивает выработанную точку зрения, хорошо владея законом. Побольше бы таких
+                                            адвокатов!</span>
                                     </div>
                                 </div>
                             </div>
@@ -1423,10 +1442,10 @@
     <link rel='stylesheet' id='oz_default-css' href='https://a-advokat.ru/wp-content/plugins/book-appointment-online-pro/css/default.theme.css?ver=3.0.7' type='text/css' media='all' />
     <link rel='stylesheet' id='oz_front_css-css' href='https://a-advokat.ru/wp-content/plugins/book-appointment-online-pro/css/oz_front_css.css?ver=3.0.7' type='text/css' media='all' />
     <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/hoverintent-js.min.js?ver=2.2.1' id='hoverintent-js-js'></script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/admin-bar.min.js?ver=5.9.3' id='admin-bar-js'></script>
+    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/admin-bar.min.js?ver=5.9.3' id='admin-bar-js'></script> --}}
     <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/core.min.js?ver=1.13.1' id='jquery-ui-core-js'></script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/datepicker.min.js?ver=1.13.1' id='jquery-ui-datepicker-js'></script>
-    <script type='text/javascript' id='jquery-ui-datepicker-js-after'>
+    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/datepicker.min.js?ver=1.13.1' id='jquery-ui-datepicker-js'></script> --}}
+    {{-- <script type='text/javascript' id='jquery-ui-datepicker-js-after'>
         jQuery(function(jQuery) {
             jQuery.datepicker.setDefaults({
                 "closeText": "\u0417\u0430\u043a\u0440\u044b\u0442\u044c",
@@ -1449,7 +1468,7 @@
                 "isRTL": false
             });
         });
-    </script>
+    </script> --}}
     <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/tabs.min.js?ver=1.13.1' id='jquery-ui-tabs-js'></script>
     <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/menu.min.js?ver=1.13.1' id='jquery-ui-menu-js'></script>
     <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.13.9' id='regenerator-runtime-js'></script>
@@ -1462,7 +1481,7 @@
             'text direction\u0004ltr': ['ltr']
         });
     </script>
-    <script type='text/javascript' id='wp-a11y-js-translations'>
+    {{-- <script type='text/javascript' id='wp-a11y-js-translations'>
         (function(domain, translations) {
             var localeData = translations.locale_data[domain] || translations.locale_data.messages;
             localeData[""].domain = domain;
@@ -1485,21 +1504,21 @@
                 "reference": "wp-includes\/js\/dist\/a11y.js"
             }
         });
-    </script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/dist/a11y.min.js?ver=68e470cf840f69530e9db3be229ad4b6' id='wp-a11y-js'></script>
-    <script type='text/javascript' id='jquery-ui-autocomplete-js-extra'>
+    </script> --}}
+    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/dist/a11y.min.js?ver=68e470cf840f69530e9db3be229ad4b6' id='wp-a11y-js'></script> --}}
+    {{-- <script type='text/javascript' id='jquery-ui-autocomplete-js-extra'>
         /* <![CDATA[ */
-        var uiAutocompleteL10n = {
-            "noResults": "\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e.",
-            "oneResult": "\u041d\u0430\u0439\u0434\u0435\u043d 1 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442. \u0414\u043b\u044f \u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 \u043a\u043b\u0430\u0432\u0438\u0448\u0438 \u0432\u0432\u0435\u0440\u0445\/\u0432\u043d\u0438\u0437.",
-            "manyResults": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432: %d. \u0414\u043b\u044f \u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 \u043a\u043b\u0430\u0432\u0438\u0448\u0438 \u0432\u0432\u0435\u0440\u0445\/\u0432\u043d\u0438\u0437.",
-            "itemSelected": "\u041e\u0431\u044a\u0435\u043a\u0442 \u0432\u044b\u0431\u0440\u0430\u043d."
-        };
+        // var uiAutocompleteL10n = {
+        //     "noResults": "\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e.",
+        //     "oneResult": "\u041d\u0430\u0439\u0434\u0435\u043d 1 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442. \u0414\u043b\u044f \u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 \u043a\u043b\u0430\u0432\u0438\u0448\u0438 \u0432\u0432\u0435\u0440\u0445\/\u0432\u043d\u0438\u0437.",
+        //     "manyResults": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432: %d. \u0414\u043b\u044f \u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 \u043a\u043b\u0430\u0432\u0438\u0448\u0438 \u0432\u0432\u0435\u0440\u0445\/\u0432\u043d\u0438\u0437.",
+        //     "itemSelected": "\u041e\u0431\u044a\u0435\u043a\u0442 \u0432\u044b\u0431\u0440\u0430\u043d."
+        // };
         /* ]]> */
-    </script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/autocomplete.min.js?ver=1.13.1' id='jquery-ui-autocomplete-js'></script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/mouse.min.js?ver=1.13.1' id='jquery-ui-mouse-js'></script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/sortable.min.js?ver=1.13.1' id='jquery-ui-sortable-js'></script>
+    </script> --}}
+    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/autocomplete.min.js?ver=1.13.1' id='jquery-ui-autocomplete-js'></script> --}}
+    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/mouse.min.js?ver=1.13.1' id='jquery-ui-mouse-js'></script> --}}
+    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/sortable.min.js?ver=1.13.1' id='jquery-ui-sortable-js'></script> --}}
     {{-- <script type='text/javascript' id='wp-postratings-js-extra'>
         var ratingsL10n = {
             "plugin_url": "https:\/\/a-advokat.ru\/wp-content\/plugins\/wp-postratings",
@@ -1756,7 +1775,6 @@
                     <div class="header-phones">
                         <img src="{{ asset('svg/phone.svg') }}">
                         <div class="header-numbers">
-                            <!--                            <a href="+79671592479">+7 (967) 159-24-79</a>-->
                             <a href="tel:+79671592479">+7 (967) 159-24-79</a>
                         </div>
                     </div>
@@ -1837,6 +1855,26 @@
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
+        });
+    </script>
+    <script>
+        document.querySelector('.calendar_last').addEventListener('click', (e) => {
+            document.querySelector('#nextMonth').classList.add('hidden');
+            document.querySelector('#thisMonth').classList.remove('hidden');
+
+            e.target.closest('a').classList.add('ui-state-disabled');
+            document.querySelector('.calendar_next').closest('a').classList.remove('ui-state-disabled');
+
+            document.querySelector('.ui-datepicker-month').textContent = document.querySelector('.ui-datepicker-month').dataset.thismonth;
+        });
+        document.querySelector('.calendar_next').addEventListener('click', (e) => {
+            document.querySelector('#thisMonth').classList.add('hidden');
+            document.querySelector('#nextMonth').classList.remove('hidden');
+
+            document.querySelector('.calendar_last').closest('a').classList.remove('ui-state-disabled');
+            e.target.closest('a').classList.add('ui-state-disabled');
+
+            document.querySelector('.ui-datepicker-month').textContent = document.querySelector('.ui-datepicker-month').dataset.nextmonth;
         });
     </script>
 </body>
