@@ -895,7 +895,6 @@
                                             &nbsp;
                                             <span class="ui-datepicker-year">{{ Carbon\Carbon::now()->format('Y') }}</span>
                                         </div>
-                                        {{-- <div class="ui-datepicker-title"><span class="ui-datepicker-month">Апрель</span>&nbsp;<span class="ui-datepicker-year">2022</span></div> --}}
                                     </div>
                                     <table class="ui-datepicker-calendar">
                                         <thead>
@@ -914,7 +913,17 @@
                                                 <tr>
                                                     @foreach ($week as $day)
                                                         @if ($day['view'])
-                                                            <td class="ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">{{ $day['current'] }}</span></td>
+                                                            @if (!$day['entry'])
+                                                                <td class="ui-datepicker-unselectable ui-state-disabled undefined">
+                                                                    <span class="ui-state-default">
+                                                                        {{ $day['day'] }}
+                                                                    </span>
+                                                                </td>
+                                                            @else
+                                                                <td class="" data-event="click" data-month="4" data-year="2022" data-handler="selectDay">
+                                                                    <a class="ui-state-default ui-state-active" href="#" aria-current="true" data-date="7"> {{ $day['day'] }}</a>
+                                                                </td>
+                                                            @endif
                                                         @else
                                                             <td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
                                                         @endif
@@ -938,7 +947,7 @@
                                                 <tr>
                                                     @foreach ($week as $day)
                                                         @if ($day['view'])
-                                                            <td class="ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">{{ $day['current'] }}</span></td>
+                                                            <td class="ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">{{ $day['day'] }}</span></td>
                                                         @else
                                                             <td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
                                                         @endif

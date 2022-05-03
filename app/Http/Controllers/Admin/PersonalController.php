@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PersonalStoreRequest;
 use App\Http\Requests\Admin\PersonalUpdateRequest;
 use App\Models\Personal;
+use App\Models\Service;
 use App\Models\Speciality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +29,7 @@ class PersonalController extends Controller
     }
     public function create()
     {
-        return view('admin.personal.create', ['specialities' => Speciality::all()]);
+        return view('admin.personal.create', ['specialities' => Speciality::all(), 'services' => Service::all()]);
     }
     public function store(PersonalStoreRequest $request)
     {
@@ -38,10 +39,15 @@ class PersonalController extends Controller
             $data['chpu'] = Ru2lat::convert($data['fullname']);
             $specialities = $data['speciality'];
             unset($data['speciality']);
+            $services = $data['services'];
+            unset($data['services']);
             DB::beginTransaction();
             $personal = Personal::create($data);
             foreach ($specialities as $key => $speciality_id) {
                 DB::table('personal_speciality')->insert(['personal_id' => $personal->id, 'speciality_id' => $speciality_id]);
+            }
+            foreach ($services as $key => $service_id) {
+                DB::table('personal_services')->insert(['personal_id' => $personal->id, 'service_id' => $service_id]);
             }
             DB::commit();
             return redirect()->route('admin.personal.index');
@@ -57,7 +63,13 @@ class PersonalController extends Controller
         foreach ($personal->speciality as $speciality) {
             $personal->specialities .= $speciality->title . ' , ';
         }
-        return view('admin.personal.edit', ['personal' => $personal, 'specialities' => Speciality::all(), 'personal_speciality' => DB::table('personal_speciality')->get()->toArray()]);
+        return view('admin.personal.edit', [
+            'personal' => $personal,
+            'specialities' => Speciality::all(),
+            'services' => Service::all(),
+            // 'personal_speciality' => DB::table('personal_speciality')->get()->toArray(),
+            // 'personal_services' => DB::table('personal_services')->get()->toArray(),
+        ]);
     }
     public function update(Personal $personal, PersonalUpdateRequest $request)
     {
@@ -73,7 +85,13 @@ class PersonalController extends Controller
             foreach ($data['speciality'] as $speciality) {
                 DB::table('personal_speciality')->insert(['personal_id' => $personal->id, 'speciality_id' => $speciality]);
             }
+            DB::table('personal_services')->where('personal_id', $personal->id)->delete();
+            foreach ($data['services'] as $service) {
+                DB::table('personal_services')->insert(['personal_id' => $personal->id, 'service_id' => $service]);
+            }
+
             unset($data['speciality']);
+            unset($data['services']);
             if (isset($data['image'])) {
                 $data['image'] = $data['image']->store('image', 'local');
                 Storage::delete($old_image);

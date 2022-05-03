@@ -28,4 +28,12 @@ class Personal extends Model
             })->get()
         );
     }
+    protected function services(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => DB::table('services')->whereIn('id', function ($query) {
+                $query->from('personal_services')->where('personal_id', $this->id)->select('service_id')->get()->toArray();
+            })->get()
+        );
+    }
 }

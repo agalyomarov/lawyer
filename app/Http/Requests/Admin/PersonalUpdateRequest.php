@@ -34,6 +34,7 @@ class PersonalUpdateRequest extends FormRequest
             'speciality' => ['required'],
             'publishing' => [],
             'interval' => ['required'],
+            'services' => ['required']
         ];
     }
 }

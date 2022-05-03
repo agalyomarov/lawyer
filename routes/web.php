@@ -45,6 +45,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::post('/store/{personal}', [EntryController::class, 'store'])->name('store');
       // Route::get('/{personal}/edit', [PersonalController::class, 'edit'])->name('edit');
       // Route::put('/{personal}', [PersonalController::class, 'update'])->name('update');
-      // Route::get('/{personal}/delete', [PersonalController::class, 'delete'])->name('delete');
+      Route::get('/{block}/delete', [EntryController::class, 'delete'])->name('delete');
    });
 });

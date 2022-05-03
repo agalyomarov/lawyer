@@ -66,6 +66,19 @@
                     @endif
                 </div>
                 <div class="form-group">
+                    @if (isset($services) && count($services) > 0)
+                        <label>Услиги</label>
+                        @foreach ($services as $service)
+                            <div class="form-check">
+                                <input id="{{ $service->id }}service" class=" form-check-input" type="checkbox" name='services[]' value="{{ $service->id }}">
+                                <label class="form-check-label" for="{{ $service->id }}service"> {{ $service->title }}</label>
+                            </div>
+                        @endforeach
+                    @else
+                        <a href="{{ route('admin.speciality.index') }}" class="btn btn-info">Добавьте услуги</a>
+                    @endif
+                </div>
+                <div class="form-group">
                     <label>Индивидуальный временной интервал в форме бронирования</label>
                     <select class="form-control col-3" name="interval">
                         @for ($i = 30; $i <= 120; $i += 15)
