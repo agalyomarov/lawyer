@@ -19,10 +19,6 @@
                 <label for="price">Перевод</label>
                 <input type="text" class="form-control" placeholder="название" name="translate" value="{{ $speciality->translate }}">
             </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="publishing" {{ $speciality->publishing ? 'checked' : '' }}>
-                <label class="form-check-label">Опубликовано</label>
-            </div>
             <div class="form-group mt-3">
                 <button type="submit" class="btn btn-primary">Изменить</button>
             </div>

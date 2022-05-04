@@ -25,13 +25,12 @@ class ServiceUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required'],
-            'chpu' => [],
-            'h1' => [],
-            'description' => [],
-            'content' => [],
+            'chpu' => ['required'],
+            'h1' => ['required'],
+            'description' => ['required'],
+            'content' => ['required'],
             'price' => ['required'],
             'duration' => ['required'],
-            'publishing' => [],
         ];
     }
 }

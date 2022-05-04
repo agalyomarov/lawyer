@@ -12,11 +12,4 @@ class Speciality extends Model
     protected $guarded = [];
     protected $table = 'specialities';
     public $timestamps = false;
-    protected function publishing(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => boolval($value),
-            set: fn ($value) => boolval($value),
-        );
-    }
 }

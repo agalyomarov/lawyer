@@ -17,7 +17,7 @@ class SpecialityController extends Controller
     {
         try {
             if ($request->title && $request->translate) {
-                Speciality::create(['title' => $request->title, 'publishing' => $request->publishing, 'translate' => $request->translate]);
+                Speciality::create(['title' => $request->title, 'translate' => $request->translate]);
                 return redirect()->route('admin.speciality.index');
             } else {
                 return redirect()->back();
@@ -36,7 +36,7 @@ class SpecialityController extends Controller
     {
         try {
             if ($request->title && $request->translate) {
-                $speciality->update(['title' => $request->title, 'publishing' => $request->publishing, 'translate' => $request->translate]);
+                $speciality->update(['title' => $request->title, 'translate' => $request->translate]);
                 return redirect()->route('admin.speciality.index');
             } else {
                 return redirect()->back();

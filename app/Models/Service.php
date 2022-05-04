@@ -12,11 +12,4 @@ class Service extends Model
     protected $guarded = [];
     protected $table = 'services';
     public $timestamps = false;
-    protected function publishing(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => boolval($value),
-            set: fn ($value) => boolval($value),
-        );
-    }
 }

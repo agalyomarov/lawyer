@@ -21,8 +21,8 @@ class PersonalController extends Controller
     {
         $personals = Personal::all();
         foreach ($personals as $personal) {
-            foreach ($personal->speciality as $speciality) {
-                $personal->specialities .= $speciality->title . ' , ';
+            foreach ($personal->specialities as $speciality) {
+                $personal->personal_specialities .= $speciality->title . ' , ';
             }
         }
         return view('admin.personal.index', compact('personals'));
@@ -37,14 +37,14 @@ class PersonalController extends Controller
         try {
             $data['image'] = $data['image']->store('image', 'local');
             $data['chpu'] = Ru2lat::convert($data['fullname']);
-            $specialities = $data['speciality'];
-            unset($data['speciality']);
+            $specialities = $data['specialities'];
+            unset($data['specialities']);
             $services = $data['services'];
             unset($data['services']);
             DB::beginTransaction();
             $personal = Personal::create($data);
             foreach ($specialities as $key => $speciality_id) {
-                DB::table('personal_speciality')->insert(['personal_id' => $personal->id, 'speciality_id' => $speciality_id]);
+                DB::table('personal_specialities')->insert(['personal_id' => $personal->id, 'speciality_id' => $speciality_id]);
             }
             foreach ($services as $key => $service_id) {
                 DB::table('personal_services')->insert(['personal_id' => $personal->id, 'service_id' => $service_id]);
@@ -60,15 +60,13 @@ class PersonalController extends Controller
     }
     public function edit(Personal $personal)
     {
-        foreach ($personal->speciality as $speciality) {
-            $personal->specialities .= $speciality->title . ' , ';
+        foreach ($personal->specialities as $speciality) {
+            $personal->personal_specialities .= $speciality->title . ' , ';
         }
         return view('admin.personal.edit', [
             'personal' => $personal,
             'specialities' => Speciality::all(),
             'services' => Service::all(),
-            // 'personal_speciality' => DB::table('personal_speciality')->get()->toArray(),
-            // 'personal_services' => DB::table('personal_services')->get()->toArray(),
         ]);
     }
     public function update(Personal $personal, PersonalUpdateRequest $request)
@@ -80,17 +78,16 @@ class PersonalController extends Controller
             if (!isset($data['publishing'])) {
                 $data['publishing'] = false;
             }
-
-            DB::table('personal_speciality')->where('personal_id', $personal->id)->delete();
-            foreach ($data['speciality'] as $speciality) {
-                DB::table('personal_speciality')->insert(['personal_id' => $personal->id, 'speciality_id' => $speciality]);
+            DB::table('personal_specialities')->where('personal_id', $personal->id)->delete();
+            foreach ($data['specialities'] as $speciality) {
+                DB::table('personal_specialities')->insert(['personal_id' => $personal->id, 'speciality_id' => $speciality]);
             }
             DB::table('personal_services')->where('personal_id', $personal->id)->delete();
             foreach ($data['services'] as $service) {
                 DB::table('personal_services')->insert(['personal_id' => $personal->id, 'service_id' => $service]);
             }
 
-            unset($data['speciality']);
+            unset($data['specialities']);
             unset($data['services']);
             if (isset($data['image'])) {
                 $data['image'] = $data['image']->store('image', 'local');
@@ -110,8 +107,12 @@ class PersonalController extends Controller
     {
         try {
             DB::beginTransaction();
-            DB::table('personal_speciality')->where('personal_id', $personal->id)->delete();
-            Storage::delete($personal->image);
+            DB::table('personal_specialities')->where('personal_id', $personal->id)->delete();
+            DB::table('personal_entries')->where('personal_id', $personal->id)->delete();
+            DB::table('personal_services')->where('personal_id', $personal->id)->delete();
+            if (Storage::exists($personal->image)) {
+                Storage::delete($personal->image);
+            }
             $personal->delete();
             DB::commit();
             return redirect()->route('admin.personal.index');

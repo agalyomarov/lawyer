@@ -930,17 +930,6 @@
                                                     @endforeach
                                                 </tr>
                                             @endforeach
-                                            {{-- <tr>
-                                                <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">11</span></td>
-                                                <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">12</span></td>
-                                                <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">13</span></td>
-                                                <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">14</span></td>
-                                                <td class=" time-08:00-09:00-163 " data-handler="selectDay" data-event="click" data-month="3" data-year="2022">
-                                                    <a class="ui-state-default" href="#" aria-current="false" data-date="15">15</a>
-                                                </td>
-                                                <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">16</span></td>
-                                                <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">17</span></td>
-                                            </tr> --}}
                                         </tbody>
                                         <tbody id="nextMonth" class="hidden">
                                             @foreach ($nextMonth['weeks'] as $week)

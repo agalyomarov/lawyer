@@ -29,9 +29,10 @@ class PersonalStoreRequest extends FormRequest
             'h1' => ['required'],
             'description' => ['required'],
             'media' => ['required', 'url'],
-            'content' => [],
+            'shurt_description' => ['required'],
+            'content' => ['required'],
             'regnumber' => ['required'],
-            'speciality' => ['required'],
+            'specialities' => ['required'],
             'publishing' => [],
             'interval' => ['required'],
             'services' => ['required']

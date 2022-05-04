@@ -25,12 +25,11 @@ class ServiceStoreRequest extends FormRequest
     {
         return [
             'title' => ['required'],
-            'h1' => [],
-            'description' => [],
-            'content' => [],
+            'h1' => ['required'],
+            'description' => ['required'],
+            'content' => ['required'],
             'price' => ['required'],
             'duration' => ['required'],
-            'publishing' => [],
         ];
     }
 }

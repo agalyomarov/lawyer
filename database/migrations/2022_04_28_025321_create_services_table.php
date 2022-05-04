@@ -21,8 +21,7 @@ return new class extends Migration
             $table->string('chpu');
             $table->text('content')->nullable();
             $table->integer('price');
-            $table->integer('duration')->default(45);
-            $table->boolean('publishing')->default(false);
+            $table->string('duration');
         });
     }
 

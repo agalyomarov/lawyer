@@ -17,10 +17,6 @@
                 <label for="price">Перевод</label>
                 <input type="text" class="form-control" placeholder="на английском" name="translate">
             </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="publishing" checked>
-                <label class="form-check-label">Опубликовано</label>
-            </div>
             <div class="form-group mt-3">
                 <button type="submit" class="btn btn-primary">Добавить</button>
             </div>
@@ -37,7 +33,6 @@
                                     <th>ID</th>
                                     <th>Название</th>
                                     <th>Перевод</th>
-                                    <th>Опубликовано</th>
                                     <th colspan="2">Действие</th>
                                 </tr>
                             </thead>
@@ -47,7 +42,6 @@
                                         <td>{{ $speciality->id }}</td>
                                         <td>{{ $speciality->title }}</td>
                                         <td>{{ $speciality->translate }}</td>
-                                        <td>{{ $speciality->publishing ? 'Да' : 'Нет' }}</td>
                                         <td><a href="{{ route('admin.speciality.edit', $speciality->id) }}"><i class="fas fa-pen"></i></a></td>
                                         <td><i class="delete-speciality-el text-danger fas fa-trash" data-id="{{ $speciality->id }}"></i></td>
                                     </tr>

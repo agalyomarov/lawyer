@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('h1');
             $table->string('description');
             $table->string('media');
+            $table->string('shurt_description');
             $table->text('content')->nullable();
             $table->string('regnumber');
             $table->string('interval');

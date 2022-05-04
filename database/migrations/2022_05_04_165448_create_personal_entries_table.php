@@ -13,11 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('personal_speciality', function (Blueprint $table) {
+        Schema::create('personal_entries', function (Blueprint $table) {
             $table->id();
+            $table->string('block');
             $table->unsignedBigInteger('personal_id');
-            $table->unsignedBigInteger('speciality_id');
-            $table->unique(['personal_id', 'speciality_id'], 'personal_speciality_uniqx');
+            $table->boolean('publishing');
+            $table->string('day');
+            $table->string('start');
+            $table->string('end');
+            $table->boolean('enable');
+            $table->unique(['personal_id', 'day', 'start', 'end'], 'personal_day_start_end_unigx');
         });
     }
 
@@ -28,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personal_speciality');
+        Schema::dropIfExists('personal_entries');
     }
 };

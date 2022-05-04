@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DatePicker;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -93,7 +94,6 @@ class MainController extends Controller
                 }
             }
         }
-
         // dd($thisMonth);
         return view('home', compact('thisMonth', 'nextMonth'));
     }

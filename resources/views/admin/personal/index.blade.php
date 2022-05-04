@@ -36,7 +36,7 @@
                                         <td>{{ $personal->fullname }}</td>
                                         <td>{{ $personal->chpu }}</td>
                                         <td>{{ $personal->regnumber }}</td>
-                                        <td>{{ $personal->specialities }}</td>
+                                        <td>{{ $personal->personal_specialities }}</td>
                                         <td>{{ $personal->interval }} минут</td>
                                         <td>{{ $personal->publishing ? 'Да' : 'Нет' }}</td>
                                         <td><a href="{{ route('admin.personal.edit', $personal->id) }}"><i class="fas fa-pen"></i></a></td>

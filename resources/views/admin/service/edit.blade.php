@@ -14,7 +14,7 @@
                     @endforeach
                 </ul>
             @endif
-            <form action="{{ route('admin.service.update', $service->id) }}" method="post">
+            <form action="{{ route('admin.service.update', $service->id) }}" method="post" id="form">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
@@ -31,35 +31,47 @@
                 </div>
                 <div class="form-group">
                     <label>description</label>
-                    <input type="text" class="form-control" placeholder="description" name="decription" value="{{ $service->decription }}">
+                    <input type="text" class="form-control" placeholder="description" name="description" value="{{ $service->description }}">
                 </div>
-                <div class=" form-group">
-                    <textarea id="creare_service_summernote" name="content">{{ $service->content }}</textarea>
+                <input type="hidden" name="content" id="content">
+                <div class="form-group">
+                    <textarea id="creare_service_summernote">{{ $service->content }}</textarea>
                 </div>
                 <div class="form-group col-3">
                     <label>Цена</label>
                     <input type="number" class="form-control" id="price" placeholder="Цена" name="price" value="{{ $service->price }}">
                 </div>
                 <div class="form-group">
-                    <label>Продолжительность услуги</label>
+                    <label>Длительност услуги</label>
                     <select class="form-control col-3" name="duration">
                         @for ($i = 0; $i <= 60; $i += 15)
                             <option value="{{ $i }}" {{ $i == $service->duration ? 'selected' : '' }}>{{ $i }}</option>
                         @endfor
                     </select>
                 </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" {{ $service->publishing ? 'checked' : '' }} name="publishing">
-                        <label class="form-check-label">
-                            Опубликовано
-                        </label>
-                    </div>
-                </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary col-2">Изменить</button>
+                    <button type="button" class="btn btn-primary col-2" onClick="getSummernoteConttent()">Изменить</button>
                 </div>
             </form>
         </div>
     </div>
+    <script>
+        $('#creare_service_summernote').summernote({
+            height: 300,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ]
+        });
+
+        function getSummernoteConttent() {
+            document.querySelector('#content').value = $('#creare_service_summernote').summernote('code');
+            document.querySelector('#form').submit();
+        }
+    </script>
 @endsection

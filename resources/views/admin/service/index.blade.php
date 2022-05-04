@@ -23,7 +23,6 @@
                                     <th>Название</th>
                                     <th>Цена</th>
                                     <th>Длительност</th>
-                                    <th>Опубликовано</th>
                                     <th colspan="2">Действие</th>
                                 </tr>
                             </thead>
@@ -33,8 +32,7 @@
                                         <td>{{ $service->id }}</td>
                                         <td>{{ $service->title }}</td>
                                         <td>{{ $service->price }}</td>
-                                        <td>{{ $service->duration }}</td>
-                                        <td>{{ $service->publishing ? 'Да' : 'Нет' }}</td>
+                                        <td>{{ $service->duration }} минут</td>
                                         <td><a href="{{ route('admin.service.edit', $service->id) }}"><i class="fas fa-pen"></i></a></td>
                                         <td><i class="delete-service-el text-danger fas fa-trash" data-id="{{ $service->id }}"></i></td>
                                     </tr>
@@ -49,12 +47,14 @@
         </div>
     </div>
     <script type="text/javascript">
-        document.querySelector(".delete-service").addEventListener("click", (e) => {
-            if (e.target.classList.contains("delete-service-el")) {
-                if (confirm('Удалить услигу?')) {
-                    window.location = `/admin/service/${e.target.dataset.id}/delete`;
+        if (document.querySelector(".delete-service")) {
+            document.querySelector(".delete-service").addEventListener("click", (e) => {
+                if (e.target.classList.contains("delete-service-el")) {
+                    if (confirm('Удалить услугу?')) {
+                        window.location = `/admin/service/${e.target.dataset.id}/delete`;
+                    }
                 }
-            }
-        })
+            })
+        }
     </script>
 @endsection

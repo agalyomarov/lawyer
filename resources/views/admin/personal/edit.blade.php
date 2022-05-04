@@ -51,13 +51,17 @@
                     <input type="text" class="form-control" placeholder="Относительный путь" name="media" value="{{ old('media', $personal->media) }}">
                 </div>
                 <div class="form-group">
-                    <label>Описание</label>
+                    <label>Краткое описание сотрудника</label>
+                    <input type="text" class="form-control" placeholder="Краткое описание сотрудника" name="shurt_description" value="{{ old('shurt_description', $personal->shurt_description) }}">
+                </div>
+                <div class="form-group">
+                    <label>Контент</label>
                     <textarea id="creare_service_summernote" name="content">
                         {{ old('content', $personal->content) }}
                     </textarea>
                 </div>
                 <div class="form-group">
-                    <label>Рег.номер</label>
+                    <label>Регистрационный номер</label>
                     <input type="text" class="form-control" placeholder="Регистрационный номер" name="regnumber" value="{{ old('regnumber', $personal->regnumber) }}">
                 </div>
                 <div class="form-group">
@@ -65,7 +69,7 @@
                         <label>Специальности</label>
                         @foreach ($specialities as $speciality)
                             <div class="form-check">
-                                <input id="{{ $speciality->id }}" class=" form-check-input" type="checkbox" name='speciality[]' value="{{ $speciality->id }}" @foreach ($personal->speciality as $value) {{ $value->id == $speciality->id ? 'checked' : '' }} @endforeach>
+                                <input id="{{ $speciality->id }}" class=" form-check-input" type="checkbox" name='specialities[]' value="{{ $speciality->id }}" @foreach ($personal->specialities as $value) {{ $value->id == $speciality->id ? 'checked' : '' }} @endforeach>
                                 <label class="form-check-label" for="{{ $speciality->id }}"> {{ $speciality->title }}</label>
                             </div>
                         @endforeach

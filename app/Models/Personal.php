@@ -20,11 +20,11 @@ class Personal extends Model
             set: fn ($value) => boolval($value),
         );
     }
-    protected function speciality(): Attribute
+    protected function specialities(): Attribute
     {
         return Attribute::make(
             get: fn () => DB::table('specialities')->whereIn('id', function ($query) {
-                $query->from('personal_speciality')->where('personal_id', $this->id)->select('speciality_id')->get()->toArray();
+                $query->from('personal_specialities')->where('personal_id', $this->id)->select('speciality_id')->get()->toArray();
             })->get()
         );
     }
