@@ -167,10 +167,25 @@
         }
 
         .alert-for-personal {
-            width: auto;
-            height: auto;
-            background-color: rgb(255, 127, 127);
+            text-align: center;
+        }
+
+        .alert-for-personal span {
+            padding: 10px 30px;
+            background-color: rgb(244, 178, 178);
+            color: rgb(109, 21, 21);
+            border-radius: 3px;
+        }
+
+        .message_for_personal {
+            text-align: center;
+        }
+
+        .message_for_personal span {
+            padding: 3px 30px;
+            background-color: rgb(53, 204, 234);
             color: #000;
+            border-radius: 3px;
         }
 
     </style>
@@ -199,7 +214,9 @@
                         <label class="form-check-label" for="tab_1">Пользовательский</label>
                     </div>
                 </div>
-                <div class="text-center text-danger alert-for-personal">kljcb slkj</div>
+                <div class="alert-for-personal hidden"><span></span></div>
+                <div class="message_for_personal hidden"><span></span>
+                </div>
                 <div class="row bg-white mt-2">
                     <div id="datepicker" class="col-3">
                         <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;">
@@ -239,7 +256,11 @@
                                             @foreach ($week as $day)
                                                 @if ($day['view'])
                                                     @if ($day['enable'])
-                                                        <td><span class="simple_day" data-date="{{ $day['date'] }}">{{ $day['day'] }}</span></td>
+                                                        @if ($day['saved'])
+                                                            <td><span class="simple_day selected" data-date="{{ $day['date'] }}">{{ $day['day'] }}</span></td>
+                                                        @else
+                                                            <td><span class="simple_day" data-date="{{ $day['date'] }}">{{ $day['day'] }}</span></td>
+                                                        @endif
                                                     @else
                                                         <td><span class="unselect">{{ $day['day'] }}</span></td>
                                                     @endif
@@ -255,7 +276,15 @@
                                         <tr>
                                             @foreach ($week as $day)
                                                 @if ($day['view'])
-                                                    <td><span class="simple_day" data-date="{{ $day['date'] }}">{{ $day['day'] }}</span></td>
+                                                    @if ($day['enable'])
+                                                        @if ($day['saved'])
+                                                            <td><span class="simple_day selected" data-date="{{ $day['date'] }}">{{ $day['day'] }}</span></td>
+                                                        @else
+                                                            <td><span class="simple_day" data-date="{{ $day['date'] }}">{{ $day['day'] }}</span></td>
+                                                        @endif
+                                                    @else
+                                                        <td><span class="unselect">{{ $day['day'] }}</span></td>
+                                                    @endif
                                                 @else
                                                     <td></td>
                                                 @endif
@@ -274,7 +303,7 @@
                                     <div class="col-6">
                                         <select class="form-control form-control-border start p-0 text-center">
                                             @for ($i = 0; $i <= 82800; $i += 1800)
-                                                <option value="{{ intval(strtotime(Date::now()->format('Y-m-d'))) + $i }}">{{ gmdate('H:i', $i) }}</option>
+                                                <option value="{{ $i }}">{{ gmdate('H:i', $i) }}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -284,14 +313,14 @@
                                     <div class="col-6">
                                         <select class="form-control form-control-border end p-0 text-center">
                                             @for ($i = 0; $i <= 82800; $i += 1800)
-                                                <option value="{{ intval(strtotime(Date::now()->format('Y-m-d'))) + $i }}">{{ gmdate('H:i', $i) }}</option>
+                                                <option value="{{ $i }}">{{ gmdate('H:i', $i) }}</option>
                                             @endfor
                                         </select>
                                     </div>
                                 </div>
                                 <div class="">
                                     <div class="form-group text-center">
-                                        <input type="button" class="save_entries_to_db btn btn-primary" value="Сохранить">
+                                        <input onClick="save_entries_to_db(this)" type="button" class="save_entries_to_db btn btn-primary" data-personal_id={{ $personal->id }} value="Сохранить">
                                     </div>
                                 </div>
                             </div>
@@ -301,6 +330,53 @@
                                 <p class="selected_day_disabled"><span>11.11.2011</span><i class="fa fa-times"></i></p> --}}
                             </div>
                         </div>
+                        @if ($allEntriesOfPersonal)
+                            @foreach ($allEntriesOfPersonal as $block_count => $block)
+                                <div class="saved_entry_block row mb-2" style="border: 1px solid rgba(0,0,0,0.2);height:auto;border-radius:3px" data-block_count='{{ $block_count }}' data-personal_id="{{ $personal->id }}">
+                                    <div class="block_start_end_time_for_saved col-2">
+                                        <div class="row mb-2">
+                                            <label class="col-3 col-form-label">от:</label>
+                                            <div class="col-6">
+                                                <select class="form-control form-control-border start p-0 text-center">
+                                                    @for ($i = 0; $i <= 82800; $i += 1800)
+                                                        <option value="{{ $i }}" @if ($block['block_start_time'] == $i) selected @endif>{{ gmdate('H:i', $i) }}</option>
+                                                    @endfor
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-3 col-form-label">до:</label>
+                                            <div class="col-6">
+                                                <select class="form-control form-control-border end p-0 text-center">
+                                                    @for ($i = 0; $i <= 82800; $i += 1800)
+                                                        <option value="{{ $i }} " @if ($block['block_end_time'] == $i) selected @endif>{{ gmdate('H:i', $i) }}</option>
+                                                    @endfor
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="form-group text-center">
+                                                <input type="button" class="update_saved_entries_on_db btn btn-primary" data-personal_id={{ $personal->id }} value="Сохранить">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block_for_selected_dates col-10 m-0 p-1" style="min-height: 50px;border-left:1px solid rgba(0,0,0,0.2)">
+                                        @foreach ($block['dates'] as $key => $date)
+                                            @if ($date['disabled'])
+                                                <p data-date='{{ $date['date'] }}' class="selected_day_disabled"><span>{{ $date['date'] }}</span><i class="remove_saved_day fa fa-times"></i></p>
+                                            @elseif(!$date['enable'])
+                                                <p data-date='{{ $date['date'] }}' class="selected_day_for_entry"><span>{{ $date['date'] }}</span><i class=" fa fa-times"></i></p>
+                                            @else
+                                                <p data-date='{{ $date['date'] }}' class="selected_day"><span>{{ $date['date'] }}</span><i class="remove_saved_day fa fa-times"></i></p>
+                                            @endif
+                                        @endforeach
+                                        {{-- <p class="selected_day"><span>11.11.2011</span><i class="fa fa-times"></i></p>
+                                <p class="selected_day_for_entry"><span>11.11.2011</span><i class="fa fa-times"></i></p>
+                                <p class="selected_day_disabled"><span>11.11.2011</span><i class="fa fa-times"></i></p> --}}
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -324,6 +400,7 @@
             document.querySelector('#title-next-month').classList.remove('hidden');
         });
         document.querySelector('.ui-datepicker-calendar').addEventListener('click', function(e) {
+            document.querySelector('.alert-for-personal').classList.add('hidden');
             if (e.target.classList.contains('simple_day')) {
                 if (e.target.classList.contains('selected')) {
                     e.target.classList.remove('selected');
@@ -334,12 +411,12 @@
                 this.querySelectorAll('.simple_day.selected').forEach(function(element, index) {
                     const miniBlockForSelectedDate = `<p data-date="${element.dataset.date}" class="selected_day"><span>${element.dataset.date}</span><i class="remove_selected_day fa fa-times"></i></p>`;
                     document.querySelector('.empty_entry_block .block_for_selected_dates').insertAdjacentHTML('beforeend', miniBlockForSelectedDate);
-                    // console.log(e);
                 })
             }
         })
 
         document.querySelector('.empty_entry_block .block_for_selected_dates').addEventListener('click', function(event) {
+            document.querySelector('.alert-for-personal').classList.add('hidden');
             if (event.target.classList.contains('remove_selected_day')) {
                 document.querySelector(`.ui-datepicker-calendar span[data-date="${event.target.closest('p').dataset.date}"]`).classList.remove('selected');
                 document.querySelector('.empty_entry_block .block_for_selected_dates').innerHTML = '';
@@ -348,18 +425,131 @@
                     document.querySelector('.empty_entry_block .block_for_selected_dates').insertAdjacentHTML('beforeend', miniBlockForSelectedDate);
                 })
             }
-        })
-        document.querySelector('.block_start_end_time .save_entries_to_db').addEventListener('click', function(e) {
-            const elementForAlert = document.querySelector('.alert-for-personal');
-            if (!document.querySelectorAll('.empty_entry_block .block_for_selected_dates p').length > 0) {
+        });
+
+        function save_entries_to_db(e) {
+            const elementForAlert = document.querySelector('.alert-for-personal span');
+            if (document.querySelectorAll('.empty_entry_block .block_for_selected_dates p').length == 0) {
                 elementForAlert.innerText = 'Выберите дату';
-                elementForAlert.classList.remove('hidden');
-                // console.log('not');
+                elementForAlert.closest('div').classList.remove('hidden');
+            } else if (parseInt(document.querySelector('.block_start_end_time select.start').value) + 1800 >= document.querySelector('.block_start_end_time select.end').value) {
+                elementForAlert.innerText = 'Премежутечний время менше один час';
+                elementForAlert.closest('div').classList.remove('hidden');
+            } else {
+                elementForAlert.closest('div').classList.add('hidden');
+                const body = {
+                    dates: []
+                };
+                const selected_dates = document.querySelectorAll('.empty_entry_block .block_for_selected_dates p').forEach(function(element, index) {
+                    body['dates'].push(element.dataset.date);
+                })
+                body['start_time'] = document.querySelector('.block_start_end_time select.start').value;
+                body['end_time'] = document.querySelector('.block_start_end_time select.end').value;
+
+                fetch(`/admin/entry/store/${e.dataset.personal_id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(body)
+                }).then(data => {
+                    return data.json();
+                }).then(res => {
+                    if (res.status == true) {
+                        e.closest('.block_start_end_time').classList.add('block_start_end_time_for_saved');
+                        e.closest('.block_start_end_time').classList.remove('block_start_end_time');
+                        e.closest('.empty_entry_block').classList.add('saved_entry_block');
+                        e.closest('.empty_entry_block').classList.remove('empty_entry_block');
+                        e.closest('.saved_entry_block').querySelectorAll('.block_for_selected_dates p i').forEach(function(element, index) {
+                            element.classList.remove('remove_selected_day');
+                            element.classList.add('remove_saved_day');
+                        });
+                        e.closest('.saved_entry_block').setAttribute('data-personal_id', res.personal_id);
+                        e.closest('.saved_entry_block').setAttribute('data-block_count', res.block_count);
+                        e.closest('div').insertAdjacentHTML('afterbegin', '<input type="button" class="update_saved_entries_on_db btn btn-primary" data-personal_id={{ $personal->id }} value="Сохранить">');
+                        e.remove();
+                        document.querySelector('.entry_blocks').insertAdjacentHTML('afterbegin', `<div class="empty_entry_block row mb-2" style="border: 1px solid rgba(0,0,0,0.2);height:auto;border-radius:3px">
+                            <div class="block_start_end_time col-2">
+                                <div class="row mb-2">
+                                    <label class="col-3 col-form-label">от:</label>
+                                    <div class="col-6">
+                                        <select class="form-control form-control-border start p-0 text-center">
+                                            @for ($i = 0; $i <= 82800; $i += 1800)
+                                                <option value="{{ $i }}">{{ gmdate('H:i', $i) }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-3 col-form-label">до:</label>
+                                    <div class="col-6">
+                                        <select class="form-control form-control-border end p-0 text-center">
+                                            @for ($i = 0; $i <= 82800; $i += 1800)
+                                                <option value="{{ $i }}">{{ gmdate('H:i', $i) }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="form-group text-center">
+                                        <input onClick="save_entries_to_db(this)" type="button" class="save_entries_to_db btn btn-primary" data-personal_id={{ $personal->id }} value="Сохранить">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block_for_selected_dates col-10 m-0 p-1" style="min-height: 50px;border-left:1px solid rgba(0,0,0,0.2)">
+                                {{-- <p class="selected_day"><span>11.11.2011</span><i class="fa fa-times"></i></p>
+                                <p class="selected_day_for_entry"><span>11.11.2011</span><i class="fa fa-times"></i></p>
+                                <p class="selected_day_disabled"><span>11.11.2011</span><i class="fa fa-times"></i></p> --}}
+                            </div>
+                        </div>`);
+                    } else if (res.status == 'dublicate') {
+                        document.querySelector('.alert-for-personal span').innerText = `Данный не записывался в БД.Повторяется дубликат записей для  дата ${res.message[0]} ${res.message[1]}-${res.message[2]}`;
+                        document.querySelector('.alert-for-personal').classList.remove('hidden');
+                    } else {
+                        document.querySelector('.alert-for-personal span').innerText = res.message;
+                        document.querySelector('.alert-for-personal').classList.remove('hidden');
+                    }
+                })
             }
-            const selected_dates = document.querySelectorAll('.empty_entry_block .block_for_selected_dates p').forEach(function(element, index) {
-                // console.log(element);
-            })
-            // console.log(e.target);
+        };
+
+        document.querySelector('.entry_blocks').addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove_saved_day')) {
+                e.target.closest('p').remove();
+            }
+            if (e.target.classList.contains('update_saved_entries_on_db')) {
+                const body = {
+                    dates: []
+                };
+                body['personal_id'] = e.target.closest('.saved_entry_block ').dataset.personal_id;
+                body['block_count'] = e.target.closest('.saved_entry_block ').dataset.block_count;
+                const saved_entry_block = e.target.closest('.saved_entry_block');
+                if (saved_entry_block.querySelectorAll('.block_for_selected_dates p').length > 0) {
+                    saved_entry_block.querySelectorAll('.block_for_selected_dates p').forEach(function(element, index) {
+                        body.dates.push(element.dataset.date);
+                    });
+                }
+                fetch(`/admin/entry/${body.personal_id}`, {
+                    method: 'put',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(body)
+                }).then(data => {
+                    return data.json();
+                }).then(res => {
+                    if (res.status) {
+                        if (body.dates.length == 0) {
+                            saved_entry_block.remove();
+                        }
+                    } else {
+                        document.querySelector('.alert-for-personal span').innerText = res.message;
+                        document.querySelector('.alert-for-personal').classList.remove('hidden');
+                    }
+                })
+            }
         })
     </script>
 @endsection

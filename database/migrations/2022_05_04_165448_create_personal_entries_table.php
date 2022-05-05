@@ -15,14 +15,16 @@ return new class extends Migration
     {
         Schema::create('personal_entries', function (Blueprint $table) {
             $table->id();
-            $table->string('block');
             $table->unsignedBigInteger('personal_id');
             $table->boolean('publishing');
+            $table->string('block_count');
+            $table->string('block_start_time');
+            $table->string('block_end_time');
             $table->string('day');
-            $table->string('start');
-            $table->string('end');
+            $table->string('entry_start_time');
+            $table->string('entry_end_time');
             $table->boolean('enable');
-            $table->unique(['personal_id', 'day', 'start', 'end'], 'personal_day_start_end_unigx');
+            $table->unique(['personal_id', 'day', 'entry_start_time', 'entry_end_time'], 'personal_day_start_end_unigx');
         });
     }
 

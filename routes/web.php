@@ -43,8 +43,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::get('/', [EntryController::class, 'index'])->name('index');
       Route::get('/create/{personal}', [EntryController::class, 'create'])->name('create');
       Route::post('/store/{personal}', [EntryController::class, 'store'])->name('store');
-      // Route::get('/{personal}/edit', [PersonalController::class, 'edit'])->name('edit');
-      // Route::put('/{personal}', [PersonalController::class, 'update'])->name('update');
-      Route::get('/{block}/delete', [EntryController::class, 'delete'])->name('delete');
+      Route::put('/{personal}', [EntryController::class, 'update'])->name('update');
    });
 });
