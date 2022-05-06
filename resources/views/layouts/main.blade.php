@@ -881,7 +881,7 @@
                     </div>
                     <div class="oz_hid default-theme ">
                         <div class="oz_hid_carousel" style="transform: translateX();">
-                            <div class="oz_date active">
+                            <div class="oz_date">
                                 <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;">
                                     <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
                                         <a class="ui-datepicker-prev ui-corner-all ui-state-disabled" title="Назад">
@@ -920,12 +920,12 @@
                                                                     </span>
                                                                 </td>
                                                             @else
-                                                                <td class="" data-event="click" data-month="4" data-year="2022" data-handler="selectDay">
-                                                                    <a class="ui-state-default ui-state-active" href="#" aria-current="true" data-date="7"> {{ $day['day'] }}</a>
+                                                                <td>
+                                                                    <span class="ui-state-default ui-state-active"> {{ $day['day'] }}</ы>
                                                                 </td>
                                                             @endif
                                                         @else
-                                                            <td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                            <td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"></td>
                                                         @endif
                                                     @endforeach
                                                 </tr>
@@ -938,7 +938,7 @@
                                                         @if ($day['view'])
                                                             <td class="ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">{{ $day['day'] }}</span></td>
                                                         @else
-                                                            <td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                            <td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"></td>
                                                         @endif
                                                     @endforeach
                                                 </tr>
@@ -948,7 +948,7 @@
                                 </div>
                             </div>
                             {{-- <div class="oz_time">Нет доступного времени на выбранную дату</div> --}}
-                            <div class="oz_time">
+                            <div class="oz_time active">
                                 <ul>
                                     <li class=" zagday timerU squaredThree ">Утро</li>
                                     <li data-persids=" 163" class="squaredThree "><input id="time-0" class="checkb" type="checkbox" value="08:00"><label for="time-0">08:00 </label></li>
@@ -971,10 +971,10 @@
                                     <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-15" class="checkb" type="checkbox" value="23:00"><label for="time-15">23:00 </label></li>
                                 </ul>
                             </div>
-                            <div class="oz_services">
+                            {{-- <div class="oz_services">
                                 <ul class="listUslug"></ul>
                                 <div class="oz_btn oz_multiselect_step">Далее</div>
-                            </div> -
+                            </div> - --}}
                             <div class="oz_services">
                                 <ul class="listUslug">
                                     <li class="usluga">

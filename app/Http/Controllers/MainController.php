@@ -48,7 +48,7 @@ class MainController extends Controller
         }
         // dd($personals);
         // dd($services);
-        dd($entriesList);
+        // dd($entriesList);
         // dd($allEntries);
 
         $countThisMonthDays = Carbon::now()->daysInMonth;
@@ -89,7 +89,12 @@ class MainController extends Controller
                 } else {
                     $thisMonth['weeks'][$i][$j]['view'] = true;
                     $thisMonth['weeks'][$i][$j]['day'] = $dayOfThisMonth;
-                    $thisMonth['weeks'][$i][$j]['entry'] = false;
+                    $thisMonth['weeks'][$i][$j]['date'] = strtotime($dayOfThisMonth . '.' . $startThisMonth->format('m.Y'));
+                    if (isset($entriesList[$thisMonth['weeks'][$i][$j]['date']])) {
+                        $thisMonth['weeks'][$i][$j]['entry'] = true;
+                    } else {
+                        $thisMonth['weeks'][$i][$j]['entry'] = false;
+                    }
                     $dayOfThisMonth++;
                 }
             }

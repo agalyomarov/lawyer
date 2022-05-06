@@ -301,7 +301,7 @@
                                 <div class="row mb-2">
                                     <label class="col-3 col-form-label">от:</label>
                                     <div class="col-6">
-                                        <select class="form-control form-control-border start p-0 text-center">
+                                        <select class="form-control form-control-border start p-0 text-center" style="background-color: #E9ECEF;border-radius:3px">
                                             @for ($i = 0; $i <= 82800; $i += 1800)
                                                 <option value="{{ $i }}">{{ gmdate('H:i', $i) }}</option>
                                             @endfor
@@ -311,7 +311,7 @@
                                 <div class="row mb-3">
                                     <label class="col-3 col-form-label">до:</label>
                                     <div class="col-6">
-                                        <select class="form-control form-control-border end p-0 text-center">
+                                        <select class="form-control form-control-border end p-0 text-center" style="background-color: #E9ECEF;border-radius:3px">
                                             @for ($i = 0; $i <= 82800; $i += 1800)
                                                 <option value="{{ $i }}">{{ gmdate('H:i', $i) }}</option>
                                             @endfor
@@ -337,7 +337,7 @@
                                         <div class="row mb-2">
                                             <label class="col-3 col-form-label">от:</label>
                                             <div class="col-6">
-                                                <select disabled class="form-control form-control-border start p-0 text-center">
+                                                <select disabled class="form-control form-control-border start p-0 text-center" style="background-color: #E9ECEF;border-radius:3px">
                                                     @for ($i = 0; $i <= 82800; $i += 1800)
                                                         <option value="{{ $i }}" @if ($block['block_start_time'] == $i) selected @endif>{{ gmdate('H:i', $i) }}</option>
                                                     @endfor
@@ -347,7 +347,7 @@
                                         <div class="row mb-3">
                                             <label class="col-3 col-form-label">до:</label>
                                             <div class="col-6">
-                                                <select disabled class="form-control form-control-border end p-0 text-center">
+                                                <select disabled class="form-control form-control-border end p-0 text-center" style="background-color: #E9ECEF;border-radius:3px">
                                                     @for ($i = 0; $i <= 82800; $i += 1800)
                                                         <option value="{{ $i }} " @if ($block['block_end_time'] == $i) selected @endif>{{ gmdate('H:i', $i) }}</option>
                                                     @endfor
@@ -476,7 +476,7 @@
                                 <div class="row mb-2">
                                     <label class="col-3 col-form-label">от:</label>
                                     <div class="col-6">
-                                        <select class="form-control form-control-border start p-0 text-center">
+                                        <select  class="form-control form-control-border start p-0 text-center"  style="background-color: #E9ECEF;border-radius:3px">
                                             @for ($i = 0; $i <= 82800; $i += 1800)
                                                 <option value="{{ $i }}">{{ gmdate('H:i', $i) }}</option>
                                             @endfor
@@ -486,7 +486,7 @@
                                 <div class="row mb-3">
                                     <label class="col-3 col-form-label">до:</label>
                                     <div class="col-6">
-                                        <select class="form-control form-control-border end p-0 text-center">
+                                        <select  class="form-control form-control-border end p-0 text-center"  style="background-color: #E9ECEF;border-radius:3px">
                                             @for ($i = 0; $i <= 82800; $i += 1800)
                                                 <option value="{{ $i }}">{{ gmdate('H:i', $i) }}</option>
                                             @endfor
