@@ -881,7 +881,7 @@
                     </div>
                     <div class="oz_hid default-theme ">
                         <div class="oz_hid_carousel" style="transform: translateX();">
-                            <div class="oz_date">
+                            <div class="oz_date active">
                                 <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;">
                                     <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
                                         <a class="ui-datepicker-prev ui-corner-all ui-state-disabled" title="Назад">
@@ -948,7 +948,7 @@
                                 </div>
                             </div>
                             {{-- <div class="oz_time">Нет доступного времени на выбранную дату</div> --}}
-                            <div class="oz_time active">
+                            <div class="oz_time">
                                 <ul>
                                     <li class=" zagday timerU squaredThree ">Утро</li>
                                     <li data-persids=" 163" class="squaredThree "><input id="time-0" class="checkb" type="checkbox" value="08:00"><label for="time-0">08:00 </label></li>
