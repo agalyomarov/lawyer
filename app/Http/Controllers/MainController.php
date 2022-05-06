@@ -13,25 +13,44 @@ class MainController extends Controller
     public function index()
     {
         $today = strtotime('today 00:00');
-        $entries = DB::table('personal_entries')->where('day', '>=', $today)->get()->groupBy('day')->toArray();
-        $allEntries = DB::table('personal_entries')->where('day', '>=', $today)->get()->toArray();
-        // dd($entries);
-        // dd(gmdate('H:i', $days[0]->start), gmdate('H:i', intval($days[0]->start) + 3600), gmdate('H:i', $days[0]->end),);
-
-        // $aviableHours = [];
-        foreach ($allEntries as $day) {
-            if (!isset($aviableHours[$day->day])) {
-                $aviableHours[$day->day] = [];
+        $allEntries = DB::table('personal_entries')->where('day', '>=', $today)->get()->groupBy(['day', 'entry_start_time'])->toArray();
+        $allServices = DB::table('services')->get()->toArray();
+        $allPersonals = DB::table('personals')->get()->toArray();
+        $personals = [];
+        foreach ($allPersonals as $personal) {
+            $personals[$personal->id] = $personal;
+        }
+        $services = [];
+        foreach ($allServices as $service) {
+            $service->personals = [];
+            $personalIds = DB::table('personal_services')->where('service_id', $service->id)->get();
+            foreach ($personalIds as $personal) {
+                $service->personals[$personal->personal_id] = $personals[$personal->personal_id];
             }
-            for ($i = intval($day->start); $i < intval($day->end); $i += 3600) {
-                if (!in_array(gmdate('H:i', $i), $aviableHours[$day->day])) {
-                    $aviableHours[$day->day][gmdate('H:i', $i)] = ['services' => []];
-                    // array_push($aviableHours[$day->day], ['time' => gmdate('H:i', $i)]);
+            $services[$service->id] = $service;
+        }
+        $entriesList = [];
+        foreach ($allEntries as $date => $times) {
+            $entriesList[$date] = [];
+            foreach ($times as $time => $entries) {
+                $entriesList[$date][$time] = [];
+                foreach ($entries as $index => $entry) {
+                    if (DB::table('personals')->where('id', $entry->personal_id)) {
+                        $services_id = DB::table('personal_services')->where('personal_id', $entry->personal_id)->get('service_id')->toArray();
+                        foreach ($services_id as $service) {
+                            $entriesList[$date][$time][$service->service_id] = $services[$service->service_id];
+                            $entriesList[$date][$time][$service->service_id]->entry_id = $entry->id;
+                            // dd($services[$service->id]);
+                        }
+                    }
                 }
             }
         }
+        // dd($personals);
+        // dd($services);
+        dd($entriesList);
+        // dd($allEntries);
 
-        // dd($aviableHours);
         $countThisMonthDays = Carbon::now()->daysInMonth;
         $countNextMonthDays = Carbon::now()->addMonth()->daysInMonth;
 
@@ -70,12 +89,7 @@ class MainController extends Controller
                 } else {
                     $thisMonth['weeks'][$i][$j]['view'] = true;
                     $thisMonth['weeks'][$i][$j]['day'] = $dayOfThisMonth;
-                    $thisMonth['weeks'][$i][$j]['date'] = strtotime($dayOfThisMonth . '.' . $startThisMonth->format('m.Y'));
-                    if (isset($entries[$thisMonth['weeks'][$i][$j]['date']])) {
-                        $thisMonth['weeks'][$i][$j]['entry'] = true;
-                    } else {
-                        $thisMonth['weeks'][$i][$j]['entry'] = false;
-                    }
+                    $thisMonth['weeks'][$i][$j]['entry'] = false;
                     $dayOfThisMonth++;
                 }
             }

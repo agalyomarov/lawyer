@@ -144,7 +144,6 @@ class EntryController extends Controller
                             'entry_start_time' => intval(strtotime($date)) + $i,
                             'entry_end_time' => intval(strtotime($date)) + intval($i) + 3600,
                             'enable' => true,
-                            'publishing' => true
                         ]);
                     }
                 }

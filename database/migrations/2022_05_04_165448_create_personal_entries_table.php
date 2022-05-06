@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('personal_entries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('personal_id');
-            $table->boolean('publishing');
             $table->string('block_count');
             $table->string('block_start_time');
             $table->string('block_end_time');

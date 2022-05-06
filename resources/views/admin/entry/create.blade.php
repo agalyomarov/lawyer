@@ -337,7 +337,7 @@
                                         <div class="row mb-2">
                                             <label class="col-3 col-form-label">от:</label>
                                             <div class="col-6">
-                                                <select class="form-control form-control-border start p-0 text-center">
+                                                <select disabled class="form-control form-control-border start p-0 text-center">
                                                     @for ($i = 0; $i <= 82800; $i += 1800)
                                                         <option value="{{ $i }}" @if ($block['block_start_time'] == $i) selected @endif>{{ gmdate('H:i', $i) }}</option>
                                                     @endfor
@@ -347,7 +347,7 @@
                                         <div class="row mb-3">
                                             <label class="col-3 col-form-label">до:</label>
                                             <div class="col-6">
-                                                <select class="form-control form-control-border end p-0 text-center">
+                                                <select disabled class="form-control form-control-border end p-0 text-center">
                                                     @for ($i = 0; $i <= 82800; $i += 1800)
                                                         <option value="{{ $i }} " @if ($block['block_end_time'] == $i) selected @endif>{{ gmdate('H:i', $i) }}</option>
                                                     @endfor
@@ -458,6 +458,8 @@
                 }).then(res => {
                     if (res.status == true) {
                         e.closest('.block_start_end_time').classList.add('block_start_end_time_for_saved');
+                        e.closest('.block_start_end_time').querySelector('select.start').setAttribute('disabled', true);
+                        e.closest('.block_start_end_time').querySelector('select.end').setAttribute('disabled', true);
                         e.closest('.block_start_end_time').classList.remove('block_start_end_time');
                         e.closest('.empty_entry_block').classList.add('saved_entry_block');
                         e.closest('.empty_entry_block').classList.remove('empty_entry_block');
