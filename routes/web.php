@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [MainController::class, 'index'])->name('home');
+Route::post('/getentry', [MainController::class, 'getentry']);
+Route::get('/getentry', [MainController::class, 'getentry']);
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
    Route::get('/', [AdminMainController::class, 'index'])->name('home');

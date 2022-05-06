@@ -7,6 +7,7 @@
     <meta name="description" content="Московская коллегия «Почетный Адвокатъ» оказывает услуги физическим и юридическим лицам, индивидуальным предпринимателям. Область нашей деятельности охватывает все отрасли права, помощь предоставляется на любой стадии дела." />
     <meta name="keywords" content="юридические, услуги, Москва, адвокатов, московская, коллегия, почетный, адвокат">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('img/apple-icon-60x60.png') }}">
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('img/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('img/apple-icon-72x72.png') }}">
@@ -378,101 +379,35 @@
             z-index: -999;
         }
 
+        .oz_hid .ui-datepicker-calendar tbody td[data-handler="selectDay"] span {
+            color: #6E171E !important;
+            position: relative !important;
+            font-weight: bold !important;
+            display: inline !important;
+            border: none !important;
+            text-decoration: none !important;
+            box-shadow: none !important;
+            cursor: pointer !important;
+        }
+
+        .oz_hid .ui-datepicker-calendar tbody td[data-handler="selectDay"] span:after {
+            content: '';
+            display: table;
+            border-radius: 50%;
+            background: #6E171E;
+            width: 4px;
+            height: 4px;
+            position: absolute;
+            top: -2px;
+            right: -5px;
+        }
+
     </style>
 </head>
 
 <body class="body">
-    <header class="header">
-        <div class="header-top">
-            <div class="container">
-                <a class="logo" href="/">
-                    <span>Почетный Адвокатъ</span>
-                    <span>московская коллегия адвокатов</span>
-                </a>
-                <div class="header-phones">
-                    <img src="{{ asset('svg/phone.svg') }}">
-                    <div class="header-numbers">
-                        <a href="tel:+79671592479">+7 (967) 159-24-79</a>
-                    </div>
-                </div>
-                <div class="adress-box">
-                    <div class="header-adress">
-                        <img src="{{ asset('svg/geo.svg') }}">
-                        <span>ул.Краснобогатырская, д.90, стр.22, оф.112<br />
-                            7мин. от м.Преображенская Площадь</span>
-                    </div>
-                    <div class="call">
-                        <!-- Заказать обратный звонок-->
-                    </div>
-                </div>
-                <div class="header-social">
-                    <a href="https://wa.me/79671592479">
-                        <img src="{{ asset('svg/wtsp.svg') }}">
-                    </a>
-                    <a href="https://www.instagram.com/volotskaya.advokat/">
-                        <img src="{{ asset('svg/insta.svg') }}">
-                    </a>
-                    <a href="https://www.facebook.com/pg/advokat.info/posts/?ref=page_internal">
-                        <img src="{{ asset('svg/fb.svg') }}">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="header-bottom">
-            <div class="container">
-                <img class="burger open_popup" src="{{ asset('svg/burger.svg') }}">
-                <div class="header-numbers">
-                    <a href="tel:+79671592479">
-                        <img src="{{ asset('svg/phone.svg') }}">
-                    </a>
-                </div>
-                <div class="header-social">
-                    <a href="https://wa.me/79671592479">
-                        <img src="{{ asset('svg/wtsp.svg') }}">
-                    </a>
-                    <a href="https://www.instagram.com/volotskaya.advokat/">
-                        <img src="{{ asset('svg/insta.svg') }}">
-                    </a>
-                    <a href="https://www.facebook.com/pg/advokat.info/posts/?ref=page_internal">
-                        <img src="{{ asset('svg/fb.svg') }}">
-                    </a>
-                </div>
-                <div class="menu-top-menu-container">
-                    <ul id="menu-top-menu" class="menu">
-                        <li id="menu-item-34" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-34"><a href="#">Специалисты</a>
-                            <ul class="sub-menu">
-                                <li id="menu-item-106" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-106"><a href="/personal/?qa=lawyer">Юристы</a></li>
-                                <li id="menu-item-105" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-105"><a href="/personal/?qa=advocate">Адвокаты</a></li>
-                                <li id="menu-item-107" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-107"><a href="/personal/">Консультанты</a></li>
-                            </ul>
-                        </li>
-                        <li id="menu-item-35" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-has-children menu-item-35"><a href="/" aria-current="page">О коллегии</a>
-                            <ul class="sub-menu">
-                                <li id="menu-item-169" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-169"><a href="https://a-advokat.ru/news/">Новости</a></li>
-                                <li id="menu-item-173" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173"><a href="https://a-advokat.ru/article/">Статьи</a></li>
-                                <li id="menu-item-110" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110"><a href="/review/">Отзывы</a></li>
-                                <li id="menu-item-111" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-111"><a href="/question/">Вопросы и ответы</a></li>
-                                <li id="menu-item-616" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-616"><a href="https://a-advokat.ru/dostizheniya/">Наши достижения</a></li>
-                            </ul>
-                        </li>
-                        <li id="menu-item-38" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-38"><a href="/kontakty">Контакты</a></li>
-                    </ul>
-                </div>
-                <a href="https://a-advokat.ru/lk/" class="header-bottom-cab">
-                    <img class="man" src="{{ asset('svg/man.svg') }}">
-                    <span>Личный кабинет</span>
-                </a>
-            </div>
-        </div>
-    </header>
-    <section class="bread">
-        <div class="container">
-            <span property="itemListElement" typeof="ListItem"><span property="name" class="home current-item">Почетный Адвокатъ</span>
-                <meta property="url" content="https://a-advokat.ru">
-                <meta property="position" content="1">
-            </span>
-        </div>
-    </section>
+    @include('includes.header')
+    @include('includes.beard')
     <section class="home-one">
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -920,8 +855,8 @@
                                                                     </span>
                                                                 </td>
                                                             @else
-                                                                <td>
-                                                                    <span class="ui-state-default ui-state-active"> {{ $day['day'] }}</ы>
+                                                                <td data-handler="selectDay" class="selectedDay" data-date="{{ $day['date'] }}">
+                                                                    <span class="ui-state-default selectedDay" data-date="{{ $day['date'] }}"> {{ $day['day'] }}</span>
                                                                 </td>
                                                             @endif
                                                         @else
@@ -951,24 +886,24 @@
                             <div class="oz_time">
                                 <ul>
                                     <li class=" zagday timerU squaredThree ">Утро</li>
-                                    <li data-persids=" 163" class="squaredThree "><input id="time-0" class="checkb" type="checkbox" value="08:00"><label for="time-0">08:00 </label></li>
-                                    <li data-persids="163" class="squaredThree"><input id="time-1" class="checkb" type="checkbox" value="09:00"><label for="time-1">09:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-2" class="checkb" type="checkbox" value="10:00"><label for="time-2">10:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-3" class="checkb" type="checkbox" value="11:00"><label for="time-3">11:00 </label></li>
+                                    <li class="squaredThree"><input id="time-08" type="checkbox" value="08:00"><label for="time-08">08:00 </label></li>
+                                    <li class="squaredThree"><input id="time-09" type="checkbox" value="09:00"><label for="time-09">09:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-10" class="checkb" type="checkbox" value="10:00"><label for="time-10">10:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-11" class="checkb" type="checkbox" value="11:00"><label for="time-11">11:00 </label></li>
                                     <li class="zagday timerD squaredThree no_slots">День</li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-4" class="checkb" type="checkbox" value="12:00"><label for="time-4">12:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-5" class="checkb" type="checkbox" value="13:00"><label for="time-5">13:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-6" class="checkb" type="checkbox" value="14:00"><label for="time-6">14:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-7" class="checkb" type="checkbox" value="15:00"><label for="time-7">15:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-8" class="checkb" type="checkbox" value="16:00"><label for="time-8">16:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-9" class="checkb" type="checkbox" value="17:00"><label for="time-9">17:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-12" class="checkb" type="checkbox" value="12:00"><label for="time-12">12:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-13" class="checkb" type="checkbox" value="13:00"><label for="time-13">13:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-14" class="checkb" type="checkbox" value="14:00"><label for="time-14">14:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-15" class="checkb" type="checkbox" value="15:00"><label for="time-15">15:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-16" class="checkb" type="checkbox" value="16:00"><label for="time-16">16:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-17" class="checkb" type="checkbox" value="17:00"><label for="time-17">17:00 </label></li>
                                     <li class="zagday timerE squaredThree no_slots">Вечер</li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-10" class="checkb" type="checkbox" value="18:00"><label for="time-10">18:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-11" class="checkb" type="checkbox" value="19:00"><label for="time-11">19:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-12" class="checkb" type="checkbox" value="20:00"><label for="time-12">20:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-13" class="checkb" type="checkbox" value="21:00"><label for="time-13">21:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-14" class="checkb" type="checkbox" value="22:00"><label for="time-14">22:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-15" class="checkb" type="checkbox" value="23:00"><label for="time-15">23:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-18" class="checkb" type="checkbox" value="18:00"><label for="time-18">18:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-19" class="checkb" type="checkbox" value="19:00"><label for="time-19">19:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-20" class="checkb" type="checkbox" value="20:00"><label for="time-20">20:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-21" class="checkb" type="checkbox" value="21:00"><label for="time-21">21:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-22" class="checkb" type="checkbox" value="22:00"><label for="time-22">22:00 </label></li>
+                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-23" class="checkb" type="checkbox" value="23:00"><label for="time-23">23:00 </label></li>
                                 </ul>
                             </div>
                             {{-- <div class="oz_services">
@@ -1442,379 +1377,8 @@
     <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/hoverintent-js.min.js?ver=2.2.1' id='hoverintent-js-js'></script>
     {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/admin-bar.min.js?ver=5.9.3' id='admin-bar-js'></script> --}}
     <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/core.min.js?ver=1.13.1' id='jquery-ui-core-js'></script>
-    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/datepicker.min.js?ver=1.13.1' id='jquery-ui-datepicker-js'></script> --}}
-    {{-- <script type='text/javascript' id='jquery-ui-datepicker-js-after'>
-        jQuery(function(jQuery) {
-            jQuery.datepicker.setDefaults({
-                "closeText": "\u0417\u0430\u043a\u0440\u044b\u0442\u044c",
-                "currentText": "\u0421\u0435\u0433\u043e\u0434\u043d\u044f",
-                "monthNames": ["\u042f\u043d\u0432\u0430\u0440\u044c", "\u0424\u0435\u0432\u0440\u0430\u043b\u044c", "\u041c\u0430\u0440\u0442", "\u0410\u043f\u0440\u0435\u043b\u044c", "\u041c\u0430\u0439", "\u0418\u044e\u043d\u044c", "\u0418\u044e\u043b\u044c",
-                    "\u0410\u0432\u0433\u0443\u0441\u0442", "\u0421\u0435\u043d\u0442\u044f\u0431\u0440\u044c", "\u041e\u043a\u0442\u044f\u0431\u0440\u044c", "\u041d\u043e\u044f\u0431\u0440\u044c", "\u0414\u0435\u043a\u0430\u0431\u0440\u044c"
-                ],
-                "monthNamesShort": ["\u042f\u043d\u0432", "\u0424\u0435\u0432", "\u041c\u0430\u0440", "\u0410\u043f\u0440", "\u041c\u0430\u0439", "\u0418\u044e\u043d", "\u0418\u044e\u043b", "\u0410\u0432\u0433", "\u0421\u0435\u043d", "\u041e\u043a\u0442", "\u041d\u043e\u044f",
-                    "\u0414\u0435\u043a"
-                ],
-                "nextText": "\u0414\u0430\u043b\u0435\u0435",
-                "prevText": "\u041d\u0430\u0437\u0430\u0434",
-                "dayNames": ["\u0412\u043e\u0441\u043a\u0440\u0435\u0441\u0435\u043d\u044c\u0435", "\u041f\u043e\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u0438\u043a", "\u0412\u0442\u043e\u0440\u043d\u0438\u043a", "\u0421\u0440\u0435\u0434\u0430",
-                    "\u0427\u0435\u0442\u0432\u0435\u0440\u0433", "\u041f\u044f\u0442\u043d\u0438\u0446\u0430", "\u0421\u0443\u0431\u0431\u043e\u0442\u0430"
-                ],
-                "dayNamesShort": ["\u0412\u0441", "\u041f\u043d", "\u0412\u0442", "\u0421\u0440", "\u0427\u0442", "\u041f\u0442", "\u0421\u0431"],
-                "dayNamesMin": ["\u0412\u0441", "\u041f\u043d", "\u0412\u0442", "\u0421\u0440", "\u0427\u0442", "\u041f\u0442", "\u0421\u0431"],
-                "dateFormat": "dd.mm.yy",
-                "firstDay": 1,
-                "isRTL": false
-            });
-        });
-    </script> --}}
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/tabs.min.js?ver=1.13.1' id='jquery-ui-tabs-js'></script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/menu.min.js?ver=1.13.1' id='jquery-ui-menu-js'></script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.13.9' id='regenerator-runtime-js'></script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0' id='wp-polyfill-js'></script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/dist/dom-ready.min.js?ver=ecda74de0221e1c2ce5c57cbb5af09d5' id='wp-dom-ready-js'></script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/dist/hooks.min.js?ver=1e58c8c5a32b2e97491080c5b10dc71c' id='wp-hooks-js'></script>
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/dist/i18n.min.js?ver=30fcecb428a0e8383d3776bcdd3a7834' id='wp-i18n-js'></script>
-    <script type='text/javascript' id='wp-i18n-js-after'>
-        wp.i18n.setLocaleData({
-            'text direction\u0004ltr': ['ltr']
-        });
-    </script>
-    {{-- <script type='text/javascript' id='wp-a11y-js-translations'>
-        (function(domain, translations) {
-            var localeData = translations.locale_data[domain] || translations.locale_data.messages;
-            localeData[""].domain = domain;
-            wp.i18n.setLocaleData(localeData, domain);
-        })("default", {
-            "translation-revision-date": "2022-03-30 14:45:05+0000",
-            "generator": "GlotPress\/3.0.0-rc.4",
-            "domain": "messages",
-            "locale_data": {
-                "messages": {
-                    "": {
-                        "domain": "messages",
-                        "plural-forms": "nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);",
-                        "lang": "ru"
-                    },
-                    "Notifications": ["\u0423\u0432\u0435\u0434\u043e\u043c\u043b\u0435\u043d\u0438\u044f"]
-                }
-            },
-            "comment": {
-                "reference": "wp-includes\/js\/dist\/a11y.js"
-            }
-        });
-    </script> --}}
-    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/dist/a11y.min.js?ver=68e470cf840f69530e9db3be229ad4b6' id='wp-a11y-js'></script> --}}
-    {{-- <script type='text/javascript' id='jquery-ui-autocomplete-js-extra'>
-        /* <![CDATA[ */
-        // var uiAutocompleteL10n = {
-        //     "noResults": "\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e.",
-        //     "oneResult": "\u041d\u0430\u0439\u0434\u0435\u043d 1 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442. \u0414\u043b\u044f \u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 \u043a\u043b\u0430\u0432\u0438\u0448\u0438 \u0432\u0432\u0435\u0440\u0445\/\u0432\u043d\u0438\u0437.",
-        //     "manyResults": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432: %d. \u0414\u043b\u044f \u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 \u043a\u043b\u0430\u0432\u0438\u0448\u0438 \u0432\u0432\u0435\u0440\u0445\/\u0432\u043d\u0438\u0437.",
-        //     "itemSelected": "\u041e\u0431\u044a\u0435\u043a\u0442 \u0432\u044b\u0431\u0440\u0430\u043d."
-        // };
-        /* ]]> */
-    </script> --}}
-    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/autocomplete.min.js?ver=1.13.1' id='jquery-ui-autocomplete-js'></script> --}}
-    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/mouse.min.js?ver=1.13.1' id='jquery-ui-mouse-js'></script> --}}
-    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/sortable.min.js?ver=1.13.1' id='jquery-ui-sortable-js'></script> --}}
-    {{-- <script type='text/javascript' id='wp-postratings-js-extra'>
-        var ratingsL10n = {
-            "plugin_url": "https:\/\/a-advokat.ru\/wp-content\/plugins\/wp-postratings",
-            "ajax_url": "https:\/\/a-advokat.ru\/wp-admin\/admin-ajax.php",
-            "text_wait": "\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u043d\u0435 \u0433\u043e\u043b\u043e\u0441\u0443\u0439\u0442\u0435 \u0437\u0430 \u043d\u0435\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0437\u0430\u043f\u0438\u0441\u0435\u0439 \u043e\u0434\u043d\u043e\u0432\u0440\u0435\u043c\u0435\u043d\u043d\u043e.",
-            "image": "stars",
-            "image_ext": "gif",
-            "max": "5",
-            "show_loading": "0",
-            "show_fading": "1",
-            "custom": "0"
-        };
-        var ratings_mouseover_image = new Image();
-        ratings_mouseover_image.src = "/rating_over.gif";;
-    </script> --}}
-    {{-- <script type='text/javascript' src='{{ asset('js/postratings-js.js?ver=1.89') }}' id='wp-postratings-js'></script> --}}
-    {{-- <script type='text/javascript' src='{{ asset('js/moment.min.js?ver=5.9.3') }}' id='book_oz_moment-js'></script> --}}
-    {{-- <script type='text/javascript' id='oz_front_scripts-js-extra'>
-        /* <![CDATA[ */
-        var oz_vars = {
-            "oz_ajax_url": "https:\/\/a-advokat.ru\/wp-admin\/admin-ajax.php",
-            "scriptPath": "https:\/\/a-advokat.ru\/wp-content\/plugins\/book-appointment-online-pro\/",
-            "timezone": "3",
-            "timezone_string": "+03:00",
-            "timezone_detect": "",
-            "lang": "ru_RU",
-            "dateFormat": "DD.MM.YYYY",
-            "firstDay": "1",
-            "nonce": "cfb6a15e19",
-            "paypal_currency": "AUD",
-            "payment": "1",
-            "maxMonth": "1",
-            "minTime": "0",
-            "minTimeCancel": "0",
-            "redirect_url": "",
-            "fields": [{
-                "order": 10,
-                "name": "\u0418\u043c\u044f",
-                "type": "input",
-                "meta": "clientName",
-                "values": "",
-                "required": 1,
-                "validation": ["empty"],
-                "classes": []
-            }, {
-                "order": 20,
-                "name": {
-                    "country": "lv",
-                    "placeholder": "",
-                    "countries": ""
-                },
-                "type": "tel",
-                "meta": "clientPhone",
-                "values": "",
-                "required": true,
-                "validation": ["tel", "empty"],
-                "pattern": "\\d*",
-                "maxlength": "25",
-                "size": 40,
-                "classes": ["oz_phone_input"],
-                "mask": ""
-            }, {
-                "order": 30,
-                "name": "Email",
-                "type": "input",
-                "meta": "clientEmail",
-                "values": "",
-                "required": true,
-                "validation": ["email", "empty"],
-                "pattern": "",
-                "maxlength": "",
-                "size": 40,
-                "classes": []
-            }, {
-                "order": 50,
-                "name": "",
-                "type": "checkbox",
-                "values": "\u0421\u043e\u0433\u043b\u0430\u0441\u0435\u043d \u0441 \u0443\u0441\u043b\u043e\u0432\u0438\u044f\u043c\u0438 \u0434\u043e\u0433\u043e\u0432\u043e\u0440\u0430 \u0430\u0444\u0435\u0440\u0442\u044b",
-                "meta": "cf_1633706216_0",
-                "required": true,
-                "classes": ["field-cf_1633706216_0"],
-                "validation": ["empty"]
-            }, {
-                "order": 255,
-                "name": "\u0421\u043f\u043e\u0441\u043e\u0431 \u043e\u043f\u043b\u0430\u0442\u044b",
-                "type": "select",
-                "meta": "oz_payment_method",
-                "values": "yandex",
-                "select_names": {
-                    "yandex": "\u041e\u043d\u043b\u0430\u0439\u043d \u043a\u0430\u0440\u0442\u043e\u0439 (\u042f\u043d\u0434\u0435\u043a\u0441 \u041a\u0430\u0441\u0441\u0430)"
-                },
-                "required": true,
-                "validation": [],
-                "classes": []
-            }],
-            "employee_link": "1",
-            "currency": "\u0440\u0443\u0431.",
-            "currency_position": "right",
-            "debug": "",
-            "stepsnames": {
-                "branches": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0444\u0438\u043b\u0438\u0430\u043b",
-                "employees": "\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0430",
-                "date": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0434\u0430\u0442\u0443",
-                "time": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0440\u0435\u043c\u044f \u0437\u0430\u043f\u0438\u0441\u0438",
-                "services_cats": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044e",
-                "services": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0443\u0441\u043b\u0443\u0433\u0443",
-                "recurring": "\u041f\u043e\u0432\u0442\u043e\u0440\u044f\u0442\u044c \u044d\u0442\u0443 \u0432\u0441\u0442\u0440\u0435\u0447\u0443",
-                "form": "\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u0430\u044f \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f"
-            },
-            "userarea": "1",
-            "onlyregistred": "1",
-            "user": {
-                "id": 4,
-                "name": "",
-                "email": "igor_koshelev@rambler.ru"
-            },
-            "skipOneStep": "",
-            "steps": ["date,time", "services", "employees", "form"],
-            "theme": "default-theme ",
-            "login_url": "https:\/\/a-advokat.ru\/wp-login.php?redirect_to=https%3A%2F%2Fa-advokat.ru",
-            "logout_url": "https:\/\/a-advokat.ru\/wp-login.php?action=logout&redirect_to=https%3A%2F%2Fa-advokat.ru%2F&_wpnonce=6a83db9bff",
-            "scrollToTop": "",
-            "rtl": "",
-            "skipemployee": "",
-            "statusLabels": {
-                "approved": "\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u043e",
-                "onhold": "\u041d\u0430 \u0443\u0434\u0435\u0440\u0436\u0430\u043d\u0438\u0438",
-                "canceled": "\u041e\u0442\u043c\u0435\u043d\u0435\u043d\u043e"
-            },
-            "paymentLabels": {
-                "locally": "\u041e\u043f\u043b\u0430\u0442\u0438\u0442\u044c \u043d\u0430 \u043c\u0435\u0441\u0442\u0435",
-                "paypal": "PayPal",
-                "stripe": "Stripe",
-                "yandex": "\u041e\u043d\u043b\u0430\u0439\u043d \u043a\u0430\u0440\u0442\u043e\u0439 (\u042f\u043d\u0434\u0435\u043a\u0441 \u041a\u0430\u0441\u0441\u0430)"
-            },
-            "canPrint": "",
-            "AMPM": "",
-            "timeslot": "60"
-        };
-        var oz_lang = {
-            "str1": "\u0412\u044b \u0437\u0430\u043f\u0438\u0441\u0430\u043d\u044b!",
-            "str2": "\u0423\u0442\u0440\u043e",
-            "str3": "\u0414\u0435\u043d\u044c",
-            "str4": "\u0412\u0435\u0447\u0435\u0440",
-            "str5": "\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u0430\u044f \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f",
-            "str6": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0443\u0441\u043b\u0443\u0433\u0443",
-            "str7": "\u0417\u0430\u043f\u0438\u0441\u0430\u0442\u044c\u0441\u044f \u043d\u0430 \u0443\u0441\u043b\u0443\u0433\u0443",
-            "str8": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0440\u0435\u043c\u044f \u0437\u0430\u043f\u0438\u0441\u0438",
-            "str9": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0434\u0430\u0442\u0443",
-            "str10": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u0438\u0441\u0442\u0430",
-            "str11": "\u0421\u0435\u0440\u0432\u0438\u0441 \u0432\u0440\u0435\u043c\u0435\u043d\u043d\u043e \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u0435\u043d",
-            "str12": "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u0432\u044b\u0431\u043e\u0440 \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u0438\u0441\u0442\u0430",
-            "str13": "\u041d\u0435\u0442 \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e\u0433\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438 \u043d\u0430 \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u0443\u044e \u0434\u0430\u0442\u0443",
-            "strStaff": "\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0430",
-            "strBr": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0444\u0438\u043b\u0438\u0430\u043b",
-            "strSelect": "\u0412\u044b\u0431\u0440\u0430\u0442\u044c",
-            "prtch": "\u041f\u0435\u0440\u0435\u0439\u0442\u0438 \u043a \u043e\u0444\u043e\u0440\u043c\u043b\u0435\u043d\u0438\u044e \u0437\u0430\u043a\u0430\u0437\u0430?",
-            "wfp": "\u0416\u0434\u0435\u043c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u044f \u043e\u043f\u043b\u0430\u0442\u044b",
-            "smsc": "\u041a\u043e\u0434 \u0438\u0437 \u0441\u043c\u0441",
-            "code_valid": "\u041a\u043e\u0434 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043b\u0435\u043d \u0432 \u0442\u0435\u0447\u0435\u043d\u0438\u0435",
-            "apply": "\u041f\u0440\u0438\u043d\u044f\u0442\u044c",
-            "yes": "\u0414\u0430",
-            "no": "\u041d\u0435\u0442",
-            "tzmsg": "\u0412\u0430\u0448 \u0447\u0430\u0441\u043e\u0432\u043e\u0439 \u043f\u043e\u044f\u0441 \u043e\u0442\u043b\u0438\u0447\u0430\u0435\u0442\u0441\u044f \u043e\u0442 \u0447\u0430\u0441\u043e\u0432\u043e\u0433\u043e \u043f\u043e\u044f\u0441\u0430 \u0441\u0430\u0439\u0442\u0430 (%s). \u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0432\u0440\u0435\u043c\u044f \u0432 \u0412\u0430\u0448\u0435\u043c \u0447\u0430\u0441\u043e\u0432\u043e\u043c \u043f\u043e\u044f\u0441\u0435?",
-            "str14": "\u0412\u044b \u0431\u0443\u0434\u0435\u0442\u0435 \u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u044b \u043d\u0430 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0443 \u043e\u043f\u043b\u0430\u0442\u044b \u0447\u0435\u0440\u0435\u0437 <b>5<\/b> \u0441\u0435\u043a\u0443\u043d\u0434. \u0415\u0441\u043b\u0438 \u043d\u0435\u0442, <a class=\"paypal_link\" href=\"#\"> \u043d\u0430\u0436\u043c\u0438\u0442\u0435 \u0437\u0434\u0435\u0441\u044c <\/a>",
-            "rec1": "\u0415\u0436\u0435\u0434\u043d\u0435\u0432\u043d\u043e",
-            "rec2": "\u0414\u0435\u043d\u044c",
-            "rec3": "\u0414\u043d\u0435\u0439",
-            "rec4": "\u0415\u0436\u0435\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u043e",
-            "rec5": "\u041d\u0435\u0434\u0435\u043b\u044f",
-            "rec6": "\u041d\u0435\u0434\u0435\u043b\u044c",
-            "rec7": "\u0415\u0436\u0435\u043c\u0435\u0441\u044f\u0447\u043d\u043e",
-            "rec8": "\u041c\u0435\u0441\u044f\u0446",
-            "rec9": "\u041c\u0435\u0441\u044f\u0446\u0435\u0432",
-            "rec10": "\u0413\u0435\u043d\u0435\u0440\u0438\u0440\u043e\u0432\u0430\u0442\u044c",
-            "rec11": "\u041f\u043e\u0432\u0442\u043e\u0440\u044f\u0442\u044c",
-            "rec12": "\u041a\u0430\u0436\u0434\u044b\u0439",
-            "rec13": "\u0414\u043d\u0438 \u043d\u0435\u0434\u0435\u043b\u0438",
-            "rec14": "\u0414\u043e",
-            "rec15": "\u0420\u0430\u0437",
-            "rec16": "\u0421\u043b\u043e\u0442 \u0437\u0430\u043d\u044f\u0442",
-            "rec17": "\u041d\u0435 \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442",
-            "rec18": "\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c",
-            "rec19": "\u0423\u0434\u0430\u043b\u0438\u0442\u044c",
-            "rec20": "\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0431\u043e\u043b\u044c\u0448\u0435",
-            "rec21": "\u0418\u0442\u043e\u0433\u043e",
-            "rec22": "\u043c\u0438\u043d\u0438\u043c\u0430\u043b\u044c\u043d\u043e",
-            "rec23": "\u0414\u0430\u043b\u0435\u0435",
-            "rec24": "\u0414\u0440\u0443\u0433\u0438\u0435 \u0432\u0441\u0442\u0440\u0435\u0447\u0438",
-            "rec25": "\u041f\u0435\u0440\u0432\u043e\u0435 \u043d\u0430\u0437\u043d\u0430\u0447\u0435\u043d\u0438\u0435",
-            "rec26": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c",
-            "rec27": "\u041f\u043e\u0432\u0442\u043e\u0440\u044f\u0442\u044c \u044d\u0442\u0443 \u0432\u0441\u0442\u0440\u0435\u0447\u0443",
-            "rec28": "%s + \u0435\u0449\u0435 %d ",
-            "r1": "\u0412\u044b \u0431\u0443\u0434\u0435\u0442\u0435 \u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u044b \u043d\u0430 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0443 \u043e\u043f\u043b\u0430\u0442\u044b \u0447\u0435\u0440\u0435\u0437 %s \u0441\u0435\u043a\u0443\u043d\u0434. \u0415\u0441\u043b\u0438 \u043d\u0435\u0442, %s \u043d\u0430\u0436\u043c\u0438\u0442\u0435 \u0437\u0434\u0435\u0441\u044c %s",
-            "r2": "\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0430",
-            "r3": "\u0412\u044b\u0431\u0440\u0430\u0442\u044c",
-            "r4": "\u041b\u044e\u0431\u043e\u0439 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a",
-            "r5": "\u0411\u043e\u043b\u044c\u0448\u0435",
-            "r6": "\u042d\u0442\u043e \u043e\u043a\u043d\u043e \u0431\u0443\u0434\u0435\u0442 \u0437\u0430\u043a\u0440\u044b\u0442\u043e. \u043f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u043f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435 \u0440\u0430\u0437.",
-            "r7": "\u0432\u0440\u0435\u043c\u044f (\u043c\u0438\u043d)",
-            "r8": "\u0446\u0435\u043d\u0430",
-            "r9": "\u041e\u0442\u043c\u0435\u043d\u0438\u0442\u044c",
-            "r10": "\u0412\u043e\u0439\u0442\u0438",
-            "r11": "\u041c\u043e\u0438 \u0437\u0430\u043f\u0438\u0441\u0438",
-            "r12": "\u0423 \u0432\u0430\u0441 \u043f\u043e\u043a\u0430 \u0447\u0442\u043e \u043d\u0435\u0442 \u0437\u0430\u043f\u0438\u0441\u0435\u0439",
-            "r13": "\u0412\u044b\u0439\u0442\u0438",
-            "r14": "\u0421\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d",
-            "r15": "\u0421\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a",
-            "r16": "\u0414\u0430\u0442\u0430",
-            "r17": "\u0432",
-            "r18": "\u0421\u0435\u0440\u0432\u0438\u0441",
-            "r19": "\u0418\u0442\u043e\u0433\u043e",
-            "r20": "\u041e\u0441\u0442\u0430\u0432\u044c\u0442\u0435 \u0412\u0430\u0448\u0438 \u043a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u044b\u0435 \u0434\u0430\u043d\u043d\u044b\u0435!",
-            "r21": "\u0417\u0430\u0431\u0440\u043e\u043d\u0438\u0440\u043e\u0432\u0430\u0442\u044c",
-            "r22": "\u0414\u0430\u043b\u0435\u0435",
-            "r23": "\u041d\u0430\u0437\u0430\u0434",
-            "r24": "\u041f\u043b\u0430\u0442\u0435\u0436\u043d\u0430\u044f \u0444\u043e\u0440\u043c\u0430 \u043e\u0442\u043a\u0440\u043e\u0435\u0442\u0441\u044f \u0432 \u043d\u043e\u0432\u043e\u043c \u043e\u043a\u043d\u0435. \u041f\u0440\u043e\u0434\u043e\u043b\u0436\u0438\u0442\u044c?",
-            "r25": "\u041e\u0442\u043a\u0440\u044b\u0442\u044c",
-            "r26": "\u0417\u0430\u043a\u0440\u044b\u0442\u044c",
-            "r27": "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u0432\u044b\u0431\u043e\u0440 \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u0438\u0441\u0442\u0430",
-            "r28": "\u0422\u0435\u043b\u0435\u0444\u043e\u043d",
-            "r29": "\u0422\u043e\u043b\u044c\u043a\u043e \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0438 \u043c\u043e\u0433\u0443\u0442 \u0437\u0430\u043f\u0438\u0441\u0430\u0442\u044c\u0441\u044f \u043d\u0430 \u043f\u0440\u0438\u0435\u043c",
-            "r30": "\u0424\u0438\u043b\u0438\u0430\u043b\u044b \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u044b",
-            "r31": "\u041f\u043e\u0445\u043e\u0436\u0435, \u0447\u0442\u043e \u0432\u044b \u043e\u0444\u043e\u0440\u043c\u0438\u043b\u0438 \u0437\u0430\u043a\u0430\u0437, \u043d\u043e \u043e\u043d \u043d\u0435 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d \u0430\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0435\u0439 \u0441\u0430\u0439\u0442\u0430. \u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430 \u0441\u0432\u044f\u0436\u0438\u0442\u0435\u0441\u044c \u0441 \u0430\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440\u043e\u043c \u0441\u0430\u0439\u0442\u0430",
-            "r32": "\u0414\u0435\u043f\u043e\u0437\u0438\u0442",
-            "print": "\u041f\u0435\u0447\u0430\u0442\u044c",
-            "gcal": "Google \u041a\u0430\u043b\u0435\u043d\u0434\u0430\u0440\u044c",
-            "ical": "iCal"
-        };
-        /* ]]> */
-    </script> --}}
-    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-content/plugins/book-appointment-online-pro/js/index.oz_bundle.js?ver=3.0.7' id='oz_front_scripts-js'></script> --}}
-    {{-- <script type="text/javascript">
-        (function() {
-            var request, b = document.body,
-                c = 'className',
-                cs = 'customize-support',
-                rcs = new RegExp('(^|\\s+)(no-)?' + cs + '(\\s+|$)');
 
-            request = true;
-
-            b[c] = b[c].replace(rcs, ' ');
-            b[c] += (window.postMessage && request ? ' ' : ' no-') + cs;
-        }());
-    </script> --}}
-    <footer class="footer">
-        <div class="container">
-            <div class="logo">
-                <span>Почетный Адвокатъ</span>
-                <span>московская коллегия адвокатов</span>
-            </div>
-            <div class="footer-cont">
-                <div class="footer-box">
-                    <div class="header-phones">
-                        <img src="{{ asset('svg/phone.svg') }}">
-                        <div class="header-numbers">
-                            <a href="tel:+79671592479">+7 (967) 159-24-79</a>
-                        </div>
-                    </div>
-                    <div class="adress-box">
-                        <div class="header-adress">
-                            <img src="{{ asset('svg/geo.svg') }}">
-                            <span>ул.Краснобогатырская, д.90, стр.22, оф.112<br />
-                                7мин. от м.Преображенская Площадь</span>
-                        </div>
-                    </div>
-                    <div class="header-social">
-                        <a href="https://wa.me/79671592479">
-                            <img src="{{ asset('svg/wtsp.svg') }}">
-                        </a>
-                        <a href="https://www.instagram.com/volotskaya.advokat/">
-                            <img src="{{ asset('svg/insta.svg') }}">
-                        </a>
-                        <a href="https://www.facebook.com/pg/advokat.info/posts/?ref=page_internal">
-                            <img src="{{ asset('svg/fb.svg') }}">
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-menu">
-                    <h3>Специалисты</h3>
-                    <a href="/personal/?qa=advocate">Адвокаты</a>
-                    <a href="/personal/?qa=lawyer">Юристы</a>
-                    <a href="/personal/">Консультанты</a>
-                </div>
-                <div class="footer-menu">
-                    <h3>О коллегии</h3>
-                    <a href="/dostizheniya/"> Наши достижения</a>
-                    <a href="/review/">Отзывы</a>
-                    <a href="/kontakty">Контакты</a>
-                </div>
-                <div class="footer-menu">
-                    <h3>&nbsp;</h3>
-                    <a href="/pravila-polzovaniya-sajtom/">Правила пользования Сайтом</a>
-                    <a href="/privacy-policys/">Политика приватности</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    @include('includes.footer')
     <section class="copyright">
         <div class="container">© 2017-2022 - Почётный Адвокатъ. г. Москва, ул. Краснобогатырская, д.90 стр. 22, оф. 112 </div>
     </section>
@@ -1874,6 +1438,31 @@
 
             document.querySelector('.ui-datepicker-month').textContent = document.querySelector('.ui-datepicker-month').dataset.nextmonth;
         });
+        document.querySelector('.ui-datepicker-calendar').addEventListener('click', function(e) {
+            const oz_container = document.querySelector('.oz_container');
+            if (e.target.classList.contains('selectedDay')) {
+                const body = {
+                    date: e.target.dataset.date,
+                    get: 'enable_hourses'
+                };
+                fetch('/getentry', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(body)
+                }).then(res => {
+                    // return res.text();
+                    return res.json();
+                }).then(data => {
+                    if (data.status) {
+
+                        console.log(data);
+                    }
+                })
+            }
+        })
     </script>
 </body>
 

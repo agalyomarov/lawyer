@@ -116,4 +116,57 @@ class MainController extends Controller
         // dd($thisMonth);
         return view('home', compact('thisMonth', 'nextMonth'));
     }
+    public function getentry(Request $request)
+    {
+        try {
+            $data = $request->json()->all();
+            $today = strtotime('today 00:00');
+            $allEntries = DB::table('personal_entries')->where('day', '>=', $today)->get()->groupBy(['day', 'entry_start_time'])->toArray();
+            $allServices = DB::table('services')->get()->toArray();
+            $allPersonals = DB::table('personals')->get()->toArray();
+            $personals = [];
+            foreach ($allPersonals as $personal) {
+                $personals[$personal->id] = $personal;
+            }
+            $services = [];
+            foreach ($allServices as $service) {
+                $service->personals = [];
+                $personalIds = DB::table('personal_services')->where('service_id', $service->id)->get();
+                foreach ($personalIds as $personal) {
+                    $service->personals[$personal->personal_id] = $personals[$personal->personal_id];
+                }
+                $services[$service->id] = $service;
+            }
+            $entriesList = [];
+            foreach ($allEntries as $date => $times) {
+                $entriesList[$date] = [];
+                foreach ($times as $time => $entries) {
+                    $entriesList[$date][$time] = [];
+                    foreach ($entries as $index => $entry) {
+                        if (DB::table('personals')->where('id', $entry->personal_id)) {
+                            $services_id = DB::table('personal_services')->where('personal_id', $entry->personal_id)->get('service_id')->toArray();
+                            foreach ($services_id as $service) {
+                                $entriesList[$date][$time][$service->service_id] = $services[$service->service_id];
+                                $entriesList[$date][$time][$service->service_id]->entry_id = $entry->id;
+                                // dd($services[$service->id]);
+                            }
+                        }
+                    }
+                }
+            }
+            // dd($personals);
+            // dd($services);
+            // dd($entriesList);
+            // dd($allEntries);
+            if ($data['get'] == 'enable_hourses') {
+                $hourses = [];
+                foreach ($entriesList[$data['date']] as $hour => $array) {
+                    $hourses['time-' . date('H', $hour)] = date('H:i', $hour);
+                }
+                return response()->json(['status' => true, 'hourses' => $hourses]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => $e->getMessage], 500);
+        }
+    }
 }
