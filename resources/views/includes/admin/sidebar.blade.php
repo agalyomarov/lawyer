@@ -13,6 +13,14 @@
           <nav class="mt-2">
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <li class="nav-item">
+                      <a href="{{ route('home') }}" class="nav-link">
+                          <i class="nav-icon fa fa-home"></i>
+                          <p>
+                              Главная
+                          </p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
                       <a href="{{ route('admin.service.index') }}" class="nav-link">
                           <i class="nav-icon fas fa-undo"></i>
                           <p>
