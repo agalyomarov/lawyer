@@ -200,6 +200,7 @@ class MainController extends Controller
                 $body['service_id'] = $data['service_id'];
                 $body['fullname'] = DB::table('personals')->where('id', $data['personal_id'])->select('fullname')->first()->fullname;
                 $body['date'] = $data['date'];
+                $body['day'] = date('d.m.y', $data['date']);
                 $body['time'] = $data['time'];
                 $body['service'] = DB::table('services')->where('id', $data['service_id'])->select('title')->first()->title;
                 $body['price'] = DB::table('services')->where('id', $data['service_id'])->select('price')->first()->price;
