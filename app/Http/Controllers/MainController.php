@@ -35,14 +35,21 @@ class MainController extends Controller
             foreach ($times as $time => $entries) {
                 $entriesList[$date][$time] = [];
                 foreach ($entries as $index => $entry) {
-                    if (DB::table('personals')->where('id', $entry->personal_id)) {
-                        $services_id = DB::table('personal_services')->where('personal_id', $entry->personal_id)->get('service_id')->toArray();
-                        foreach ($services_id as $service) {
-                            $entriesList[$date][$time][$service->service_id] = $services[$service->service_id];
-                            $entriesList[$date][$time][$service->service_id]->entry_id = $entry->id;
-                            // dd($services[$service->id]);
+                    if ($entry->enable) {
+                        if (DB::table('personals')->where('id', $entry->personal_id)) {
+                            $services_id = DB::table('personal_services')->where('personal_id', $entry->personal_id)->get('service_id')->toArray();
+                            foreach ($services_id as $service) {
+                                $entriesList[$date][$time][$service->service_id] = $services[$service->service_id];
+                                $entriesList[$date][$time][$service->service_id]->entry_id = $entry->id;
+                                // dd($services[$service->id]);
+                            }
                         }
+                    } else {
+                        unset($entriesList[$date][$time]);
                     }
+                }
+                if (empty($entriesList[$date])) {
+                    unset($entriesList[$date]);
                 }
             }
         }
@@ -119,11 +126,13 @@ class MainController extends Controller
     public function getentry(Request $request)
     {
         try {
-            $data = $request->json()->all();
+            $data = $request->json()->all();    //Получает тела запроса
+            // return response()->json($data);
             $today = strtotime('today 00:00');
             $allEntries = DB::table('personal_entries')->where('day', '>=', $today)->get()->groupBy(['day', 'entry_start_time'])->toArray();
             $allServices = DB::table('services')->get()->toArray();
             $allPersonals = DB::table('personals')->get()->toArray();
+
             $personals = [];
             foreach ($allPersonals as $personal) {
                 $personals[$personal->id] = $personal;
@@ -143,19 +152,25 @@ class MainController extends Controller
                 foreach ($times as $time => $entries) {
                     $entriesList[$date][$time] = [];
                     foreach ($entries as $index => $entry) {
-                        if (DB::table('personals')->where('id', $entry->personal_id)) {
-                            $services_id = DB::table('personal_services')->where('personal_id', $entry->personal_id)->get('service_id')->toArray();
-                            foreach ($services_id as $service) {
-                                $entriesList[$date][$time][$service->service_id] = $services[$service->service_id];
-                                $entriesList[$date][$time][$service->service_id]->entry_id = $entry->id;
-                                // dd($services[$service->id]);
+                        if ($entry->enable) {
+                            if (DB::table('personals')->where('id', $entry->personal_id)) {
+                                $services_id = DB::table('personal_services')->where('personal_id', $entry->personal_id)->get('service_id')->toArray();
+                                foreach ($services_id as $service) {
+                                    $entriesList[$date][$time][$service->service_id] = $services[$service->service_id];
+                                    $entriesList[$date][$time][$service->service_id]->entry_id = $entry->id;
+                                    // dd($services[$service->id]);
+                                }
                             }
+                        } else {
+                            unset($entriesList[$date][$time]);
                         }
                     }
                 }
             }
             // dd($personals);
             // dd($services);
+            // dd(date("d.m.Y H:i", 1651986000));
+            // dd(date("d.m.Y H:i", 1651957200));
             // dd($entriesList);
             // dd($allEntries);
             if ($data['get'] == 'enable_hourses') {
@@ -164,9 +179,34 @@ class MainController extends Controller
                     $hourses['time-' . date('H', $hour)] = date('H:i', $hour);
                 }
                 return response()->json(['status' => true, 'hourses' => $hourses]);
+            } elseif ($data['get'] == 'services') {
+                $services = $entriesList[$data['date']][strtotime(date('d.m.Y', $data['date']) . ' ' . $data['time'])];
+                return response()->json(['status' => true, 'services' => $services]);
+            } elseif ($data['get'] == 'personals') {
+                $personals = $entriesList[$data['date']][strtotime(date('d.m.Y', $data['date']) . ' ' . $data['time'])][$data['service_id']]->personals;
+                foreach ($personals as $index => $personal) {
+                    $personal_specialities = DB::table('personal_specialities')->where('personal_id', $personal->id)->select('speciality_id')->get()->toArray();
+                    $specialities = '';
+                    foreach ($personal_specialities as  $speciality) {
+                        $specialities .= DB::table('specialities')->where('id', $speciality->speciality_id)->select('title')->first()->title . ',';
+                        $specialities = substr($specialities, 0, -1);
+                    }
+                    $personals[$index]->specialities = $specialities;
+                }
+                return response()->json(['status' => true, 'personals' => $personals]);
+            } elseif ($data['get'] == 'data_before_buy') {
+                $body = [];
+                $body['personal_id'] = $data['personal_id'];
+                $body['service_id'] = $data['service_id'];
+                $body['fullname'] = DB::table('personals')->where('id', $data['personal_id'])->select('fullname')->first()->fullname;
+                $body['date'] = $data['date'];
+                $body['time'] = $data['time'];
+                $body['service'] = DB::table('services')->where('id', $data['service_id'])->select('title')->first()->title;
+                $body['price'] = DB::table('services')->where('id', $data['service_id'])->select('price')->first()->price;
+                return response()->json(['status' => true, 'body' => $body]);
             }
         } catch (\Exception $e) {
-            return response()->json(['status' => false, 'message' => $e->getMessage], 500);
+            return response()->json(['status' => false, 'message' => $e->getMessage(), 500]);
         }
     }
 }

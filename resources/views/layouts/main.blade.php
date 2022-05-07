@@ -809,10 +809,7 @@
                             </div>
                         </div>
                         <div class="oz_back_btn fadeOutTop">Назад</div>
-                        {{-- <div class="oz_back_btn">Назад</div> --}}
                         <h3 class="stepname">Выберите дату</h3>
-                        {{-- <h3 class="stepname">Выберите время записи</h3> --}}
-                        {{-- <h3 class="stepname">Выберите услугу</h3> --}}
                     </div>
                     <div class="oz_hid default-theme ">
                         <div class="oz_hid_carousel" style="transform: translateX();">
@@ -882,92 +879,82 @@
                                     </table>
                                 </div>
                             </div>
-                            {{-- <div class="oz_time">Нет доступного времени на выбранную дату</div> --}}
                             <div class="oz_time">
-                                <ul>
-                                    <li class=" zagday timerU squaredThree ">Утро</li>
-                                    <li class="squaredThree"><input id="time-08" type="checkbox" value="08:00"><label for="time-08">08:00 </label></li>
-                                    <li class="squaredThree"><input id="time-09" type="checkbox" value="09:00"><label for="time-09">09:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-10" class="checkb" type="checkbox" value="10:00"><label for="time-10">10:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-11" class="checkb" type="checkbox" value="11:00"><label for="time-11">11:00 </label></li>
+                                <ul class=" list_hourses">
+                                    <li class=" zagday timerU squaredThree no_slots">Утро</li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-08" type="checkbox" value="08:00"><label class='check_time' for="time-08" data-time="08:00">08:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-09" type="checkbox" value="09:00"><label class='check_time' for="time-09" data-time="09:00">09:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-10" type="checkbox" value="10:00"><label class='check_time' for="time-10" data-time="10:00">10:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-11" type="checkbox" value="11:00"><label class='check_time' for="time-11" data-time="11:00">11:00 </label></li>
                                     <li class="zagday timerD squaredThree no_slots">День</li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-12" class="checkb" type="checkbox" value="12:00"><label for="time-12">12:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-13" class="checkb" type="checkbox" value="13:00"><label for="time-13">13:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-14" class="checkb" type="checkbox" value="14:00"><label for="time-14">14:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-15" class="checkb" type="checkbox" value="15:00"><label for="time-15">15:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-16" class="checkb" type="checkbox" value="16:00"><label for="time-16">16:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-17" class="checkb" type="checkbox" value="17:00"><label for="time-17">17:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-12" type="checkbox" value="12:00"><label class='check_time' for="time-12" data-time="12:00">12:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-13" type="checkbox" value="13:00"><label class='check_time' for="time-13" data-time="13:00">13:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-14" type="checkbox" value="14:00"><label class='check_time' for="time-14" data-time="14:00">14:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-15" type="checkbox" value="15:00"><label class='check_time' for="time-15" data-time="15:00">15:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-16" type="checkbox" value="16:00"><label class='check_time' for="time-16" data-time="16:00">16:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-17" type="checkbox" value="17:00"><label class='check_time' for="time-17" data-time="17:00">17:00 </label></li>
                                     <li class="zagday timerE squaredThree no_slots">Вечер</li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-18" class="checkb" type="checkbox" value="18:00"><label for="time-18">18:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-19" class="checkb" type="checkbox" value="19:00"><label for="time-19">19:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-20" class="checkb" type="checkbox" value="20:00"><label for="time-20">20:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-21" class="checkb" type="checkbox" value="21:00"><label for="time-21">21:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-22" class="checkb" type="checkbox" value="22:00"><label for="time-22">22:00 </label></li>
-                                    <li data-persids="163" class="squaredThree oz_not_allowed"><input id="time-23" class="checkb" type="checkbox" value="23:00"><label for="time-23">23:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-18" type="checkbox" value="18:00"><label class='check_time' for="time-18" data-time="18:00">18:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-19" type="checkbox" value="19:00"><label class='check_time' for="time-19" data-time="19:00">19:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-20" type="checkbox" value="20:00"><label class='check_time' for="time-20" data-time="20:00">20:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-21" type="checkbox" value="21:00"><label class='check_time' for="time-21" data-time="21:00">21:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-22" type="checkbox" value="22:00"><label class='check_time' for="time-22" data-time="22:00">22:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-23" type="checkbox" value="23:00"><label class='check_time' for="time-23" data-time="23:00">23:00 </label></li>
                                 </ul>
+                                <span class="message_for_hourses hidden">
+                                    Нет доступного времени на выбранную дату
+                                </span>
                             </div>
-                            {{-- <div class="oz_services">
-                                <ul class="listUslug"></ul>
-                                <div class="oz_btn oz_multiselect_step">Далее</div>
-                            </div> - --}}
                             <div class="oz_services">
                                 <ul class="listUslug">
-                                    <li class="usluga">
-                                        <p class="uslname">Консультация по семейным отношениям</p>
-                                        <div class="params_usl">
-                                            <div class="oz_usl_time">45<span class="oz_op">время (мин)</span></div>
-                                            <div class="oz_usl_price">5000<span class="oz_op">цена (руб.)</span></div>
-                                        </div>
-                                    </li>
                                 </ul>
                                 <div class="oz_btn oz_multiselect_step">Далее</div>
                             </div>
-                            {{-- <div class="oz_employees">
+                            <div class="oz_employees">
                                 <ul class="personals">
-                                    <li id="oz_employee-181" class="personal ">
-                                        <div class="oz_image">
-                                            <div class="oz_spec_back" style="background-image: url(&quot;https://a-advokat.ru/wp-content/uploads/2021/09/voloczkaya-yuliya-vladimirovna-200-150x150.jpg&quot;);"></div><img
-                                                src="https://a-advokat.ru/wp-content/uploads/2021/09/voloczkaya-yuliya-vladimirovna-200-150x150.jpg" alt="personal image">
-                                        </div>
-                                        <div class="pers-content">
-                                            <p class="pname with-description">Волоцкая Юлия Владимировна</p>
-                                            <p class="special">Адвокат</p><br>
-                                            <div class="oz_text_cont">
-                                                <div class="oz_text_cont_wrap">
-                                                    <div style="width: 640px;" class="wp-video">
-                                                        <!--[if lt IE 9]><script>
-                                                            document.createElement('video');
-                                                        </script><![endif]-->
-                                                        <video class="wp-video-shortcode" id="video-181-1" width="640" height="360" preload="metadata" controls="controls">
-                                                            <source type="video/mp4" src="https://a-advokat.ru/wp-content/uploads/2021/09/volockaya.mp4?_=1"><a href="https://a-advokat.ru/wp-content/uploads/2021/09/volockaya.mp4">https://a-advokat.ru/wp-content/uploads/2021/09/volockaya.mp4</a>
-                                                        </video>
-                                                    </div>
-                                                    <p>Юридический стаж около 20 лет. В настоящее время успешно осуществляет защиту по уголовным делам высокой сложности, как общеуголовной, так и экономической направленности.<br>
-                                                        Свою карьеру начинала в должности следователя МВД, работала на руководящих должностях.<br>
-                                                        С 2012 года практикует адвокатскую деятельность на территории Российской Федерации.<br>
-                                                        Любимые стадии уголовного судопроизводства – апелляционное и кассационное обжалование. Большой опыт в написании жалоб по отмене или изменению обвинительных приговоров и вердиктов присяжных заседателей.</p>
-                                                    <p style="text-align: center;">Московская коллегия адвокатов «Почётный Адвокатъ»<br>
-                                                        Рег. № 77/11197</p>
-                                                </div>
-                                            </div>
-                                            <div class="oz_select_btn oz_btn">Выбрать</div><a href="https://a-advokat.ru/personal/voloczkaya-yuliya-vladimirovna/" class="oz_btn oz_btn_link">Больше</a>
-                                        </div>
-                                    </li>
                                 </ul>
-                            </div> --}}
-                            {{-- <div id="timeForm" class="active">
+                            </div>
+                            <div id="timeForm">
                                 <div class="oz_form_wrap">
                                     <div class="oz_zapis_info">
-                                        <p><span class="oz_spec_info">Сотрудник: <span>Трофимук Александр Николаевич</span></span><span class="oz_datetime_info"><span class="oz_datetime_info-date">Дата: <span class="oz_date_info">27.04.2022</span></span><span class="oz_datetime_time"> в
-                                                    <span class="oz_time_info">08:00</span></span></span><span class="oz_usluga_info">Сервис: <span><span class="oz_nodeposit">Консультация по гражданскому праву</span></span></span><span class="oz_amount_info">Итого: <span> 5000
-                                                    руб.</span></span><span class="oz_itog_mess">Оставьте Ваши контактные данные!</span></p>
+                                        <p>
+                                            <span class="oz_spec_info">Сотрудник:
+                                                <span>Трофимук Александр Николаевич</span>
+                                            </span>
+                                            <span class="oz_datetime_info">
+                                                <span class="oz_datetime_info-date">Дата:
+                                                    <span class="oz_date_info">27.04.2022</span>
+                                                </span>
+                                                <span class="oz_datetime_time"> в
+                                                    <span class="oz_time_info">08:00</span>
+                                                </span>
+                                            </span>
+                                            <span class="oz_usluga_info">Сервис: <span>
+                                                    <span class="oz_nodeposit">Консультация по гражданскому праву</span>
+                                                </span>
+                                            </span>
+                                            <span class="oz_amount_info">Итого:
+                                                <span> 5000 руб.</span>
+                                            </span>
+                                            <span class="oz_itog_mess">Оставьте Ваши контактные данные!</span>
+                                        </p>
                                     </div>
-                                    <form action="https://a-advokat.ru/wp-admin/admin-ajax.php" method="post" class="oz-form false" novalidate="novalidate"><input type="hidden" name="action" value="do_zapis"><input type="hidden" name="oz_uslug_set" value="21"><input type="hidden"
-                                            name="oz_start_date_field_id" value="27.04.2022"><input type="hidden" name="oz_personal_field_id" value="163"><input type="hidden" name="oz_time_rot" value="08:00"><input type="hidden" name="oz_filials" value=""><input type="hidden" name="oz_remList"
-                                            value=""><input type="hidden" name="oz_payment_method" value="local"><input type="hidden" name="oz_order_sum" value="5000">
-                                        <div class="form_fields"><label><input type="text" name="clientName" class="" ariarequired="1" placeholder="Имя" value=""></label><label>
+                                    <form action="https://a-advokat.ru/wp-admin/admin-ajax.php" method="post" class="oz-form false" novalidate="novalidate">
+                                        <input type="hidden" name="action" value="do_zapis">
+                                        <input type="hidden" name="oz_uslug_set" value="21">
+                                        <input type="hidden" name="oz_start_date_field_id" value="27.04.2022">
+                                        <input type="hidden" name="oz_personal_field_id" value="163">
+                                        <input type="hidden" name="oz_time_rot" value="08:00">
+                                        <input type="hidden" name="oz_filials" value="">
+                                        <input type="hidden" name="oz_remList" value="">
+                                        <input type="hidden" name="oz_payment_method" value="local">
+                                        <input type="hidden" name="oz_order_sum" value="5000">
+                                        <div class="form_fields"><label>
+                                                <input type="text" name="clientName" class="" ariarequired="1" placeholder="Имя" value="">
+                                            </label>
+                                            <label>
                                                 <div class=" react-tel-input">
-                                                    <div class="special-label">Phone</div><input class="oz_phone_input form-control" placeholder="Телефон" type="tel" value="">
+                                                    <input class="oz_phone_input form-control" placeholder="Телефон" type="tel" value="">
                                                     <div class=" flag-dropdown">
                                                         <div class="selected-flag" title="" tabindex="0" role="button" aria-haspopup="listbox">
                                                             <div class="flag 0">
@@ -976,8 +963,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </label><label><input type="text" name="clientEmail" size="40" class="" placeholder="Email" maxlength="" pattern="" value="igor_koshelev@rambler.ru"></label><label></label><label class="field-cf_1633706216_0-0 oz_cust_checkbox"><input
-                                                    type="checkbox" name="cf_1633706216_0" value="Согласен с условиями договора аферты">Согласен с условиями договора аферты</label><label>Способ оплаты</label>
+                                            </label>
+                                            <label>
+                                                <input type="text" name="clientEmail" size="40" class="" placeholder="Email" maxlength="" pattern="" value="igor_koshelev@rambler.ru">
+                                            </label>
+                                            <label>
+                                            </label>
+                                            <label class="field-cf_1633706216_0-0 oz_cust_checkbox">
+                                                <input type="checkbox" name="cf_1633706216_0" value="Согласен с условиями договора аферты">Согласен с условиями договора аферты</label>
+                                            <label>Способ оплаты</label>
                                             <ul class="oz_select">
                                                 <li class="oz_li oz_li_sub">
                                                     <ul>
@@ -990,425 +984,14 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="home-five">
-        <div class="page-title">
-            <h2>О колегии</h2>
-            <span>Необходимость урегулирования многих вопросов общественной жизни влечет постоянное совершенствование действующего законодательства. Порой обычному гражданину непросто ориентироваться в нововведениях. Без знания юридических тонкостей сложно выстроить грамотную защиту прав,
-                разработать правовую позицию разрешения спора в позитивном ключе.</span>
-        </div>
-        <div class="container">
-            <div class="home-five-item">
-                <div class="icon-cont">
-                    <img src="https://a-advokat.ru/wp-content/uploads/2021/07/001.svg">
-                </div>
-                <h3>Доверие</h3>
-                <span>Ваше доверие к коллегии <br />
-                    - наш совместный успех</span>
-            </div>
-            <div class="home-five-item">
-                <div class="icon-cont">
-                    <img src="https://a-advokat.ru/wp-content/uploads/2021/07/002.svg">
-                </div>
-                <h3>Профессионализм</h3>
-                <span>Мы - команда<br />
-                    профессионалов</span>
-            </div>
-            <div class="home-five-item">
-                <div class="icon-cont">
-                    <img src="https://a-advokat.ru/wp-content/uploads/2021/07/003.svg">
-                </div>
-                <h3>Активность</h3>
-                <span>Мы всегда находим<br />
-                    эффективные решения</span>
-            </div>
-            <div class="home-five-item">
-                <div class="icon-cont">
-                    <img src="https://a-advokat.ru/wp-content/uploads/2021/07/004.svg">
-                </div>
-                <h3>Конфиденциальность</h3>
-                <span>Гарантируем сохранность<br />
-                    Вашей информации</span>
-            </div>
-            <div class="home-five-item">
-                <div class="icon-cont">
-                    <img src="https://a-advokat.ru/wp-content/uploads/2021/07/005.svg">
-                </div>
-                <h3>Результативность</h3>
-                <span>Мы гарантируем<br />
-                    положительный<br />
-                    результат </span>
-            </div>
-        </div>
-    </section>
-    <section class="home-six">
-        <div class="page-title">
-            <h2>Новости</h2>
-        </div>
-        <div class="container">
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/news/dialog-v-studii/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/dialog.jpg') }}) center; background-size: cover;">
-                        <div class="date">21.02.21</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/news/dialog-v-studii/"> Диалог в студии с адвокатом Волоцкой Ю.В.</a></h3>
-                    <span>Детали дела Главы Фурмановского района Ивановской области стали доступны. </span>
-                    <a href="https://a-advokat.ru/news/dialog-v-studii/">Подробнее</a>
-                </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/news/3-goda-do-opravdatelnogo-prigovora/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/3-goda-do-opravdatelnogo-prigovora-1.jpg') }}) center; background-size: cover;">
-                        <div class="date">22.01.21</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/news/3-goda-do-opravdatelnogo-prigovora/"> 3 года до оправдательного приговора</a></h3>
-                    <span>Перед законом все равны, будь то чиновник или простой рабочий, но предвзятость - один из факторов,который может сыграть злую шутку. Опытный адвокат по уголовным делам - реальная помощь и поддержка в трудной жизненной ситуации.</span>
-                    <a href="https://a-advokat.ru/news/3-goda-do-opravdatelnogo-prigovora/">Подробнее</a>
-                </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/news/bankrotstvo-reshenie-problemi/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/bankrotstvo-fiz-lic.jpg') }}) center; background-size: cover;">
-                        <div class="date">17.06.20</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/news/bankrotstvo-reshenie-problemi/"> Банкротство &#8212; решение проблемы!</a></h3>
-                    <span>С 1 июня 2020 года наша коллегия адвокатов «Почетный Адвокатъ» возобновила работу по делам по банкротству физических лиц.</span>
-                    <a href="https://a-advokat.ru/news/bankrotstvo-reshenie-problemi/">Подробнее</a>
-                </div>
-            </div>
-        </div>
-        <div class="button-container">
-            <a href="https://a-advokat.ru/news" class="button">Все новости</a>
-        </div>
-    </section>
-    <section class="home-six">
-        <div class="page-title">
-            <h2>Достижения</h2>
-        </div>
-        <div class="container">
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/dostizheniya/sbyt-ili-hranenie-vot-v-chyom-vopros/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/sbyt-ili-hranenie-vot-v-chyom-vopros.jpg') }}) center; background-size: cover;">
-                        <div class="date">20.04.22</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/dostizheniya/sbyt-ili-hranenie-vot-v-chyom-vopros/"> Сбыт или хранение – вот в чём вопрос!</a></h3>
-                    <span>Судом переквалифицировано действия по сбору закладок со сбыта на хранение наркотических средств.</span>
-                    <a href="https://a-advokat.ru/dostizheniya/sbyt-ili-hranenie-vot-v-chyom-vopros/">Подробнее</a>
-                </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/dostizheniya/verdikt-prisyazhnih-ne-panatseya/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/ovp5m4xwqu9ysbre.jpg') }}) center; background-size: cover;">
-                        <div class="date">19.03.21</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/dostizheniya/verdikt-prisyazhnih-ne-panatseya/"> Вердикт присяжных &#8212; не панацея.</a></h3>
-                    <span>Обвинительный приговор постановленный судом присяжных заседателей отменен.</span>
-                    <a href="https://a-advokat.ru/dostizheniya/verdikt-prisyazhnih-ne-panatseya/">Подробнее</a>
-                </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/dostizheniya/esli-ne-poluchilos-vernites-k-nachalu/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/cw41baj0dsu5len3.jpg') }}) center; background-size: cover;">
-                        <div class="date">17.03.21</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/dostizheniya/esli-ne-poluchilos-vernites-k-nachalu/"> Если не получилось, вернитесь к началу!</a></h3>
-                    <span>Апелляция даёт еще один шанс адвокату добиться желаемого результата. Так воспользуйтесь им.
-                    </span>
-                    <a href="https://a-advokat.ru/dostizheniya/esli-ne-poluchilos-vernites-k-nachalu/">Подробнее</a>
-                </div>
-            </div>
-        </div>
-        <div class="button-container">
-            <a href="https://a-advokat.ru/dostizheniya/" class="button">Все достижения</a>
-        </div>
-    </section>
-    <section class="home-six home-article">
-        <div class="page-title">
-            <h2>Статьи</h2>
-        </div>
-        <div class="container">
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/article/obzhalovanie-prigovora-apelyaciya/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/advokat-po-ugolovnym-delam.jpg') }}) center; background-size: cover;">
-                        <div class="date">6.04.22</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/article/obzhalovanie-prigovora-apelyaciya/">Обжалование приговора в апелляции</a></h3>
-                    <span>Если Вас не устроил постановленный судом приговор, обжалуйте его! Зная все тонкости и нюансы апелляции, можно добиться желаемого результата.</span>
-                    <a href="https://a-advokat.ru/article/obzhalovanie-prigovora-apelyaciya/">Подробнее</a>
-                </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/article/advokat-po-alimentam/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/alimenty.jpg') }}) center; background-size: cover;">
-                        <div class="date">9.12.20</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/article/advokat-po-alimentam/">Юрист по взысканию алиментов &#8212; работа с неплательщиками</a></h3>
-                    <span>Не платят алименты? Не знаете, как исправить ситуацию? Адвокат по алиментам в Москве поможет решить проблему. Обращайтесь в коллегию «Почетный Адвокатъ», и ваш вопрос в оперативном порядке будет решен. </span>
-                    <a href="https://a-advokat.ru/article/advokat-po-alimentam/">Подробнее</a>
-                </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/article/advokat-po-bankrotstvu/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/yurist-po-trudovym-sporam.jpg') }}) center; background-size: cover;">
-                        <div class="date">3.12.20</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/article/advokat-po-bankrotstvu/">Адвокат в деле о банкротстве &#8212; ваш персональный представитель</a></h3>
-                    <span>Специалист в деле о банкротстве - ключевое звено, от квалификации которого зависит исход всей процедуры в целом. Профессионалы соответствующего направления состоят в штате коллегии «Почетный Адвокатъ». Обращайтесь, и получайте квалифицированную помощь.</span>
-                    <a href="https://a-advokat.ru/article/advokat-po-bankrotstvu/">Подробнее</a>
-                </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/article/advokat-po-bankrotstvu-fizicheskih-lic/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/bankrotstvo-fiz-lic.jpg') }}) center; background-size: cover;">
-                        <div class="date">29.11.20</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/article/advokat-po-bankrotstvu-fizicheskih-lic/">Адвокат по банкротству физических лиц &#8212; ваш персональный помощник</a></h3>
-                    <span>Адвокат по банкротству физических лиц на профессиональном уровне обеспечит проведение всех обязательных процедур. Приходите в коллегию «Почетный Адвокатъ» - здесь окажут квалифицированную помощь.</span>
-                    <a href="https://a-advokat.ru/article/advokat-po-bankrotstvu-fizicheskih-lic/">Подробнее</a>
-                </div>
-            </div>
-        </div>
-        <div class="button-container">
-            <a href="https://a-advokat.ru/article" class="button">Все статьи</a>
-        </div>
-    </section>
-    {{-- <section class="home-seven">
-        <div class="page-title">
-            <h2>Часто задаваемые вопросы</h2>
-        </div>
-        <div class="container">
-            <section class="column">
-                <div>
-                    <label class="accordion">
-                        <input type='radio' name='radio-accordion' checked="checked">
-                        <div class="accordion__header">Текст вопроса</div>
-                        <div class="accordion__content">
-                            Текст ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях. Текст
-                            ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях.
-                            Текст ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях.
-                            Текст ответа на вопрос в нескольких предложениях. </div>
-                    </label>
-                    <label class="accordion">
-                        <input type='radio' name='radio-accordion'>
-                        <div class="accordion__header">Текст вопроса</div>
-                        <div class="accordion__content">
-                            Текст ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях. Текст
-                            ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях.
-                            Текст ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях.
-                            Текст ответа на вопрос в нескольких предложениях. </div>
-                    </label>
-                    <label class="accordion">
-                        <input type='radio' name='radio-accordion'>
-                        <div class="accordion__header">Текст вопроса</div>
-                        <div class="accordion__content">
-                            Текст ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях. Текст
-                            ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях.
-                            Текст ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях.
-                            Текст ответа на вопрос в нескольких предложениях. </div>
-                    </label>
-                    <label class="accordion">
-                        <input type='radio' name='radio-accordion'>
-                        <div class="accordion__header">Текст вопроса</div>
-                        <div class="accordion__content">
-                            Текст ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях. Текст
-                            ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях.
-                            Текст ответа на вопрос в нескольких предложениях. Текст ответа на вопрос в нескольких предложениях.
-                            Текст ответа на вопрос в нескольких предложениях. </div>
-                    </label>
-                </div>
-            </section>
-        </div>
-    </section> --}}
-    <section class="home-eight">
-        <div class="page-title">
-            <h2>Отзывы о нашем сервисе и о консультантах</h2>
-        </div>
-        <div class="container">
-            <div data-wpcr3-content="790">
-                <div class='wpcr3_respond_1' data-on-postid='8' data-postid='790'>
-                    <div class="wpcr3_reviews_holder">
-                        <div class="wpcr3_review_item">
-                            <div class="wpcr3_item wpcr3_business" itemscope itemtype="https://schema.org/LocalBusiness">
-                                <meta itemprop="name" content="Почетный Адвокатъ" />
-                                <meta itemprop="url" content="https://a-advokat.ru" />
-                                <meta itemprop="image" content="{{ asset('img/1x1.png') }}" />
-                                <div class="home-eight-item">
-                                    <div class="home-eight-item-box">
-                                        <h3>Елена</h3>
-                                        <div class="rating">
-                                            <div class="wpcr3_rating_style1">
-                                                <div class="wpcr3_rating_style1_base ">
-                                                    <div class="wpcr3_rating_style1_average" style="width:100%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style="clear:both;"></div> <span>Какое везение, что нам посчастливилось найти такого профессионального адвоката и главное такого чуткого человека Юлию Владимировну Волоцкую. Очень быстро и тонко нашла такие моменты в нашем деле,
-                                            правильно и грамотно
-                                            расставила приоритеты, которые помогли ОТМЕНИТЬ уже вынесенный приговор ранее. Все её действия не подлежали никаким сомнениям, поэтому полностью доверились защите и получили результат! Юлия Владимировна полностью отдает себя работе,
-                                            если вам нужен адвокат
-                                            по судебным делам - то без сомнений только сюда! Уважаемая, Юлия Владимировна спасибо вам, что не отказали нам в помощи! Желаем от всей души всего самого наилучшего в жизни и работе!!!</span>
-                                    </div>
-                                </div>
-                                <div class="home-eight-item">
-                                    <div class="home-eight-item-box">
-                                        <h3>Арина К.</h3>
-                                        <div class="rating">
-                                            <div class="wpcr3_rating_style1">
-                                                <div class="wpcr3_rating_style1_base ">
-                                                    <div class="wpcr3_rating_style1_average" style="width:100%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style="clear:both;"></div> <span>Два с лишним года длилось разбирательство по уголовному делу моего отца и брата, которое в итоге закончилось оправдательным приговором моего отца и прекращением дела в отношении брата. Их обоих
-                                            обвиняли в мошенничестве.
-                                            Отец на тот момент занимал должность главы одного из районов. Три месяца изначально мы не понимали, что происходит, неожиданно для всех отца и брата арестовали. Местные адвокаты ничего нам толком не объясняли и не говорили. Мы были
-                                            вынуждены обратиться к
-                                            московским адвокатам, в частности к Волоцкой Юлии и ее коллеге, которая взялась защищать моего отца. В марте 2019 года, благодаря ее усилиям, суд освободил отца из-под стражи. С самого начала она и ее коллега настроили нас на
-                                            борьбу, и разъяснили, что
-                                            никакого преступления мой отец и брат не совершали и доказательства у следствия отсутствуют. Была проделана огромная работа по истребованию документов, по опросам свидетелей, делалось все, чтобы опровергнуть версию обвинения. Хотим
-                                            сказать огромное,
-                                            огромное спасибо Юлии Владимировне и ее коллеге за такие старания, за титанический труд и веру в невиновность моих близких!</span>
-                                    </div>
-                                </div>
-                                <div class="home-eight-item">
-                                    <div class="home-eight-item-box">
-                                        <h3>Марина</h3>
-                                        <div class="rating">
-                                            <div class="wpcr3_rating_style1">
-                                                <div class="wpcr3_rating_style1_base ">
-                                                    <div class="wpcr3_rating_style1_average" style="width:100%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style="clear:both;"></div> <span>Всем добрый день! Если Вы находитесь на этом сайте,то скорее всего в Вашей семье случилась беда! Я очень хочу поделиться своей историей и рассказать о Волоцкой Юлии Владимировне. В январе 2019 года
-                                            с моим ребенком
-                                            случилась БЕДА! Задерживают сотрудники полиции по подозрению в незаконном обороте наркотиков. Конечно, сейчас многие скажут, что если с наркотиками не связан то и бояться нечего! Согласна! Но к сожалению наши дети не всегда делятся
-                                            с родителями своими
-                                            бедами. Да, находясь далеко от дома моя дочь стала употреблять эту гадость. Через сутки ей дали мне позвонить. И вот тут начались мои метания.Бесплатный адвокат (который прям в цвет работает на полицию) убедил мою дочь соглашаться
-                                            со всем что напишут в
-                                            протоколе и тогда она из разряда подозреваемых станет свидетелем! Люди!!! Знайте, ничего нельзя говорить без СВОЕГО адвоката. Проштудировав огромное количество сайтов нахожу адвоката. Назовем его Роман. Приличный, среднего возраста,
-                                            грамотно разговаривает.
-                                            Заключаем договор и...в течении 7 месяцев этот Роман был всего 1 раз в СИЗО (и то после моих бурно выраженных негативных эмоций). Единственное что он делал, приезжал на продление в суд. Ни работы со свидетелями с нашей стороны,в
-                                            принципе ничего не было.
-                                            Друзья и родственники параллельно общаются с адвокатами и те предсказывают нам срок 12 лет не сотрудничая со следствием и 10,5 сотрудничая. Жить конечно не хотелось. Единственная мысль была, ну не может быть так все плохо! Нельзя
-                                            человека сажать на такой
-                                            срок только за то что он и так болен! В раздумьях и муках была около двух месяцев-менять или не менять адвоката. Дочь сама мне подсказала фамилию Волоцкая. Информации много про нее нет (не то что мой первый адвокат-и активный
-                                            пользователь инста и на первом
-                                            канале почетный гость). Решилась!Связалась! Юлия Владимировна обещала подумать,мотивируя тем что у нее сейчас 3 дела на стадии суда. Умоляла нас взять! И сердце этой замечательной женщины не смогло мне отказать!Началась наша с ней
-                                            РАБОТА!Она моментально
-                                            приехала в отдел,пришла в СИЗО к моей дочери-начались трудовые будни!Многого рассказать не смогу. Но-когда нам предъявили обвинение и адвокату дали знакомиться с делом Юлия Владимировна часа 2 только снимала телефон и все что
-                                            вызывает сомнения. И она
-                                            нашла!Нашла то, что помогло переквалифицировать обвинение с 4 части 228 статьи на часть 2. Про суд рассказывать не буду-там тоже был треш! И тут тоже огромную роль сыграл опыт и профессионализм Юлии Владимировны! ИТОГ: 3 года общего
-                                            режима!Наверное кто то
-                                            подумает чему радоваться! А радоваться есть чему-мой ребенок через год будет дома! За этот срок она не деградирует и самое важное успеет начать жизнь СНАЧАЛА! Я безумно благодарна нашей дорогой Юлии Владимировне! Ваш
-                                            профессионализм,ваш цепкий ум,ваша
-                                            настойчивость и вера спасли всю мою семью! Я снова хочу жить! И жду ребенка своего! Уважаемая Юлия Владимировна! Огромного Вам счастья,сибирского здоровья! Пусть все мечты станут реальностью! Мы Вас очень любим! Спасибо Господу, что
-                                            я все таки смогла
-                                            решиться на смену адвоката и на нашем жизненном путь встретились ВЫ! Вы настоящая волшебница! Мы Вас любим! Всю жизнь будем молить Бога о Вас. С уважением Марина К.</span>
-                                    </div>
-                                </div>
-                                <div class="home-eight-item">
-                                    <div class="home-eight-item-box">
-                                        <h3>Галина</h3>
-                                        <div class="rating">
-                                            <div class="wpcr3_rating_style1">
-                                                <div class="wpcr3_rating_style1_base ">
-                                                    <div class="wpcr3_rating_style1_average" style="width:100%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style="clear:both;"></div> <span>Хочу поблагодарить настоящего адвоката Ищенко Анну Александровну. Она помогла мне решить в свою пользу непростое гражданское дело. Анна Александровна очень доброжелательна и внимательна к своим
-                                            клиентам. Не жалея сил и
-                                            времени старается разобраться во всех деталях дела, дает возможность высказаться о наболевшем. Очень пунктуальна во всем. На суде без лишних эмоций отстаивает выработанную точку зрения, хорошо владея законом. Побольше бы таких
-                                            адвокатов!</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div data-page-opts="{&quot;postid&quot;:790,&quot;num&quot;:4,&quot;paginate&quot;:1,&quot;perpage&quot;:4,&quot;hidecustom&quot;:0,&quot;snippet&quot;:0,&quot;more&quot;:&quot;&quot;,&quot;showform&quot;:1,&quot;hidereviews&quot;:0,&quot;hideresponse&quot;:0,&quot;morelink&quot;:&quot;&quot;,&quot;showsupport&quot;:1,&quot;wrapper&quot;:1,&quot;classes&quot;:&quot;&quot;,&quot;on_postid&quot;:8,&quot;ajax&quot;:0,&quot;thispage&quot;:1}"
-                        class="wpcr3_pagination">
-                        <div class="wpcr3_pagination_page">Страница 1 из 5: </div>
-                        <div data-page="1" class="wpcr3_a wpcr3_disabled">&laquo;</div>&nbsp;
-                        <div data-page="1" class="wpcr3_a wpcr3_ls wpcr3_disabled">&lsaquo;</div>&nbsp;
-                        <div data-page="1" class="wpcr3_a wpcr3_current">1</div>
-                        <div data-page="2" class="wpcr3_a ">2</div>
-                        <div data-page="3" class="wpcr3_a ">3</div>
-                        <div data-page="4" class="wpcr3_a ">4</div>
-                        <div data-page="5" class="wpcr3_a ">5</div>
-                        <div data-page="2" class="wpcr3_a wpcr3_rs ">&rsaquo;</div>&nbsp;
-                        <div data-page="5" class="wpcr3_a ">&raquo;</div>&nbsp;
-                    </div>
-                    <div class="wpcr3_clear"></div>
                 </div>
             </div>
         </div>
     </section>
-    <style></style>
-    {{-- <div class='toast qa-shake' style='display:none'></div> --}}
-    <link rel='stylesheet' id='oz_default-css' href='https://a-advokat.ru/wp-content/plugins/book-appointment-online-pro/css/default.theme.css?ver=3.0.7' type='text/css' media='all' />
-    <link rel='stylesheet' id='oz_front_css-css' href='https://a-advokat.ru/wp-content/plugins/book-appointment-online-pro/css/oz_front_css.css?ver=3.0.7' type='text/css' media='all' />
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/hoverintent-js.min.js?ver=2.2.1' id='hoverintent-js-js'></script>
-    {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/admin-bar.min.js?ver=5.9.3' id='admin-bar-js'></script> --}}
-    <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/core.min.js?ver=1.13.1' id='jquery-ui-core-js'></script>
-
-    @include('includes.footer')
-    <section class="copyright">
-        <div class="container">© 2017-2022 - Почётный Адвокатъ. г. Москва, ул. Краснобогатырская, д.90 стр. 22, оф. 112 </div>
-    </section>
-    <div class="overlay"></div>
-    <div class="popup" id="popup1">
-        <img class="close" src="https://a-advokat.ru/wp-content/themes/AlexMade/img/cross.svg">
-        <div class="popup-box">
-            <div class="menu-top-menu-container">
-                <ul id="menu-top-menu-1" class="menu">
-                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-34"><a href="#">Специалисты</a>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-106"><a href="/personal/?qa=lawyer">Юристы</a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-105"><a href="/personal/?qa=advocate">Адвокаты</a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-107"><a href="/personal/">Консультанты</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-has-children menu-item-35"><a href="/" aria-current="page">О коллегии</a>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-169"><a href="https://a-advokat.ru/news/">Новости</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173"><a href="https://a-advokat.ru/article/">Статьи</a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110"><a href="/review/">Отзывы</a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-111"><a href="/question/">Вопросы и ответы</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-616"><a href="https://a-advokat.ru/dostizheniya/">Наши достижения</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-38"><a href="/kontakty">Контакты</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    @include('includes.vremenno')
     <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('js/tabs.js') }}"></script>
     <script>
@@ -1438,7 +1021,7 @@
 
             document.querySelector('.ui-datepicker-month').textContent = document.querySelector('.ui-datepicker-month').dataset.nextmonth;
         });
-        document.querySelector('.ui-datepicker-calendar').addEventListener('click', function(e) {
+        document.querySelector('.oz_container').addEventListener('click', function(e) {
             const oz_container = document.querySelector('.oz_container');
             if (e.target.classList.contains('selectedDay')) {
                 const body = {
@@ -1453,14 +1036,170 @@
                     },
                     body: JSON.stringify(body)
                 }).then(res => {
-                    // return res.text();
                     return res.json();
                 }).then(data => {
                     if (data.status) {
-
-                        console.log(data);
+                        oz_container.querySelector('.oz_hid_carousel').style.transform = 'translateX(-14.2857%)';
+                        oz_container.querySelector('.oz_back_btn').classList.remove('fadeOutTop');
+                        oz_container.querySelector('h3.stepname').textContent = 'Выберите время записи';
+                        oz_container.querySelector('.oz_date').classList.remove('active');
+                        oz_container.querySelector('.oz_time').classList.add('active');
+                        oz_container.querySelector('.oz_time').dataset.date = e.target.dataset.date;
+                        const timerU = ['time-08', 'time-09', 'time-10', 'time-11'];
+                        const timerD = ['time-13', 'time-14', 'time-15', 'time-16', 'time-17'];
+                        const timerE = ['time-18', 'time-19', 'time-20', 'time-21', 'time-22', 'time-23'];
+                        if (Object.keys(data.hourses).length > 0) {
+                            for (let el in data.hourses) {
+                                oz_container.querySelector(`.oz_time .list_hourses input#${el}`).closest('li').classList.remove('oz_not_allowed');
+                                if (timerU.includes(el)) {
+                                    oz_container.querySelector(".oz_time .list_hourses li.timerU").classList.remove('no_slots');
+                                }
+                                if (timerD.includes(el)) {
+                                    oz_container.querySelector(".oz_time .list_hourses li.timerD").classList.remove('no_slots');
+                                }
+                                if (timerE.includes(el)) {
+                                    oz_container.querySelector(".oz_time .list_hourses li.timerE").classList.remove('no_slots');
+                                }
+                            }
+                        } else {
+                            oz_container.querySelector('.list_hourses').classList.add('remove');
+                            oz_container.querySelector('.oz_time .message_for_hourses').classList.remove('hidden');
+                        }
                     }
                 })
+            } else if (e.target.classList.contains('check_time')) {
+                const body = {};
+                body.date = this.querySelector('.oz_time').dataset.date;
+                body.time = e.target.dataset.time;
+                // console.log(body);
+                body.get = 'services';
+                fetch('/getentry', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(body)
+                }).then(res => {
+                    // res.text().then(data=>{
+                    //     console.log(data);
+                    // })
+                    return res.json();
+                }).then(data => {
+                    // console.log(data);
+                    if (data.status) {
+                        oz_container.querySelector('.oz_hid_carousel').style.transform = 'translateX(-28.5714%)';
+                        oz_container.querySelector('h3.stepname').textContent = 'ВЫБЕРИТЕ УСЛУГУ';
+                        oz_container.querySelector('.oz_time').classList.remove('active');
+                        oz_container.querySelector('.oz_services').classList.add('active');
+                        oz_container.querySelector('.oz_services').dataset.date = body.date;
+                        oz_container.querySelector('.oz_services').dataset.time = body.time;
+                        if (Object.keys(data.services).length > 0) {
+                            for (let id in data.services) {
+                                oz_container.querySelector('.oz_services ul.listUslug').insertAdjacentHTML('beforeend', `
+                                <li class="usluga" data-service_id="${id}">
+                                        <p class="uslname" style="min-height:53px !important">${data.services[id].title}</p>
+                                        <div class="params_usl">
+                                            <div class="oz_usl_time">${data.services[id].duration}<span class="oz_op">время (мин)</span></div>
+                                            <div class="oz_usl_price">${data.services[id].price}<span class="oz_op">цена (руб.)</span></div>
+                                        </div>
+                                    </li>`);
+                                // console.log(data.services[id]);
+                            }
+                        }
+                    }
+                    // console.log(data);
+                })
+            } else if (e.target.classList.contains('usluga') || e.target.closest('li.usluga')) {
+                const body = {};
+                body.date = e.target.closest('.oz_services').dataset.date;
+                body.time = e.target.closest('.oz_services').dataset.time;
+                body.get = 'personals';
+                if (e.target.closest('li.usluga')) {
+                    body.service_id = e.target.closest('li.usluga').dataset.service_id;
+                } else if (e.target.classList.contains('usluga')) {
+                    body.service_id = e.target.dataset.service_id;
+                }
+                fetch('/getentry', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(body)
+                }).then(res => {
+                    // res.text().then(data => {
+                    //     console.log(data);
+                    // })
+                    return res.json();
+                }).then(data => {
+                    console.log(data);
+                    if (data.status) {
+                        oz_container.querySelector('.oz_hid_carousel').style.transform = 'translateX(-42.8571%)';
+                        oz_container.querySelector('h3.stepname').textContent = 'ВЫБРАТЬ СОТРУДНИКА';
+                        oz_container.querySelector('.oz_services').classList.remove('active');
+                        oz_container.querySelector('.oz_employees').classList.add('active');
+                        oz_container.querySelector('.oz_employees').dataset.date = body.date;
+                        oz_container.querySelector('.oz_employees').dataset.time = body.time;
+                        oz_container.querySelector('.oz_employees').dataset.service_id = body.service_id;
+                        if (Object.keys(data.personals).length > 0) {
+                            for (let id in data.personals) {
+                                console.log(data.personals[id]);
+                                oz_container.querySelector('.oz_employees ul.personals').insertAdjacentHTML('beforeend', `<li id="oz_employee-${data.personals[id].id}" class="personal" data-personal_id="${data.personals[id].id}">
+                                        <div class="oz_image">
+                                            <div class="oz_spec_back" style="background-image: url(${data.personals[id].image});"></div>
+                                            <img src="${data.personals[id].image}" alt="personal image">
+                                        </div>
+                                        <div class="pers-content">
+                                            <p class="pname with-description">${data.personals[id].fullname}</p>
+                                            <p class="special">${data.personals[id].specialities}</p><br>
+                                            <div class="oz_text_cont">
+                                                <div class="oz_text_cont_wrap">
+                                                    <p>${data.personals[id].content}</p>
+                                                </div>
+                                            </div>
+                                            <div class="btn_select_personal oz_select_btn oz_btn">Выбрать</div><a href="https://a-advokat.ru/personal/voloczkaya-yuliya-vladimirovna/" class="oz_btn oz_btn_link">Больше</a>
+                                        </div>
+                                    </li>`);
+                            }
+                        }
+                    }
+                    // console.log(data);
+                });
+                // console.log(body);
+            } else if (e.target.classList.contains('btn_select_personal')) {
+                const body = {};
+                body.date = e.target.closest('.oz_employees').dataset.date;
+                body.time = e.target.closest('.oz_employees').dataset.time;
+                body.service_id = e.target.closest('.oz_employees').dataset.service_id;
+                body.personal_id = e.target.closest('.personal').dataset.personal_id;
+                body.get = 'data_before_buy';
+                fetch('/getentry', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(body)
+                }).then(res => {
+                    return res.json();
+                }).then(data => {
+                    if (data.status) {
+                        const timeForm = oz_container.querySelector('#timeForm');
+                        oz_container.querySelector('.oz_hid_carousel').style.transform = 'translateX(-57.1428%)';
+                        oz_container.querySelector('h3.stepname').textContent = 'КОНТАКТНАЯ ИНФОРМАЦИЯ';
+                        oz_container.querySelector('.oz_employees').classList.remove('active');
+                        timeForm.classList.add('active');
+                        timeForm.dataset.personal_id = body.personal_id;
+                        timeForm.dataset.date = body.date;
+                        timeForm.dataset.time = body.time;
+                        timeForm.dataset.time = body.time;
+                        timeForm.document.querySelector('.')
+                    }
+                    console.log(data);
+                })
+                // console.log(e.target);
+                // console.log(body);
             }
         })
     </script>
