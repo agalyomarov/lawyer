@@ -24,12 +24,12 @@ class ServiceStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required'],
-            'h1' => ['required'],
-            'description' => ['required'],
-            'content' => ['required'],
-            'price' => ['required'],
-            'duration' => ['required'],
+            'title' => [],
+            'h1' => [],
+            'description' => [],
+            'content' => [],
+            'price' => [],
+            'duration' => [],
         ];
     }
 }

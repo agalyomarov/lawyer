@@ -15,16 +15,16 @@ return new class extends Migration
     {
         Schema::create('personals', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
-            $table->string('fullname');
-            $table->string('chpu');
-            $table->string('h1');
-            $table->string('description');
-            $table->string('media');
-            $table->string('shurt_description');
+            $table->string('image')->nullable();
+            $table->string('fullname')->nullable();
+            $table->string('chpu')->nullable();
+            $table->string('h1')->nullable();
+            $table->string('description')->nullable();
+            $table->string('media')->nullable();
+            $table->string('shurt_description')->nullable();
             $table->text('content')->nullable();
-            $table->string('regnumber');
-            $table->string('interval');
+            $table->string('regnumber')->nullable();
+            $table->string('interval')->nullable();
             $table->boolean('publishing')->default(false);
         });
     }

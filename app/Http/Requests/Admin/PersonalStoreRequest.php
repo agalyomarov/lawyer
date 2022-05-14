@@ -24,18 +24,18 @@ class PersonalStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => ['required', 'mimes:jpg,jpeg,png,bmp, gif,svg,webp'],
-            'fullname' => ['required'],
-            'h1' => ['required'],
-            'description' => ['required'],
-            'media' => ['required', 'url'],
-            'shurt_description' => ['required'],
-            'content' => ['required'],
-            'regnumber' => ['required'],
-            'specialities' => ['required'],
+            'image' => [''],
+            'fullname' => [''],
+            'h1' => [''],
+            'description' => [],
+            'media' => [],
+            'shurt_description' => [''],
+            'content' => [''],
+            'regnumber' => [''],
+            'specialities' => [''],
             'publishing' => [],
-            'interval' => ['required'],
-            'services' => ['required']
+            'interval' => [''],
+            'services' => ['']
         ];
     }
 }

@@ -24,18 +24,19 @@ class PersonalUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => ['sometimes', 'mimes:jpg,jpeg,png,bmp, gif,svg,webp'],
-            'fullname' => ['required'],
-            'h1' => ['required'],
-            'description' => ['required'],
-            'media' => ['required', 'url'],
-            'shurt_description' => ['required'],
-            'content' => ['required'],
-            'regnumber' => ['required'],
-            'specialities' => ['required'],
+            'image' => ['',],
+            'chpu' => [''],
+            'fullname' => [''],
+            'h1' => [''],
+            'description' => [''],
+            'media' => [''],
+            'shurt_description' => [''],
+            'content' => [''],
+            'regnumber' => [''],
+            'specialities' => [''],
             'publishing' => [],
-            'interval' => ['required'],
-            'services' => ['required']
+            'interval' => [''],
+            'services' => ['']
         ];
     }
 }
