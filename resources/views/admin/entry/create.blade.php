@@ -263,7 +263,71 @@
             </div>
             <div class="form-group">
                 <div class="block_for_add_entry hidden">
-                    <div class="calendar">
+                    <div class="calendar hidden">
+                        <div class="calendar_header">
+                            <i class="prev_month fa-solid fa-angle-left"></i>
+                            <span class="month">Май</span>
+                            <span class="year">2022</span>
+                            <i class="next_month fa-solid fa-angle-right"></i>
+                        </div>
+                        <div class="table">
+                            <div class="table_row" style="background:silver">
+                                <div class="week">пн</div>
+                                <div class="week">вт</div>
+                                <div class="week">ср</div>
+                                <div class="week">чт</div>
+                                <div class="week">пт</div>
+                                <div class="week">сб</div>
+                                <div class="week">вс</div>
+                            </div>
+                            <div class="table_row">
+                                <div class="day"></div>
+                                <div class="day"></div>
+                                <div class="day last">1</div>
+                                <div class="day last">2</div>
+                                <div class="day">3</div>
+                                <div class="day click">4</div>
+                                <div class="day click">5</div>
+                            </div>
+                            <div class="table_row">
+                                <div class="day">6</div>
+                                <div class="day entry">7</div>
+                                <div class="day entry">8</div>
+                                <div class="day entry">9</div>
+                                <div class="day online_entry">10</div>
+                                <div class="day online_entry">11</div>
+                                <div class="day">12</div>
+                            </div>
+                            <div class="table_row">
+                                <div class="day">13</div>
+                                <div class="day">14</div>
+                                <div class="day">15</div>
+                                <div class="day">16</div>
+                                <div class="day">17</div>
+                                <div class="day">18</div>
+                                <div class="day">19</div>
+                            </div>
+                            <div class="table_row">
+                                <div class="day">20</div>
+                                <div class="day">21</div>
+                                <div class="day">22</div>
+                                <div class="day">23</div>
+                                <div class="day">24</div>
+                                <div class="day">25</div>
+                                <div class="day">26</div>
+                            </div>
+                            <div class="table_row">
+                                <div class="day">27</div>
+                                <div class="day">28</div>
+                                <div class="day">29</div>
+                                <div class="day">30</div>
+                                <div class="day"></div>
+                                <div class="day"></div>
+                                <div class="day"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calendar calendar_next">
                         <div class="calendar_header">
                             <i class="prev_month fa-solid fa-angle-left"></i>
                             <span class="month">Май</span>
@@ -328,351 +392,6 @@
                         </div>
                     </div>
                     <div class="added_entries">
-
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
                         <div class="entry_day">
                             <span>10.05.2022</span>
                             <i class="fa-solid fa-xmark"></i>
@@ -696,11 +415,11 @@
                         </select>
                     </div>
                     <div class="btn_for_add">
-                        <button class="btn btn-success">Добавить</button>
+                        <button class="btn btn-success save">Добавить</button>
                         <button class="btn btn-danger">Отменить</button>
                     </div>
                 </div>
-                <div class="block_for_saved_entries">
+                <div class="block_for_saved_entries hidden">
                     <div class="calendar">
                         <div class="calendar_header">
                             <i class="prev_month fa-solid fa-angle-left"></i>
