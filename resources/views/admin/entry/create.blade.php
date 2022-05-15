@@ -114,6 +114,11 @@
             color: #fff;
         }
 
+        .calendar .table .table_row .last_online_entry {
+            background-color: rgb(167, 109, 2);
+            color: #fff;
+        }
+
         .added_entries {
             float: right;
             width: calc(100% - 260px);
@@ -162,6 +167,7 @@
             line-height: 50px;
             text-align: center;
             margin-top: 10px;
+            clear: both;
         }
 
         .add_time_for_entry select {
@@ -263,11 +269,11 @@
             </div>
             <div class="form-group">
                 <div class="block_for_add_entry hidden">
-                    <div class="calendar hidden">
+                    <div class="calendar calendar_this">
                         <div class="calendar_header">
-                            <i class="prev_month fa-solid fa-angle-left"></i>
-                            <span class="month">Май</span>
-                            <span class="year">2022</span>
+                            {{-- <i class="prev_month fa-solid fa-angle-left"></i> --}}
+                            <span class="month">{{ $thisMonth->monthName }}</span>
+                            <span class="year">{{ $thisMonth->year }}</span>
                             <i class="next_month fa-solid fa-angle-right"></i>
                         </div>
                         <div class="table">
@@ -280,59 +286,36 @@
                                 <div class="week">сб</div>
                                 <div class="week">вс</div>
                             </div>
-                            <div class="table_row">
+                            @foreach ($thisMonth->week as $week)
+                                <div class="table_row">
+                                    @foreach ($week as $day)
+                                        @if (isset($day['simpleDay']))
+                                            <div class="day @if (isset($day['isLastDate'])) last @endif" data-currentdate="{{ $day['currentDate'] }}">
+                                                {{ $day['currentDay'] }}
+                                            </div>
+                                        @else
+                                            <div class="day empty"></div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @endforeach
+                            {{-- <div class="table_row">
                                 <div class="day"></div>
-                                <div class="day"></div>
+                                <div class="day online_entry"></div>
                                 <div class="day last">1</div>
                                 <div class="day last">2</div>
-                                <div class="day">3</div>
+                                <div class="day entry">3</div>
                                 <div class="day click">4</div>
                                 <div class="day click">5</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">6</div>
-                                <div class="day entry">7</div>
-                                <div class="day entry">8</div>
-                                <div class="day entry">9</div>
-                                <div class="day online_entry">10</div>
-                                <div class="day online_entry">11</div>
-                                <div class="day">12</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">13</div>
-                                <div class="day">14</div>
-                                <div class="day">15</div>
-                                <div class="day">16</div>
-                                <div class="day">17</div>
-                                <div class="day">18</div>
-                                <div class="day">19</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">20</div>
-                                <div class="day">21</div>
-                                <div class="day">22</div>
-                                <div class="day">23</div>
-                                <div class="day">24</div>
-                                <div class="day">25</div>
-                                <div class="day">26</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">27</div>
-                                <div class="day">28</div>
-                                <div class="day">29</div>
-                                <div class="day">30</div>
-                                <div class="day"></div>
-                                <div class="day"></div>
-                                <div class="day"></div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
-                    <div class="calendar calendar_next">
+                    <div class="calendar calendar_next hidden">
                         <div class="calendar_header">
                             <i class="prev_month fa-solid fa-angle-left"></i>
-                            <span class="month">Май</span>
-                            <span class="year">2022</span>
-                            <i class="next_month fa-solid fa-angle-right"></i>
+                            <span class="month">{{ $nextMonth->monthName }}</span>
+                            <span class="year">{{ $nextMonth->year }}</span>
+                            {{-- <i class="next_month fa-solid fa-angle-right"></i> --}}
                         </div>
                         <div class="table">
                             <div class="table_row" style="background:silver">
@@ -344,61 +327,29 @@
                                 <div class="week">сб</div>
                                 <div class="week">вс</div>
                             </div>
-                            <div class="table_row">
-                                <div class="day"></div>
-                                <div class="day"></div>
-                                <div class="day last">1</div>
-                                <div class="day last">2</div>
-                                <div class="day">3</div>
-                                <div class="day click">4</div>
-                                <div class="day click">5</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">6</div>
-                                <div class="day entry">7</div>
-                                <div class="day entry">8</div>
-                                <div class="day entry">9</div>
-                                <div class="day online_entry">10</div>
-                                <div class="day online_entry">11</div>
-                                <div class="day">12</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">13</div>
-                                <div class="day">14</div>
-                                <div class="day">15</div>
-                                <div class="day">16</div>
-                                <div class="day">17</div>
-                                <div class="day">18</div>
-                                <div class="day">19</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">20</div>
-                                <div class="day">21</div>
-                                <div class="day">22</div>
-                                <div class="day">23</div>
-                                <div class="day">24</div>
-                                <div class="day">25</div>
-                                <div class="day">26</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">27</div>
-                                <div class="day">28</div>
-                                <div class="day">29</div>
-                                <div class="day">30</div>
-                                <div class="day"></div>
-                                <div class="day"></div>
-                                <div class="day"></div>
-                            </div>
+                            @foreach ($nextMonth->week as $week)
+                                <div class="table_row">
+                                    @foreach ($week as $day)
+                                        @if (isset($day['simpleDay']))
+                                            <div class="day" data-currentdate="{{ $day['currentDate'] }}">
+                                                {{ $day['currentDay'] }}
+                                            </div>
+                                        @else
+                                            <div class="day empty"></div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="added_entries">
-                        <div class="entry_day">
+                        {{-- <div class="entry_day">
                             <span>10.05.2022</span>
                             <i class="fa-solid fa-xmark"></i>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="add_time_for_entry">
-                        <select name="" id="" class="start">
+                        <select name="block_start_time" class="blockStartTime">
                             <option value="">00:00</option>
                             <option value="">00:30</option>
                             <option value="">01:00</option>
@@ -406,7 +357,7 @@
                             <option value="">01:00</option>
                         </select>
                         <span>–</span>
-                        <select name="" id="" class="start">
+                        <select name="block_end_time" id="" class="blockEndTime">
                             <option value="">00:00</option>
                             <option value="">00:30</option>
                             <option value="">01:00</option>
@@ -416,7 +367,7 @@
                     </div>
                     <div class="btn_for_add">
                         <button class="btn btn-success save">Добавить</button>
-                        <button class="btn btn-danger">Отменить</button>
+                        <button class="btn btn-danger hiddenBlockForAddEntry">Отменить</button>
                     </div>
                 </div>
                 <div class="block_for_saved_entries hidden">
@@ -856,13 +807,42 @@
                 </div>
             </div>
         </div>
-        <script src="https://kit.fontawesome.com/aa53675e71.js" crossorigin="anonymous"></script>
-        <script>
-            const fisrtBtn = document.querySelector('.add_entry_first_btn');
-            const blockForAddEntry = document.querySelector('.block_for_add_entry');
-            fisrtBtn.addEventListener('click', function(event) {
-                this.closest('.form-group').classList.add('hidden');
-                blockForAddEntry.classList.remove('hidden');
-            })
-        </script>
-    @endsection
+    </div>
+    <script src="https://kit.fontawesome.com/aa53675e71.js" crossorigin="anonymous"></script>
+    <script>
+        const calendarThisMonth = document.querySelector('.calendar');
+        const calendarNextMonth = document.querySelector('.calendar_next');
+        const fisrtBtn = document.querySelector('.add_entry_first_btn');
+        const blockForAddEntry = document.querySelector('.block_for_add_entry');
+        const btnViewNextMonth = document.querySelector('.calendar .next_month');
+        const btnViewPrevMonth = document.querySelector('.calendar_next .prev_month');
+        fisrtBtn.addEventListener('click', function(event) {
+            this.closest('.form-group').classList.add('hidden');
+            blockForAddEntry.classList.remove('hidden');
+        });
+        btnViewNextMonth.addEventListener('click', function() {
+            calendarThisMonth.classList.add('hidden');
+            calendarNextMonth.classList.remove('hidden');
+        })
+        btnViewPrevMonth.addEventListener('click', function() {
+            calendarThisMonth.classList.remove('hidden');
+            calendarNextMonth.classList.add('hidden');
+        })
+        blockForAddEntry.addEventListener('click', function(event) {
+            if (event.target.classList.contains('day') && !event.target.classList.contains('empty') && !event.target.classList.contains('last')) {
+                event.target.classList.toggle('click');
+                this.querySelector('.added_entries').querySelectorAll('.entry_day').forEach(function(element) {
+                    element.remove();
+                })
+                this.querySelectorAll('.day.click').forEach(function(e) {
+                    blockForAddEntry.querySelector('.added_entries').insertAdjacentHTML('beforeend', `<div class="entry_day"><span>${e.dataset.currentdate}</span><i class="delete_add_date fa-solid fa-xmark"></i></div>`);
+                })
+
+            } else if (event.target.classList.contains('delete_add_date')) {
+                const currentDate = event.target.closest('div.entry_day').querySelector('span').textContent;
+                this.querySelector(`div.day[data-currentdate="${currentDate}"]`).classList.remove('click');
+                event.target.closest('div.entry_day').remove();
+            }
+        })
+    </script>
+@endsection
