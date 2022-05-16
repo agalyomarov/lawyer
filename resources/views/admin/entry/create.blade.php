@@ -580,8 +580,7 @@
                         console.log(data);
                     })
                 }
-            }
-            if (event.target.classList.contains('btn_for_edit')) {
+            } else if (event.target.classList.contains('btn_for_edit')) {
                 console.log('test');
             }
         });
