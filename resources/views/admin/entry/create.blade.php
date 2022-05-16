@@ -216,6 +216,21 @@
             line-height: 30px;
         }
 
+        .saved_entry_block .entry_day.last {
+            background-color: silver;
+            color: rgba(0, 0, 0, 0.5)
+        }
+
+        .saved_entry_block .entry_day.disable {
+            background-color: orange;
+            color: #fff;
+        }
+
+        .saved_entry_block .entry_day.last.disable {
+            background-color: rgb(167, 109, 2);
+            color: #fff;
+        }
+
         .saved_entry_block .control {
             width: 270px;
             height: 30px;
@@ -238,11 +253,26 @@
             width: 90px;
             height: 30px;
             float: right;
-            background-color: red;
+            background-color: rgb(0, 34, 255);
             color: white;
             text-align: center;
             border-radius: 5px;
             line-height: 27px;
+            cursor: pointer;
+        }
+
+        .saved_entry_block .btn_for_delete_block {
+            position: relative;
+            width: 80px;
+            height: 30px;
+            background-color: red;
+            /* padding-left: 5px; */
+            text-align: center;
+            border-radius: 5px;
+            color: #fff;
+            float: right;
+            margin-right: 13px;
+            margin-top: 13px;
             cursor: pointer;
         }
 
@@ -262,7 +292,7 @@
             @endif
             <div class="form-group">
                 <label>Ф.И.О</label>
-                <input type="text" class="form-control bg-white w-50" placeholder="Ф.И.О" name="fullname" value="{{ $personal->fullname }}" disabled>
+                <input type="text" class="form-control bg-white w-50 fullName" placeholder="Ф.И.О" name="fullname" value="{{ $personal->fullname }}" disabled data-personal_id={{ $personal->id }}>
             </div>
             <div class="form-group">
                 <input type="button" class="btn btn-success add_entry_first_btn" value="Добавить запис">
@@ -350,461 +380,110 @@
                     </div>
                     <div class="add_time_for_entry">
                         <select name="block_start_time" class="blockStartTime">
-                            <option value="">00:00</option>
-                            <option value="">00:30</option>
-                            <option value="">01:00</option>
-                            <option value="">01:00</option>
-                            <option value="">01:00</option>
+                            @for ($i = 0; $i <= 82800; $i += 1800)
+                                <option value="{{ $i }}">{{ gmdate('H:i', $i) }}</option>
+                            @endfor
                         </select>
                         <span>–</span>
                         <select name="block_end_time" id="" class="blockEndTime">
-                            <option value="">00:00</option>
-                            <option value="">00:30</option>
-                            <option value="">01:00</option>
-                            <option value="">01:00</option>
-                            <option value="">01:00</option>
+                            @for ($i = 0; $i <= 82800; $i += 1800)
+                                <option value="{{ $i }}">{{ gmdate('H:i', $i) }}</option>
+                            @endfor
                         </select>
                     </div>
                     <div class="btn_for_add">
-                        <button class="btn btn-success save">Добавить</button>
+                        <button class="btn btn-success saveAddedOrEditedEntry" data-action="save">Добавить</button>
                         <button class="btn btn-danger hiddenBlockForAddEntry">Отменить</button>
                     </div>
                 </div>
-                <div class="block_for_saved_entries hidden">
-                    <div class="calendar">
-                        <div class="calendar_header">
-                            <i class="prev_month fa-solid fa-angle-left"></i>
-                            <span class="month">Май</span>
-                            <span class="year">2022</span>
-                            <i class="next_month fa-solid fa-angle-right"></i>
-                        </div>
-                        <div class="table">
-                            <div class="table_row" style="background:silver">
-                                <div class="week">пн</div>
-                                <div class="week">вт</div>
-                                <div class="week">ср</div>
-                                <div class="week">чт</div>
-                                <div class="week">пт</div>
-                                <div class="week">сб</div>
-                                <div class="week">вс</div>
+                @isset($blocks)
+                    @if (count($blocks) > 0)
+                        <div class="block_for_saved_entries">
+                            <div class="calendar">
+                                <div class="calendar_header">
+                                    <i class="prev_month fa-solid fa-angle-left"></i>
+                                    <span class="month">Май</span>
+                                    <span class="year">2022</span>
+                                    <i class="next_month fa-solid fa-angle-right"></i>
+                                </div>
+                                <div class="table">
+                                    <div class="table_row" style="background:silver">
+                                        <div class="week">пн</div>
+                                        <div class="week">вт</div>
+                                        <div class="week">ср</div>
+                                        <div class="week">чт</div>
+                                        <div class="week">пт</div>
+                                        <div class="week">сб</div>
+                                        <div class="week">вс</div>
+                                    </div>
+                                    <div class="table_row">
+                                        <div class="day"></div>
+                                        <div class="day"></div>
+                                        <div class="day last">1</div>
+                                        <div class="day last">2</div>
+                                        <div class="day">3</div>
+                                        <div class="day">4</div>
+                                        <div class="day">5</div>
+                                    </div>
+                                    <div class="table_row">
+                                        <div class="day">6</div>
+                                        <div class="day entry">7</div>
+                                        <div class="day entry">8</div>
+                                        <div class="day entry">9</div>
+                                        <div class="day online_entry">10</div>
+                                        <div class="day online_entry">11</div>
+                                        <div class="day">12</div>
+                                    </div>
+                                    <div class="table_row">
+                                        <div class="day">13</div>
+                                        <div class="day">14</div>
+                                        <div class="day">15</div>
+                                        <div class="day">16</div>
+                                        <div class="day">17</div>
+                                        <div class="day">18</div>
+                                        <div class="day">19</div>
+                                    </div>
+                                    <div class="table_row">
+                                        <div class="day">20</div>
+                                        <div class="day">21</div>
+                                        <div class="day">22</div>
+                                        <div class="day">23</div>
+                                        <div class="day">24</div>
+                                        <div class="day">25</div>
+                                        <div class="day">26</div>
+                                    </div>
+                                    <div class="table_row">
+                                        <div class="day">27</div>
+                                        <div class="day">28</div>
+                                        <div class="day">29</div>
+                                        <div class="day">30</div>
+                                        <div class="day"></div>
+                                        <div class="day"></div>
+                                        <div class="day"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="table_row">
-                                <div class="day"></div>
-                                <div class="day"></div>
-                                <div class="day last">1</div>
-                                <div class="day last">2</div>
-                                <div class="day">3</div>
-                                <div class="day">4</div>
-                                <div class="day">5</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">6</div>
-                                <div class="day entry">7</div>
-                                <div class="day entry">8</div>
-                                <div class="day entry">9</div>
-                                <div class="day online_entry">10</div>
-                                <div class="day online_entry">11</div>
-                                <div class="day">12</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">13</div>
-                                <div class="day">14</div>
-                                <div class="day">15</div>
-                                <div class="day">16</div>
-                                <div class="day">17</div>
-                                <div class="day">18</div>
-                                <div class="day">19</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">20</div>
-                                <div class="day">21</div>
-                                <div class="day">22</div>
-                                <div class="day">23</div>
-                                <div class="day">24</div>
-                                <div class="day">25</div>
-                                <div class="day">26</div>
-                            </div>
-                            <div class="table_row">
-                                <div class="day">27</div>
-                                <div class="day">28</div>
-                                <div class="day">29</div>
-                                <div class="day">30</div>
-                                <div class="day"></div>
-                                <div class="day"></div>
-                                <div class="day"></div>
-                            </div>
+                            @foreach ($blocks as $key => $block)
+                                <div class="saved_entry_block" data-block_count="{{ $key }}" data-personal_id={{ $personal->id }}>
+                                    <div class="control">
+                                        <select disabled name="" id="" class="start">
+                                            <option value="">{{ gmdate('H:i', $block['blockStartTime']) }}</option>
+                                        </select>
+                                        <span>–</span>
+                                        <select disabled name="" id="" class="start">
+                                            <option value="">{{ gmdate('H:i', $block['blockEndTime']) }}</option>
+                                        </select>
+                                        <div class="btn_for_edit">Изменить</div>
+                                    </div>
+                                    @foreach ($block['entryDates'] as $index => $date)
+                                        <div class="entry_day @if ($date['lastDate']) last @endif @if (!$date['enable']) disable @endif">{{ date('d.m.Y', $index) }}</div>
+                                    @endforeach
+                                    <div class="btn_for_delete_block">Удалить</div>
+                                </div>
+                            @endforeach
                         </div>
-                    </div>
-                    <div class="saved_entry_block">
-                        <div class="control">
-                            <select disabled name="" id="" class="start">
-                                <option value="">00:00</option>
-                            </select>
-                            <span>–</span>
-                            <select disabled name="" id="" class="start">
-                                <option value="">00:00</option>
-                            </select>
-                            <div class="btn_for_edit">Изменить</div>
-                        </div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                    </div>
-                    <div class="saved_entry_block">
-                        <div class="control">
-                            <select disabled name="" id="" class="start">
-                                <option value="">00:00</option>
-                            </select>
-                            <span>–</span>
-                            <select disabled name="" id="" class="start">
-                                <option value="">00:00</option>
-                            </select>
-                            <div class="btn_for_edit">Изменить</div>
-                        </div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                    </div>
-                    <div class="saved_entry_block">
-                        <div class="control">
-                            <select disabled name="" id="" class="start">
-                                <option value="">00:00</option>
-                            </select>
-                            <span>–</span>
-                            <select disabled name="" id="" class="start">
-                                <option value="">00:00</option>
-                            </select>
-                            <div class="btn_for_edit">Изменить</div>
-                        </div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                    </div>
-                    <div class="saved_entry_block">
-                        <div class="control">
-                            <select disabled name="" id="" class="start">
-                                <option value="">00:00</option>
-                            </select>
-                            <span>–</span>
-                            <select disabled name="" id="" class="start">
-                                <option value="">00:00</option>
-                            </select>
-                            <div class="btn_for_edit">Изменить</div>
-                        </div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                        <div class="entry_day">10.05.2022</div>
-                    </div>
-
-                </div>
+                    @endif
+                @endisset
             </div>
         </div>
     </div>
@@ -816,6 +495,7 @@
         const blockForAddEntry = document.querySelector('.block_for_add_entry');
         const btnViewNextMonth = document.querySelector('.calendar .next_month');
         const btnViewPrevMonth = document.querySelector('.calendar_next .prev_month');
+        const blockForSavedEntries = document.querySelector('.block_for_saved_entries');
         fisrtBtn.addEventListener('click', function(event) {
             this.closest('.form-group').classList.add('hidden');
             blockForAddEntry.classList.remove('hidden');
@@ -842,7 +522,68 @@
                 const currentDate = event.target.closest('div.entry_day').querySelector('span').textContent;
                 this.querySelector(`div.day[data-currentdate="${currentDate}"]`).classList.remove('click');
                 event.target.closest('div.entry_day').remove();
+            } else if (event.target.classList.contains('hiddenBlockForAddEntry')) {
+                this.querySelector('.added_entries').querySelectorAll('.entry_day').forEach(function(element) {
+                    element.remove();
+                });
+                this.querySelectorAll('.day.click').forEach(function(e) {
+                    e.classList.remove('click');
+                });
+                this.querySelector('.add_time_for_entry .blockStartTime').value = 0;
+                this.querySelector('.add_time_for_entry .blockEndTime').value = 0;
+                this.classList.add('hidden');
+                fisrtBtn.closest('.form-group').classList.remove('hidden');
+            } else if (event.target.classList.contains('saveAddedOrEditedEntry')) {
+                if (event.target.dataset.action == 'save') {
+                    const body = {};
+                    body.selectedDates = {};
+                    body.blockStartTime = this.querySelector('.add_time_for_entry .blockStartTime').value;
+                    body.blockEndTime = this.querySelector('.add_time_for_entry .blockEndTime').value;
+                    body.personalId = document.querySelector('.fullName').dataset.personal_id;
+                    this.querySelector('.added_entries').querySelectorAll('.entry_day').forEach(function(element, index) {
+                        body.selectedDates[index] = element.querySelector('span').textContent;
+                    })
+                    fetch(`/admin/entry/store/${body.personalId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(body)
+                    }).then(res => {
+                        // res.text().then(data => console.log(data));
+                        return res.json();
+                    }).then(data => {
+                        console.log(data);
+                    })
+                }
             }
         })
+        blockForSavedEntries.addEventListener('click', function(event) {
+            if (event.target.classList.contains('btn_for_delete_block')) {
+                const check = confirm('Вы точно хотите удалить все записи в блоке?');
+                if (check) {
+                    const body = {};
+                    body.blockCount = event.target.closest('.saved_entry_block').dataset.block_count;
+                    body.personalId = event.target.closest('.saved_entry_block').dataset.personal_id;
+                    fetch(`/admin/entry/delete/${body.personalId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(body)
+                    }).then(res => {
+                        // res.text().then(data => console.log(data));
+                        return res.json();
+                    }).then(data => {
+                        console.log(data);
+                    })
+                }
+            }
+            if (event.target.classList.contains('btn_for_edit')) {
+                console.log('test');
+            }
+        });
     </script>
 @endsection

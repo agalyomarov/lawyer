@@ -13,6 +13,8 @@ Route::get('/', [MainController::class, 'index'])->name('home');
 Route::post('/getentry', [MainController::class, 'getentry']);
 Route::get('/getentry', [MainController::class, 'getentry']);
 
+
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
    Route::get('/', [AdminMainController::class, 'index'])->name('home');
 
@@ -41,10 +43,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::put('/{personal}', [PersonalController::class, 'update'])->name('update');
       Route::get('/{personal}/delete', [PersonalController::class, 'delete'])->name('delete');
    });
+
    Route::group(['prefix' => 'entry', 'as' => 'entry.'], function () {
       Route::get('/', [EntryController::class, 'index'])->name('index');
       Route::get('/create/{personal}', [EntryController::class, 'create'])->name('create');
       Route::post('/store/{personal}', [EntryController::class, 'store'])->name('store');
-      Route::put('/{personal}', [EntryController::class, 'update'])->name('update');
+      Route::delete('/delete/{personal}', [EntryController::class, 'delete'])->name('delete');
    });
 });

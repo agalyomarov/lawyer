@@ -91,14 +91,74 @@ class EntryController extends Controller
             }
         }
 
+        $allBlocks = DB::table('personal_entries')->where('personal_id', $personal->id)->select('block_count', 'block_start_time', 'block_end_time', 'entry_date', 'entry_enable')->get()->groupBy('block_count')->toArray();
+
+        $blocks = [];
+        foreach ($allBlocks as $block) {
+            $blocks[$block[0]->block_count] = ['blockStartTime' => $block[0]->block_start_time, 'blockEndTime' => $block[0]->block_end_time];
+            foreach ($block as $index => $blockData) {
+                $blocks[$block[0]->block_count]['entryDates'][$blockData->entry_date] = ['enable' => $blockData->entry_enable];
+                if ($blockData->entry_date < strtotime(Carbon::now()->format('d.m.Y'))) {
+                    $blocks[$block[0]->block_count]['entryDates'][$blockData->entry_date]['lastDate'] = true;
+                } else {
+                    $blocks[$block[0]->block_count]['entryDates'][$blockData->entry_date]['lastDate'] = false;
+                }
+            }
+        }
+
+        $blocks = array_reverse($blocks, true);
+        // dd($blocks);
         // dd($thisMonth);
         // dd($nextMonth);
-        return view('admin.entry.create', compact('personal', 'thisMonth', 'nextMonth'));
+        return view('admin.entry.create', compact('personal', 'thisMonth', 'nextMonth', 'blocks'));
     }
     public function store(Personal $personal, Request $request)
     {
+        try {
+            $dates = $request->get('selectedDates');
+            $blockStartTime = $request->get('blockStartTime');
+            $blockEndTime = $request->get('blockEndTime');
+            if (count($dates) == 0) {
+                return response()->json(['status' => 'validate', 'message' => 'Выберите даты']);
+            } else if ($blockStartTime + 3600 > $blockEndTime) {
+                return response()->json(['status' => 'validate', 'message' => 'Промежуточный время не корректный']);
+            }
+            $blockCount = DB::table('personal_entries')->where('personal_id', $personal->id)->get()->groupBy('block_count')->count() + 1;
+            DB::beginTransaction();
+            foreach ($dates as $date) {
+                $date = strtotime($date);
+                for ($i = $blockStartTime; $i < $blockEndTime; $i += 3600) {
+                    $startTime = $date + $i;
+                    $endTime = $startTime + 3600;
+                    $checkEntryIsHas = DB::table('personal_entries')->where('personal_id', $personal->id)->where(['entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime])->count();
+                    if (boolval($checkEntryIsHas)) {
+                        return response()->json(['status' => 'validate', 'message' => 'Дынный не записовался в БД.Ест дубликат записа для дата ' . date('d.m.Y', $date) . ' ' . gmdate('H:i', $startTime)]);
+                    }
+                    DB::table('personal_entries')->insert(['personal_id' => $personal->id, 'block_count' => $blockCount, 'block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1]);
+                }
+            }
+            DB::commit();
+            return response()->json(['status' => true]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e->getMessage());
+        }
     }
-    public function update(Personal $personal, Request $request)
+    public function delete(Personal $personal, Request $request)
     {
+        try {
+            $blockCount = $request->get('blockCount');
+            $checkEntryIsHas = DB::table('personal_entries')->where('personal_id', $personal->id)->where('block_count', $blockCount)->where('entry_enable', false)->count();
+            if ($checkEntryIsHas > 0) {
+                return response()->json(['status' => 'validate', 'message' => 'В блоке есть активный записи']);
+            }
+            DB::beginTransaction();
+            DB::table('personal_entries')->where(['personal_id' => $personal->id, 'block_count' => $blockCount])->delete();
+            DB::commit();
+            return response()->json(['status' => true]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e->getMessage());
+        }
     }
 }
