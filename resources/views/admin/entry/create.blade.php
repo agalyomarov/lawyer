@@ -119,11 +119,6 @@
             color: #fff;
         }
 
-        .calendar .table .table_row .day.last.entry {
-            background-color: rgb(5, 50, 108);
-            color: white;
-        }
-
         .added_entries {
             float: right;
             width: calc(100% - 260px);
@@ -535,10 +530,9 @@
                     event.target.classList.toggle('click');
                 }
                 this.querySelector('.added_entries').querySelectorAll('.entry_day').forEach(function(element) {
-                    // if(element.classList.contains('')){
-
-                    // }
-                    element.remove();
+                    if (!element.classList.contains('disable') && !element.classList.contains('last')) {
+                        element.remove();
+                    }
                 })
                 this.querySelectorAll('.day.click').forEach(function(e) {
                     blockForAddEntry.querySelector('.added_entries').insertAdjacentHTML('beforeend', `<div class="entry_day"><span>${e.dataset.currentdate}</span><i class="delete_add_date fa-solid fa-xmark"></i></div>`);
@@ -547,8 +541,11 @@
             } else if (event.target.classList.contains('delete_add_date')) {
                 const currentDate = event.target.closest('div.entry_day').querySelector('span').textContent;
                 this.querySelector(`div.day[data-currentdate="${currentDate}"]`).classList.remove('click');
+                this.querySelector(`div.day[data-currentdate="${currentDate}"]`).classList.remove('entry');
                 event.target.closest('div.entry_day').remove();
             } else if (event.target.classList.contains('hiddenBlockForAddEntry')) {
+                this.querySelector('.saveAddedOrEditedEntry').dataset.action = 'save';
+                this.querySelector('.saveAddedOrEditedEntry').textContent = 'Добавить';
                 this.querySelector('.added_entries').querySelectorAll('.entry_day').forEach(function(element) {
                     element.remove();
                 });
@@ -590,6 +587,30 @@
                     }).then(data => {
                         console.log(data);
                     })
+                } else if (event.target.dataset.action == 'update') {
+                    const body = {};
+                    body.selectedDates = {};
+                    body.blockStartTime = this.querySelector('.add_time_for_entry .blockStartTime').value;
+                    body.blockEndTime = this.querySelector('.add_time_for_entry .blockEndTime').value;
+                    body.personalId = document.querySelector('.fullName').dataset.personal_id;
+                    body.blockCount = this.dataset.block_count;
+                    this.querySelector('.added_entries').querySelectorAll('.entry_day').forEach(function(element, index) {
+                        body.selectedDates[index] = element.querySelector('span').textContent;
+                    })
+                    fetch(`/admin/entry/update/${body.personalId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(body)
+                    }).then(res => {
+                        res.text().then(data => console.log(data));
+                        return res.json();
+                    }).then(data => {
+                        console.log(data);
+                    })
+                    // console.log(body);
                 }
             }
         });
@@ -614,10 +635,13 @@
                         console.log(data);
                     })
                 }
-            } else if (event.target.classList.contains('btn_for_edit')) {
+            }
+            if (event.target.classList.contains('btn_for_edit')) {
                 blockForAddEntry.querySelector('.hiddenBlockForAddEntry').click();
                 const savedBlock = event.target.closest('.saved_entry_block');
                 blockForAddEntry.dataset.block_count = savedBlock.dataset.block_count;
+                blockForAddEntry.querySelector('.saveAddedOrEditedEntry').dataset.action = 'update';
+                blockForAddEntry.querySelector('.saveAddedOrEditedEntry').textContent = 'Изменить';
                 blockForAddEntry.querySelector('.add_time_for_entry select.blockStartTime').value = savedBlock.querySelector('select.start').value;
                 blockForAddEntry.querySelector('.add_time_for_entry select.blockEndTime').value = savedBlock.querySelector('select.end').value;
                 savedBlock.querySelectorAll('.entry_day').forEach(function(element, index) {

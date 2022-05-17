@@ -110,7 +110,7 @@ class EntryController extends Controller
         // dd($blocks);
         // dd($thisMonth);
         // dd($nextMonth);
-        return view('admin.entry.creat', compact('personal', 'thisMonth', 'nextMonth', 'blocks'));
+        return view('admin.entry.create', compact('personal', 'thisMonth', 'nextMonth', 'blocks'));
     }
     public function store(Personal $personal, Request $request)
     {
@@ -154,6 +154,37 @@ class EntryController extends Controller
             }
             DB::beginTransaction();
             DB::table('personal_entries')->where(['personal_id' => $personal->id, 'block_count' => $blockCount])->delete();
+            DB::commit();
+            return response()->json(['status' => true]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e->getMessage());
+        }
+    }
+    public function update(Personal $personal, Request $request)
+    {
+        try {
+            $dates = $request->get('selectedDates');
+            $blockStartTime = $request->get('blockStartTime');
+            $blockEndTime = $request->get('blockEndTime');
+            if ($blockStartTime + 3600 > $blockEndTime) {
+                return response()->json(['status' => 'validate', 'message' => 'Промежуточный время не корректный']);
+            }
+            $blockCount = $request->get('blockCount');
+            DB::beginTransaction();
+            DB::table('personal_entries')->where(['personal_id' => $personal->id, 'block_count' => $blockCount])'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1]);
+            // foreach ($dates as $date) {
+            //     $date = strtotime($date);
+            //     for ($i = $blockStartTime; $i < $blockEndTime; $i += 3600) {
+            //         $startTime = $date + $i;
+            //         $endTime = $startTime + 3600;
+            //         $checkEntryIsHas = DB::table('personal_entries')->where('personal_id', $personal->id)->where(['entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime])->count();
+            //         if (boolval($checkEntryIsHas)) {
+            //             return response()->json(['status' => 'validate', 'message' => 'Дынный не записовался в БД.Ест дубликат записа для дата ' . date('d.m.Y', $date) . ' ' . gmdate('H:i', $startTime)]);
+            //         }
+            //         DB::table('personal_entries')->insert(['personal_id' => $personal->id, 'block_count' => $blockCount, 'block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1]);
+            //     }
+            // }
             DB::commit();
             return response()->json(['status' => true]);
         } catch (\Exception $e) {

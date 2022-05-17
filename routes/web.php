@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::get('/', [EntryController::class, 'index'])->name('index');
       Route::get('/create/{personal}', [EntryController::class, 'create'])->name('create');
       Route::post('/store/{personal}', [EntryController::class, 'store'])->name('store');
+      Route::post('/update/{personal}', [EntryController::class, 'update'])->name('update');
       Route::delete('/delete/{personal}', [EntryController::class, 'delete'])->name('delete');
    });
 });
