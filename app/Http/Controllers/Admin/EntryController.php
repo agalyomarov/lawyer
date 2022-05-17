@@ -199,9 +199,9 @@ class EntryController extends Controller
                 for ($i = $blockStartTime; $i < $blockEndTime; $i += 3600) {
                     $startTime = $date + $i;
                     $endTime = $startTime + 3600;
-                    $checkEntryIsHas = DB::table('personal_entries')->where('personal_id', $personal->id)->where(['entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime])->count();
+                    $checkEntryIsHas = DB::table('personal_entries')->where('personal_id', $personal->id)->where(['entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime])->first();
                     if (boolval($checkEntryIsHas)) {
-                        return response()->json(['status' => 'validate', 'message' => 'Дынный не записовался в БД.Ест дубликат записа для дата ' . date('d.m.Y', $date) . ' ' . gmdate('H:i', $startTime)]);
+                        return response()->json(['status' => 'validate', 'message' => 'Дынный не записовался в БД.Ест дубликат записа для дата ' . date('d.m.Y H:i', $checkEntryIsHas->entry_start_time)]);
                     }
                     DB::table('personal_entries')->insert(['personal_id' => $personal->id, 'block_count' => $blockCount, 'block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1]);
                 }
@@ -262,7 +262,7 @@ class EntryController extends Controller
             // return response()->json([strtotime(Carbon::now()->format('d.m.Y ') . date('H:i', $getDisableEntryInBlock->entry_start_time)) - strtotime(Carbon::now()->format('d.m.Y') . ' 00:00:00')]);
 
             if ($getDisableEntryInBlock && (strtotime(Carbon::now()->format('d.m.Y ') . date('H:i', $getDisableEntryInBlock->entry_start_time)) - strtotime(Carbon::now()->format('d.m.Y') . ' 00:00:00')) < $blockStartTime) {
-                return response()->json(['status' => 'validate', 'message' => 'Дынный не записовался в БД.Ест активный онлайн запис для дата ' . date('d.m.Y H:i', $getDisableEntryInBlock->entry_start_time)]);
+                return response()->json(['status' => 'validate', 'message' => 'Дынный не записовался в БД.Ест активный онлайн запис для дата ' . date('d.m.Y H:i', $getDisableEntryInBlock->entry_start_time) . ' - ' . date('H:i', $getDisableEntryInBlock->entry_end_time)]);
             }
             if ($getDisableEntryInBlock && (strtotime(Carbon::now()->format('d.m.Y ') . date('H:i', $getDisableEntryInBlock->entry_end_time)) - strtotime(Carbon::now()->format('d.m.Y') . ' 00:00:00')) > $blockEndTime) {
                 return response()->json(['status' => 'validate', 'message' => 'Дынный не записовался в БД.Ест активный онлайн запис для дата ' . date('d.m.Y H:i', $getDisableEntryInBlock->entry_start_time) . ' - ' . date('H:i', $getDisableEntryInBlock->entry_end_time)]);

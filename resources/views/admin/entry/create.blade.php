@@ -547,7 +547,10 @@
         const btnViewNextMonthBlockAddEntry = blockForAddEntry.querySelector('.calendar .next_month');
         const btnViewPrevMonthBlockAddEntry = blockForAddEntry.querySelector('.calendar_next .prev_month');
         const blockForSavedEntries = document.querySelector('.block_for_saved_entries');
-
+        messageForAdmin.querySelector('i').addEventListener('click', function(e) {
+            messageForAdmin.classList.add('hidden');
+            messageForAdmin.querySelector('span').textContent = '';
+        })
         if (blockForSavedEntries) {
             const btnViewNextMonthBlockSavedEntry = blockForSavedEntries.querySelector('.calendar .next_month');
             const btnViewPrevMonthBlockSavedEntry = blockForSavedEntries.querySelector('.calendar_next .prev_month');
@@ -670,7 +673,14 @@
                         // res.text().then(data => console.log(data));
                         return res.json();
                     }).then(data => {
-                        console.log(data);
+                        if (data.status == true) {
+                            window.location.reload();
+                        } else if (data.status == 'validate') {
+                            messageForAdmin.querySelector('span').textContent = data.message;
+                            messageForAdmin.classList.remove('hidden');
+                        } else {
+                            window.location.reload();
+                        }
                     })
                     // console.log(body);
                 }
@@ -695,7 +705,14 @@
                             // res.text().then(data => console.log(data));
                             return res.json();
                         }).then(data => {
-                            console.log(data);
+                            if (data.status == true) {
+                                window.location.reload();
+                            } else if (data.status == 'validate') {
+                                messageForAdmin.querySelector('span').textContent = data.message;
+                                messageForAdmin.classList.remove('hidden');
+                            } else {
+                                window.location.reload();
+                            }
                         })
                     }
                 }
