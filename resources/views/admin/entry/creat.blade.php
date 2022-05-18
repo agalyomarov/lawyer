@@ -105,18 +105,23 @@
         }
 
         .calendar .table .table_row .entry {
-            background-color: rgb(45, 109, 152);
+            background-color: rgb(72, 127, 163);
             color: #fff;
         }
 
         .calendar .table .table_row .online_entry {
-            background-color: orange;
+            background-color: rgb(255, 185, 55);
             color: #fff;
         }
 
         .calendar .table .table_row .last_online_entry {
-            background-color: rgb(167, 109, 2);
+            background-color: rgb(119, 86, 26);
             color: #fff;
+        }
+
+        .calendar .table .table_row .day.last.entry {
+            background-color: rgb(5, 50, 108);
+            color: white;
         }
 
         .added_entries {
@@ -141,6 +146,22 @@
             margin-left: 13px;
             margin-top: 13px;
         }
+
+        .added_entries .entry_day.last {
+            background-color: silver;
+            color: rgba(0, 0, 0, 0.5)
+        }
+
+        .added_entries .entry_day.disable {
+            background-color: orange;
+            color: #fff;
+        }
+
+        .added_entries .entry_day.last.disable {
+            background-color: rgb(167, 109, 2);
+            color: #fff;
+        }
+
 
         .added_entries .entry_day span {
             line-height: 30px;
@@ -337,6 +358,7 @@
                                 <div class="day entry">3</div>
                                 <div class="day click">4</div>
                                 <div class="day click">5</div>
+                                <div class="day online_entry">5</div>
                             </div> --}}
                         </div>
                     </div>
@@ -466,12 +488,12 @@
                             @foreach ($blocks as $key => $block)
                                 <div class="saved_entry_block" data-block_count="{{ $key }}" data-personal_id={{ $personal->id }}>
                                     <div class="control">
-                                        <select disabled name="" id="" class="start">
-                                            <option value="">{{ gmdate('H:i', $block['blockStartTime']) }}</option>
+                                        <select disabled class="start">
+                                            <option value="{{ $block['blockStartTime'] }}">{{ gmdate('H:i', $block['blockStartTime']) }}</option>
                                         </select>
                                         <span>–</span>
-                                        <select disabled name="" id="" class="start">
-                                            <option value="">{{ gmdate('H:i', $block['blockEndTime']) }}</option>
+                                        <select disabled class="end">
+                                            <option value="{{ $block['blockEndTime'] }}">{{ gmdate('H:i', $block['blockEndTime']) }}</option>
                                         </select>
                                         <div class="btn_for_edit">Изменить</div>
                                     </div>
@@ -487,7 +509,6 @@
             </div>
         </div>
     </div>
-    <script src="https://kit.fontawesome.com/aa53675e71.js" crossorigin="anonymous"></script>
     <script>
         const calendarThisMonth = document.querySelector('.calendar');
         const calendarNextMonth = document.querySelector('.calendar_next');
@@ -510,8 +531,13 @@
         })
         blockForAddEntry.addEventListener('click', function(event) {
             if (event.target.classList.contains('day') && !event.target.classList.contains('empty') && !event.target.classList.contains('last')) {
-                event.target.classList.toggle('click');
+                if (!event.target.classList.contains('entry') || !event.target.classList.contains('online_entry') || !event.target.classList.contains('last_online_entry')) {
+                    event.target.classList.toggle('click');
+                }
                 this.querySelector('.added_entries').querySelectorAll('.entry_day').forEach(function(element) {
+                    // if(element.classList.contains('')){
+
+                    // }
                     element.remove();
                 })
                 this.querySelectorAll('.day.click').forEach(function(e) {
@@ -532,6 +558,14 @@
                 this.querySelector('.add_time_for_entry .blockStartTime').value = 0;
                 this.querySelector('.add_time_for_entry .blockEndTime').value = 0;
                 this.classList.add('hidden');
+                this.querySelectorAll('div.day').forEach(function(element) {
+                    if (element.classList.contains('last')) {
+                        element.className = 'day last';
+                    } else {
+                        element.className = 'day';
+                    }
+
+                });
                 fisrtBtn.closest('.form-group').classList.remove('hidden');
             } else if (event.target.classList.contains('saveAddedOrEditedEntry')) {
                 if (event.target.dataset.action == 'save') {
@@ -558,7 +592,7 @@
                     })
                 }
             }
-        })
+        });
         blockForSavedEntries.addEventListener('click', function(event) {
             if (event.target.classList.contains('btn_for_delete_block')) {
                 const check = confirm('Вы точно хотите удалить все записи в блоке?');
@@ -581,8 +615,37 @@
                     })
                 }
             } else if (event.target.classList.contains('btn_for_edit')) {
-                console.log('test');
+                blockForAddEntry.querySelector('.hiddenBlockForAddEntry').click();
+                const savedBlock = event.target.closest('.saved_entry_block');
+                blockForAddEntry.dataset.block_count = savedBlock.dataset.block_count;
+                blockForAddEntry.querySelector('.add_time_for_entry select.blockStartTime').value = savedBlock.querySelector('select.start').value;
+                blockForAddEntry.querySelector('.add_time_for_entry select.blockEndTime').value = savedBlock.querySelector('select.end').value;
+                savedBlock.querySelectorAll('.entry_day').forEach(function(element, index) {
+                    let classesForBlock = '';
+                    let classesForCalendar = 'entry';
+                    let tagIEnable = true;
+                    if (element.classList.contains('last') && element.classList.contains('disable')) {
+                        classesForBlock = 'last disable';
+                        classesForCalendar = 'last_online_entry';
+                        tagIEnable = false;
+                    } else if (element.classList.contains('last')) {
+                        classesForBlock = 'last';
+                        clasesForCalendar = 'last'
+                    } else if (element.classList.contains('disable')) {
+                        classesForBlock = 'disable';
+                        classesForCalendar = 'online_entry';
+                        tagIEnable = false;
+                    }
+                    if (tagIEnable) {
+                        blockForAddEntry.querySelector('.added_entries').insertAdjacentHTML('beforeend', `<div class="entry_day ${classesForBlock}"><span>${element.textContent}</span><i class="delete_add_date fa-solid fa-xmark"></i></div>`);
+                    } else {
+                        blockForAddEntry.querySelector('.added_entries').insertAdjacentHTML('beforeend', `<div class="entry_day ${classesForBlock}"><span>${element.textContent}</span></div>`);
+                    }
+                    blockForAddEntry.querySelector(`.calendar div.day[data-currentdate="${element.textContent}"]`).classList.add(classesForCalendar);
+                })
+                fisrtBtn.click();
             }
         });
     </script>
+    <script src="https://kit.fontawesome.com/aa53675e71.js" crossorigin="anonymous"></script>
 @endsection

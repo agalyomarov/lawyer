@@ -110,7 +110,7 @@ class EntryController extends Controller
         // dd($blocks);
         // dd($thisMonth);
         // dd($nextMonth);
-        return view('admin.entry.create', compact('personal', 'thisMonth', 'nextMonth', 'blocks'));
+        return view('admin.entry.creat', compact('personal', 'thisMonth', 'nextMonth', 'blocks'));
     }
     public function store(Personal $personal, Request $request)
     {
