@@ -68,9 +68,7 @@
         }
 
     </style>
-    <script>
-
-    </script>
+    <script></script>
 </head>
 
 <body class="body">
@@ -491,9 +489,9 @@
                                             <span class="ui-icon ui-icon-circle-triangle-e calendar_next">Далее</span>
                                         </a>
                                         <div class="ui-datepicker-title">
-                                            <span class="ui-datepicker-month" data-thismonth='{{ $thisMonth['name'] }}' data-nextmonth="{{ $nextMonth['name'] }}">{{ $thisMonth['name'] }}</span>
+                                            <span class="ui-datepicker-month" data-thismonth='{{ $thisMonth->monthName }}' data-nextmonth="{{ $nextMonth->monthName }}">{{ $thisMonth->monthName }}</span>
                                             &nbsp;
-                                            <span class="ui-datepicker-year">{{ Carbon\Carbon::now()->format('Y') }}</span>
+                                            <span class="ui-datepicker-year" data-thismonth='{{ $thisMonth->year }}' data-nextmonth="{{ $nextMonth->year }}">{{ $thisMonth->year }}</span>
                                         </div>
                                     </div>
                                     <table class="ui-datepicker-calendar">
@@ -509,19 +507,19 @@
                                             </tr>
                                         </thead>
                                         <tbody id="thisMonth" class="">
-                                            @foreach ($thisMonth['weeks'] as $week)
+                                            @foreach ($thisMonth->week as $week)
                                                 <tr>
                                                     @foreach ($week as $day)
-                                                        @if ($day['view'])
-                                                            @if (!$day['entry'])
-                                                                <td class="ui-datepicker-unselectable ui-state-disabled undefined">
-                                                                    <span class="ui-state-default">
-                                                                        {{ $day['day'] }}
-                                                                    </span>
+                                                        @if (isset($day['simpleDay']) && $day['simpleDay'])
+                                                            @if (isset($day['entryDay']) && $day['entryDay'])
+                                                                <td data-handler="selectDay" class="selectedDay" data-date="{{ $day['currentDate'] }}">
+                                                                    <span class="ui-state-default selectedDay" data-date="{{ $day['currentDate'] }}"> {{ $day['currentDay'] }}</span>
                                                                 </td>
                                                             @else
-                                                                <td data-handler="selectDay" class="selectedDay" data-date="{{ $day['date'] }}">
-                                                                    <span class="ui-state-default selectedDay" data-date="{{ $day['date'] }}"> {{ $day['day'] }}</span>
+                                                                <td class="ui-datepicker-unselectable ui-state-disabled undefined">
+                                                                    <span class="ui-state-default">
+                                                                        {{ $day['currentDay'] }}
+                                                                    </span>
                                                                 </td>
                                                             @endif
                                                         @else
@@ -532,11 +530,21 @@
                                             @endforeach
                                         </tbody>
                                         <tbody id="nextMonth" class="hidden">
-                                            @foreach ($nextMonth['weeks'] as $week)
+                                            @foreach ($nextMonth->week as $week)
                                                 <tr>
                                                     @foreach ($week as $day)
-                                                        @if ($day['view'])
-                                                            <td class="ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">{{ $day['day'] }}</span></td>
+                                                        @if (isset($day['simpleDay']) && $day['simpleDay'])
+                                                            @if (isset($day['entryDay']) && $day['entryDay'])
+                                                                <td data-handler="selectDay" class="selectedDay" data-date="{{ $day['currentDate'] }}">
+                                                                    <span class="ui-state-default selectedDay" data-date="{{ $day['currentDate'] }}"> {{ $day['currentDay'] }}</span>
+                                                                </td>
+                                                            @else
+                                                                <td class="ui-datepicker-unselectable ui-state-disabled undefined">
+                                                                    <span class="ui-state-default">
+                                                                        {{ $day['currentDay'] }}
+                                                                    </span>
+                                                                </td>
+                                                            @endif
                                                         @else
                                                             <td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"></td>
                                                         @endif
@@ -549,7 +557,12 @@
                             </div>
                             <div class="oz_time">
                                 <ul class=" list_hourses">
-                                    <li class=" zagday timerU squaredThree no_slots">Утро</li>
+                                    <li class="zagday timerU squaredThree no_slots">Утро</li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-03" type="checkbox" value="03:00"><label class='check_time' for="time-03" data-time="03:00">03:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-04" type="checkbox" value="04:00"><label class='check_time' for="time-04" data-time="04:00">04:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-05" type="checkbox" value="05:00"><label class='check_time' for="time-05" data-time="05:00">05:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-06" type="checkbox" value="06:00"><label class='check_time' for="time-06" data-time="06:00">06:00 </label></li>
+                                    <li class="squaredThree oz_not_allowed"><input id="time-07" type="checkbox" value="07:00"><label class='check_time' for="time-07" data-time="07:00">07:00 </label></li>
                                     <li class="squaredThree oz_not_allowed"><input id="time-08" type="checkbox" value="08:00"><label class='check_time' for="time-08" data-time="08:00">08:00 </label></li>
                                     <li class="squaredThree oz_not_allowed"><input id="time-09" type="checkbox" value="09:00"><label class='check_time' for="time-09" data-time="09:00">09:00 </label></li>
                                     <li class="squaredThree oz_not_allowed"><input id="time-10" type="checkbox" value="10:00"><label class='check_time' for="time-10" data-time="10:00">10:00 </label></li>
@@ -680,6 +693,7 @@
             document.querySelector('.calendar_next').closest('a').classList.remove('ui-state-disabled');
 
             document.querySelector('.ui-datepicker-month').textContent = document.querySelector('.ui-datepicker-month').dataset.thismonth;
+            document.querySelector('.ui-datepicker-year').textContent = document.querySelector('.ui-datepicker-year').dataset.thismonth;
         });
         document.querySelector('.calendar_next').addEventListener('click', (e) => {
             document.querySelector('#thisMonth').classList.add('hidden');
@@ -689,6 +703,7 @@
             e.target.closest('a').classList.add('ui-state-disabled');
 
             document.querySelector('.ui-datepicker-month').textContent = document.querySelector('.ui-datepicker-month').dataset.nextmonth;
+            document.querySelector('.ui-datepicker-year').textContent = document.querySelector('.ui-datepicker-year').dataset.nextmonth;
         });
         document.querySelector('.oz_container').addEventListener('click', function(e) {
             const oz_container = document.querySelector('.oz_container');
@@ -705,6 +720,7 @@
                     },
                     body: JSON.stringify(body)
                 }).then(res => {
+                    // res.text().then(data => console.log(data));
                     return res.json();
                 }).then(data => {
                     if (data.status) {
@@ -719,10 +735,16 @@
                                 element.classList.add('oz_not_allowed');
                             }
                         })
-                        const timerU = ['time-08', 'time-09', 'time-10', 'time-11'];
+                        const timerU = ['time-03', 'time-04', 'time-05', 'time-06', 'time-07', 'time-08', 'time-09', 'time-10', 'time-11'];
                         const timerD = ['time-13', 'time-14', 'time-15', 'time-16', 'time-17'];
                         const timerE = ['time-18', 'time-19', 'time-20', 'time-21', 'time-22', 'time-23'];
                         if (Object.keys(data.hourses).length > 0) {
+                            document.querySelectorAll('.oz_time .list_hourses input').forEach(function(element, index) {
+                                element.closest('li').classList.add('oz_not_allowed');
+                            })
+                            oz_container.querySelector(".oz_time .list_hourses li.timerU").classList.add('no_slots');
+                            oz_container.querySelector(".oz_time .list_hourses li.timerD").classList.add('no_slots');
+                            oz_container.querySelector(".oz_time .list_hourses li.timerE").classList.add('no_slots');
                             for (let el in data.hourses) {
                                 oz_container.querySelector(`.oz_time .list_hourses input#${el}`).closest('li').classList.remove('oz_not_allowed');
                                 if (timerU.includes(el)) {
@@ -745,7 +767,7 @@
                 const body = {};
                 body.date = this.querySelector('.oz_time').dataset.date;
                 body.time = e.target.dataset.time;
-                // console.log(body);
+                console.log(body);
                 body.get = 'services';
                 fetch('/getentry', {
                     method: 'POST',
@@ -755,9 +777,9 @@
                     },
                     body: JSON.stringify(body)
                 }).then(res => {
-                    // res.text().then(data=>{
-                    //     console.log(data);
-                    // })
+                    res.text().then(data => {
+                        console.log(data);
+                    })
                     return res.json();
                 }).then(data => {
                     // console.log(data);

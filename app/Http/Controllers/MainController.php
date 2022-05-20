@@ -7,120 +7,130 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class MainController extends Controller
 {
     public function index()
     {
-        $today = strtotime('today 00:00');
-        $allEntries = DB::table('personal_entries')->where('day', '>=', $today)->get()->groupBy(['day', 'entry_start_time'])->toArray();
-        $allServices = DB::table('services')->get()->toArray();
-        $allPersonals = DB::table('personals')->get()->toArray();
-        $personals = [];
-        foreach ($allPersonals as $personal) {
-            $personals[$personal->id] = $personal;
-        }
-        $services = [];
-        foreach ($allServices as $service) {
-            $service->personals = [];
-            $personalIds = DB::table('personal_services')->where('service_id', $service->id)->get();
-            foreach ($personalIds as $personal) {
-                $service->personals[$personal->personal_id] = $personals[$personal->personal_id];
-            }
-            $services[$service->id] = $service;
-        }
-        $entriesList = [];
-        foreach ($allEntries as $date => $times) {
-            $entriesList[$date] = [];
-            foreach ($times as $time => $entries) {
-                $entriesList[$date][$time] = [];
-                foreach ($entries as $index => $entry) {
-                    if ($entry->enable) {
-                        if (DB::table('personals')->where('id', $entry->personal_id)) {
-                            $services_id = DB::table('personal_services')->where('personal_id', $entry->personal_id)->get('service_id')->toArray();
-                            foreach ($services_id as $service) {
-                                $entriesList[$date][$time][$service->service_id] = $services[$service->service_id];
-                                $entriesList[$date][$time][$service->service_id]->entry_id = $entry->id;
-                                // dd($services[$service->id]);
-                            }
+        $nameThisMonth = Str::ucfirst(Carbon::now()->translatedFormat('F'));
+        $nameNextMonth = Str::ucfirst(Carbon::now()->addMonthsNoOverflow()->translatedFormat('F'));
+        $startThisMonth = Carbon::now()->startOfMonth()->format('d.m.Y');
+        $startNextMonth = Carbon::now()->addMonthsNoOverflow()->startOfMonth()->format('d.m.Y');
+        $yearThisMonth = Carbon::now()->format('Y');
+        $yearNextMonth = Carbon::now()->addMonthsNoOverflow()->format('Y');
+        $countDayThisMonth = Carbon::now()->daysInMonth;
+        $countDayNextMonth = Carbon::now()->addMonthsNoOverflow()->daysInMonth;
+        $currentWeekDayStartThisMonth = Carbon::now()->startOfMonth()->dayOfWeekIso;
+        $currentWeekDayStartNextMonth = Carbon::now()->addMonthsNoOverflow()->startOfMonth()->dayOfWeekIso;
+        $currentWeekDayStartNext2NextMonth = Carbon::now()->addMonthsNoOverflow()->addMonthsNoOverflow()->startOfMonth()->dayOfWeekIso;
+        $countWeekThisMonth = Carbon::now()->addMonthsNoOverflow()->startOfMonth()->format("W") + 1 - Carbon::now()->startOfMonth()->format("W");
+        $countWeekNextMonth = Carbon::now()->startOfMonth()->addMonthsNoOverflow()->addMonthsNoOverflow()->format("W") + 1 - Carbon::now()->startOfMonth()->addMonthsNoOverflow()->format("W");
+        $currentDayThisMonth = 1;
+        $currentDayNextMonth = 1;
+        $thisMonth = new stdClass();
+        $nextMonth = new stdClass();
+        $thisMonth->monthName = $nameThisMonth;
+        $nextMonth->monthName = $nameNextMonth;
+        $thisMonth->year = $yearThisMonth;
+        $nextMonth->year = $yearNextMonth;
+
+
+        for ($i = 1; $i <= $countWeekThisMonth; $i++) {
+            $thisMonth->week[$i] = [];
+            for ($j = 1; $j <= 7; $j++) {
+                $thisMonth->week[$i][$j] = [];
+                if ($i == 1 && $j >= $currentWeekDayStartThisMonth) {
+                    $thisMonth->week[$i][$j]['simpleDay'] = true;
+                    $thisMonth->week[$i][$j]['currentDay'] = $currentDayThisMonth;
+                    $thisMonth->week[$i][$j]['currentDate'] = Carbon::now()->startOfMonth()->addDays($currentDayThisMonth - 1)->format('d.m.Y');
+                    if (strtotime($thisMonth->week[$i][$j]['currentDate']) >= strtotime(Carbon::now()->format('d.m.Y'))) {
+                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->first();
+                        if ($getEntryForDate) {
+                            $thisMonth->week[$i][$j]['entryDay'] = true;
                         }
-                    } else {
-                        unset($entriesList[$date][$time]);
                     }
-                }
-                if (empty($entriesList[$date])) {
-                    unset($entriesList[$date]);
-                }
-            }
-        }
-        // dd($personals);
-        // dd($services);
-        // dd($entriesList);
-        // dd($allEntries);
 
-        $countThisMonthDays = Carbon::now()->daysInMonth;
-        $countNextMonthDays = Carbon::now()->addMonth()->daysInMonth;
+                    $currentDayThisMonth++;
+                } elseif ($i == $countWeekThisMonth  && $j < $currentWeekDayStartNextMonth) {
+                    $thisMonth->week[$i][$j]['simpleDay'] = true;
+                    $thisMonth->week[$i][$j]['currentDay'] = $currentDayThisMonth;
+                    $thisMonth->week[$i][$j]['currentDate'] = Carbon::now()->startOfMonth()->addDays($currentDayThisMonth - 1)->format('d.m.Y');
 
-        $startThisMonth = new Carbon('first day of this month');
-        $endThisMonth = new Carbon('last day of this month');
-
-        $startNextMonth = new Carbon('first day of next month');
-        $endNextMonth = new Carbon('last day of next month');
-
-        $nameThisMonth = Carbon::parse($startThisMonth)->translatedFormat('F');
-        $nameNextMonth = Carbon::parse($startNextMonth)->translatedFormat('F');
-
-        $countWeekThisMonth = date("W", strtotime($endThisMonth)) - date("W", strtotime($startThisMonth)) + 1;
-        $countWeekNextMonth = date("W", strtotime($endNextMonth)) - date("W", strtotime($startNextMonth)) + 1;
-
-
-        $startWeekDayThisMonth =  date("N", strtotime($startThisMonth));
-        $endWeekDayThisMonth = date("N", strtotime($endThisMonth));
-
-        $startWeekDayNextMonth =  date("N", strtotime($startNextMonth));
-        $endWeekDayNextMonth = date("N", strtotime($endNextMonth));
-
-        $thisMonth = ['name' => Str::ucfirst($nameThisMonth)];
-        $nextMonth = ['name' => Str::ucfirst($nameNextMonth)];
-
-        $dayOfThisMonth = 1;
-        $dayOfNextMonth = 1;
-
-        // dd($nameNextMonth);
-        // dd($endWeekDayThisMonth);
-        for ($i = 0; $i < $countWeekThisMonth; $i++) {
-            for ($j = 0; $j < 7; $j++) {
-                if ($i == 0 && $j < $startWeekDayThisMonth - 1 || $i == $countWeekThisMonth - 1 && $j > $endWeekDayThisMonth - 1) {
-                    $thisMonth['weeks'][$i][$j]['view'] = false;
-                    $thisMonth['weeks'][$i][$j]['day'] = false;
-                } else {
-                    $thisMonth['weeks'][$i][$j]['view'] = true;
-                    $thisMonth['weeks'][$i][$j]['day'] = $dayOfThisMonth;
-                    $thisMonth['weeks'][$i][$j]['date'] = strtotime($dayOfThisMonth . '.' . $startThisMonth->format('m.Y'));
-                    if (isset($entriesList[$thisMonth['weeks'][$i][$j]['date']])) {
-                        $thisMonth['weeks'][$i][$j]['entry'] = true;
-                    } else {
-                        $thisMonth['weeks'][$i][$j]['entry'] = false;
+                    if (strtotime($thisMonth->week[$i][$j]['currentDate']) >= strtotime(Carbon::now()->format('d.m.Y'))) {
+                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->first();
+                        if ($getEntryForDate) {
+                            $thisMonth->week[$i][$j]['entryDay'] = true;
+                        }
                     }
-                    $dayOfThisMonth++;
+
+                    $currentDayThisMonth++;
+                } elseif ($i != 1 && $i != $countWeekThisMonth) {
+                    $thisMonth->week[$i][$j]['simpleDay'] = true;
+                    $thisMonth->week[$i][$j]['currentDay'] = $currentDayThisMonth;
+                    $thisMonth->week[$i][$j]['currentDate'] = Carbon::now()->startOfMonth()->addDays($currentDayThisMonth - 1)->format('d.m.Y');
+
+                    if (strtotime($thisMonth->week[$i][$j]['currentDate']) >= strtotime(Carbon::now()->format('d.m.Y'))) {
+                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->first();
+                        if ($getEntryForDate) {
+                            $thisMonth->week[$i][$j]['entryDay'] = true;
+                        }
+                    }
+
+                    $currentDayThisMonth++;
                 }
             }
         }
 
-        for ($i = 0; $i < $countWeekNextMonth; $i++) {
-            for ($j = 0; $j < 7; $j++) {
-                if ($i == 0 && $j < $startWeekDayNextMonth - 1 || $i == $countWeekNextMonth - 1 && $j > $endWeekDayNextMonth - 1) {
-                    $nextMonth['weeks'][$i][$j]['view'] = false;
-                    $nextMonth['weeks'][$i][$j]['day'] = false;
-                } else {
-                    $nextMonth['weeks'][$i][$j]['view'] = true;
-                    $nextMonth['weeks'][$i][$j]['day'] = $dayOfNextMonth;
-                    $nextMonth['weeks'][$i][$j]['date'] = strtotime($dayOfNextMonth . '.' . $startNextMonth->format('m.Y'));
-                    $dayOfNextMonth++;
+        for ($i = 1; $i <= $countWeekNextMonth; $i++) {
+            $nextMonth->week[$i] = [];
+            for ($j = 1; $j <= 7; $j++) {
+                $nextMonth->week[$i][$j] = [];
+                if ($i == 1 && $j >= $currentWeekDayStartNextMonth) {
+                    $nextMonth->week[$i][$j]['simpleDay'] = true;
+                    $nextMonth->week[$i][$j]['currentDay'] = $currentDayNextMonth;
+                    $nextMonth->week[$i][$j]['currentDate'] = Carbon::now()->addMonthsNoOverflow()->startOfMonth()->addDays($currentDayNextMonth - 1)->format('d.m.Y');
+
+                    if (strtotime($nextMonth->week[$i][$j]['currentDate']) >= strtotime(Carbon::now()->format('d.m.Y'))) {
+                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->first();
+                        if ($getEntryForDate) {
+                            $nextMonth->week[$i][$j]['entryDay'] = true;
+                        }
+                    }
+
+                    $currentDayNextMonth++;
+                }
+                if ($i == $countWeekNextMonth  && $j < $currentWeekDayStartNext2NextMonth) {
+                    $nextMonth->week[$i][$j]['simpleDay'] = true;
+                    $nextMonth->week[$i][$j]['currentDay'] = $currentDayNextMonth;
+                    $nextMonth->week[$i][$j]['currentDate'] = Carbon::now()->addMonthsNoOverflow()->startOfMonth()->addDays($currentDayNextMonth - 1)->format('d.m.Y');
+
+                    if (strtotime($nextMonth->week[$i][$j]['currentDate']) >= strtotime(Carbon::now()->format('d.m.Y'))) {
+                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->first();
+                        if ($getEntryForDate) {
+                            $nextMonth->week[$i][$j]['entryDay'] = true;
+                        }
+                    }
+
+                    $currentDayNextMonth++;
+                }
+                if ($i != 1 && $i != $countWeekNextMonth) {
+                    $nextMonth->week[$i][$j]['simpleDay'] = true;
+                    $nextMonth->week[$i][$j]['currentDay'] = $currentDayNextMonth;
+                    $nextMonth->week[$i][$j]['currentDate'] = Carbon::now()->addMonthsNoOverflow()->startOfMonth()->addDays($currentDayNextMonth - 1)->format('d.m.Y');
+
+                    if (strtotime($nextMonth->week[$i][$j]['currentDate']) >= strtotime(Carbon::now()->format('d.m.Y'))) {
+                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->first();
+                        if ($getEntryForDate) {
+                            $nextMonth->week[$i][$j]['entryDay'] = true;
+                        }
+                    }
+
+                    $currentDayNextMonth++;
                 }
             }
         }
-        // dd($thisMonth);
+
         return view('home', compact('thisMonth', 'nextMonth'));
     }
     public function getentry(Request $request)
@@ -129,7 +139,7 @@ class MainController extends Controller
             $data = $request->json()->all();    //Получает тела запроса
             // return response()->json($data);
             $today = strtotime('today 00:00');
-            $allEntries = DB::table('personal_entries')->where('day', '>=', $today)->get()->groupBy(['day', 'entry_start_time'])->toArray();
+            $allEntries = DB::table('personal_entries')->where('entry_date', '>=', $today)->get()->groupBy(['entry_date', 'entry_start_time'])->toArray();
             $allServices = DB::table('services')->get()->toArray();
             $allPersonals = DB::table('personals')->get()->toArray();
 
@@ -148,13 +158,16 @@ class MainController extends Controller
             }
             $entriesList = [];
             foreach ($allEntries as $date => $times) {
+                $date = date('d.m.Y', strval($date));
                 $entriesList[$date] = [];
                 foreach ($times as $time => $entries) {
+                    $time = date('H', $time);
+                    // echo $time;
                     $entriesList[$date][$time] = [];
                     foreach ($entries as $index => $entry) {
-                        if ($entry->enable) {
-                            if (DB::table('personals')->where('id', $entry->personal_id)) {
-                                $services_id = DB::table('personal_services')->where('personal_id', $entry->personal_id)->get('service_id')->toArray();
+                        if ($entry->entry_enable) {
+                            if (DB::table('personals')->where(['id' => $entry->personal_id, 'publishing' => true])) {
+                                $services_id = DB::table('personal_services')->where('id', $entry->personal_id)->get('service_id')->toArray();
                                 foreach ($services_id as $service) {
                                     $entriesList[$date][$time][$service->service_id] = $services[$service->service_id];
                                     $entriesList[$date][$time][$service->service_id]->entry_id = $entry->id;
@@ -171,16 +184,16 @@ class MainController extends Controller
             // dd($services);
             // dd(date("d.m.Y H:i", 1651986000));
             // dd(date("d.m.Y H:i", 1651957200));
-            // dd($entriesList);
+            dd($entriesList);
             // dd($allEntries);
             if ($data['get'] == 'enable_hourses') {
                 $hourses = [];
                 foreach ($entriesList[$data['date']] as $hour => $array) {
-                    $hourses['time-' . date('H', $hour)] = date('H:i', $hour);
+                    $hourses['time-' . $hour] = $hour . ':00';
                 }
                 return response()->json(['status' => true, 'hourses' => $hourses]);
             } elseif ($data['get'] == 'services') {
-                $services = $entriesList[$data['date']][strtotime(date('d.m.Y', $data['date']) . ' ' . $data['time'])];
+                $services = $entriesList[$data['date']][mb_substr($data['time'], 0, 2)];
                 return response()->json(['status' => true, 'services' => $services]);
             } elseif ($data['get'] == 'personals') {
                 $personals = $entriesList[$data['date']][strtotime(date('d.m.Y', $data['date']) . ' ' . $data['time'])][$data['service_id']]->personals;
@@ -207,7 +220,7 @@ class MainController extends Controller
                 return response()->json(['status' => true, 'body' => $body]);
             }
         } catch (\Exception $e) {
-            return response()->json(['status' => false, 'message' => $e->getMessage(), 500]);
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
         }
     }
 }

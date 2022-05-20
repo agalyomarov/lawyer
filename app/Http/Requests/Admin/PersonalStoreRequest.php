@@ -25,17 +25,17 @@ class PersonalStoreRequest extends FormRequest
     {
         return [
             'image' => [''],
-            'fullname' => [''],
+            'fullname' => ['required'],
             'h1' => [''],
             'description' => [],
             'media' => [],
             'shurt_description' => [''],
             'content' => [''],
             'regnumber' => [''],
-            'specialities' => [''],
-            'publishing' => [],
-            'interval' => [''],
-            'services' => ['']
+            'specialities' => ['required'],
+            'publishing' => ['required'],
+            'interval' => ['required'],
+            'services' => ['required']
         ];
     }
 }

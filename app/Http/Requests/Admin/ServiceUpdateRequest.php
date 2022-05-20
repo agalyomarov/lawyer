@@ -24,13 +24,13 @@ class ServiceUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => [],
+            'title' => ['required'],
             'chpu' => [],
             'h1' => [],
             'description' => [],
             'content' => [],
-            'price' => [],
-            'duration' => [],
+            'price' => ['required'],
+            'duration' => ['required'],
         ];
     }
 }
