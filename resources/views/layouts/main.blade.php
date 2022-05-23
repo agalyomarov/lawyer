@@ -631,7 +631,7 @@
                                                 </div>
                                             </label>
                                             <label>
-                                                <input type="text" name="clientEmail" size="40" class="" placeholder="Email" value="">
+                                                <input type="text" name="clientEmail" size="40" class="" placeholder="Email (необъязательно)" value="">
                                             </label>
                                             <label class="field-cf_1633706216_0-0 oz_cust_checkbox">
                                                 <input type="checkbox" name="cf_1633706216_0" value="Согласен с условиями договора аферты">Согласен с условиями договора аферты</label>
@@ -767,7 +767,7 @@
                 const body = {};
                 body.date = this.querySelector('.oz_time').dataset.date;
                 body.time = e.target.dataset.time;
-                console.log(body);
+                // console.log(body);
                 body.get = 'services';
                 fetch('/getentry', {
                     method: 'POST',
@@ -777,9 +777,9 @@
                     },
                     body: JSON.stringify(body)
                 }).then(res => {
-                    res.text().then(data => {
-                        console.log(data);
-                    })
+                    // res.text().then(data => {
+                    //     console.log(data);
+                    // })
                     return res.json();
                 }).then(data => {
                     // console.log(data);
@@ -830,7 +830,6 @@
                     // })
                     return res.json();
                 }).then(data => {
-                    // console.log(data);
                     if (data.status) {
                         oz_container.querySelector('.oz_hid_carousel').style.transform = 'translateX(-42.8571%)';
                         oz_container.querySelector('h3.stepname').textContent = 'ВЫБРАТЬ СОТРУДНИКА';
@@ -872,6 +871,7 @@
                 body.service_id = e.target.closest('.oz_employees').dataset.service_id;
                 body.personal_id = e.target.closest('.personal').dataset.personal_id;
                 body.get = 'data_before_buy';
+                // console.log(body);
                 fetch('/getentry', {
                     method: 'POST',
                     headers: {
@@ -880,6 +880,9 @@
                     },
                     body: JSON.stringify(body)
                 }).then(res => {
+                    // res.text().then(data => {
+                    //     console.log(data);
+                    // })
                     return res.json();
                 }).then(data => {
                     if (data.status) {

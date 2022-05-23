@@ -167,7 +167,7 @@ class MainController extends Controller
                     foreach ($entries as $index => $entry) {
                         if ($entry->entry_enable) {
                             if (DB::table('personals')->where(['id' => $entry->personal_id, 'publishing' => true])) {
-                                $services_id = DB::table('personal_services')->where('id', $entry->personal_id)->get('service_id')->toArray();
+                                $services_id = DB::table('personal_services')->where('personal_id', $entry->personal_id)->get('service_id')->toArray();
                                 foreach ($services_id as $service) {
                                     $entriesList[$date][$time][$service->service_id] = $services[$service->service_id];
                                     $entriesList[$date][$time][$service->service_id]->entry_id = $entry->id;
@@ -184,7 +184,7 @@ class MainController extends Controller
             // dd($services);
             // dd(date("d.m.Y H:i", 1651986000));
             // dd(date("d.m.Y H:i", 1651957200));
-            dd($entriesList);
+            // dd($entriesList);
             // dd($allEntries);
             if ($data['get'] == 'enable_hourses') {
                 $hourses = [];
@@ -196,7 +196,7 @@ class MainController extends Controller
                 $services = $entriesList[$data['date']][mb_substr($data['time'], 0, 2)];
                 return response()->json(['status' => true, 'services' => $services]);
             } elseif ($data['get'] == 'personals') {
-                $personals = $entriesList[$data['date']][strtotime(date('d.m.Y', $data['date']) . ' ' . $data['time'])][$data['service_id']]->personals;
+                $personals = $entriesList[$data['date']][mb_substr($data['time'], 0, 2)][$data['service_id']]->personals;
                 foreach ($personals as $index => $personal) {
                     $personal_specialities = DB::table('personal_specialities')->where('personal_id', $personal->id)->select('speciality_id')->get()->toArray();
                     $specialities = '';
@@ -212,8 +212,8 @@ class MainController extends Controller
                 $body['personal_id'] = $data['personal_id'];
                 $body['service_id'] = $data['service_id'];
                 $body['fullname'] = DB::table('personals')->where('id', $data['personal_id'])->select('fullname')->first()->fullname;
-                $body['date'] = $data['date'];
-                $body['day'] = date('d.m.y', $data['date']);
+                $body['date'] = strtotime($data['date']);
+                $body['day'] =  $data['date'];
                 $body['time'] = $data['time'];
                 $body['service'] = DB::table('services')->where('id', $data['service_id'])->select('title')->first()->title;
                 $body['price'] = DB::table('services')->where('id', $data['service_id'])->select('price')->first()->price;
