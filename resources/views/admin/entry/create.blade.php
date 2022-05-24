@@ -110,14 +110,15 @@
         }
 
         .calendar .table .table_row .online_entry {
+            background-color: rgb(17, 0, 255);
+            color: #fff;
+        }
+
+        .calendar .table .table_row .entryBuyed {
             background-color: rgb(255, 185, 55);
             color: #fff;
         }
 
-        .calendar .table .table_row .last_online_entry {
-            background-color: rgb(119, 86, 26);
-            color: #fff;
-        }
 
         .added_entries {
             float: right;
@@ -153,12 +154,12 @@
         }
 
         .added_entries .entry_day.disable {
-            background-color: orange;
+            background-color: rgb(17, 0, 255);
             color: #fff;
         }
 
-        .added_entries .entry_day.last.disable {
-            background-color: rgb(167, 109, 2);
+        .added_entries .entry_day.buyed {
+            background-color: orange;
             color: #fff;
         }
 
@@ -227,7 +228,7 @@
         .saved_entry_block .entry_day {
             width: 80px;
             height: 30px;
-            background-color: rgb(28, 157, 249);
+            background-color: rgb(72, 127, 163);
             text-align: center;
             border-radius: 5px;
             color: #fff;
@@ -242,13 +243,13 @@
             color: rgba(0, 0, 0, 0.5)
         }
 
-        .saved_entry_block .entry_day.disable {
+        .saved_entry_block .entry_day.buyed.disable {
             background-color: orange;
             color: #fff;
         }
 
-        .saved_entry_block .entry_day.last.disable {
-            background-color: rgb(167, 109, 2);
+        .saved_entry_block .entry_day.disable {
+            background-color: rgb(17, 0, 255);
             color: #fff;
         }
 
@@ -274,7 +275,7 @@
             width: 90px;
             height: 30px;
             float: right;
-            background-color: rgb(0, 34, 255);
+            background-color: #28a745;
             color: white;
             text-align: center;
             border-radius: 5px;
@@ -423,10 +424,6 @@
                         </div>
                     </div>
                     <div class="added_entries">
-                        {{-- <div class="entry_day">
-                            <span>10.05.2022</span>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div> --}}
                     </div>
                     <div class="add_time_for_entry">
                         <select name="block_start_time" class="blockStartTime">
@@ -470,7 +467,8 @@
                                         <div class="table_row">
                                             @foreach ($week as $day)
                                                 @if (isset($day['simpleDay']))
-                                                    <div class="day @if (isset($day['isLastDate'])) last @endif  @if (isset($day['entryDay'])) entry @endif @if (isset($day['disableDay'])) online_entry @endif" data-currentdate="{{ $day['currentDate'] }}">
+                                                    <div class="day @if (isset($day['isLastDate'])) last @endif  @if (isset($day['entryDay'])) entry @endif @if (isset($day['disableDay'])) online_entry @endif  @if (isset($day['entryBuyed'])) entryBuyed @endif"
+                                                        data-currentdate="{{ $day['currentDate'] }}">
                                                         {{ $day['currentDay'] }}
                                                     </div>
                                                 @else
@@ -502,7 +500,7 @@
                                         <div class="table_row">
                                             @foreach ($week as $day)
                                                 @if (isset($day['simpleDay']))
-                                                    <div class="day @if (isset($day['entryDay'])) entry @endif @if (isset($day['disableDay'])) online_entry @endif" data-currentdate="{{ $day['currentDate'] }}">
+                                                    <div class="day @if (isset($day['entryDay'])) entry @endif  @if (isset($day['disableDay'])) online_entry @endif  @if (isset($day['entryBuyed'])) entryBuyed @endif" data-currentdate="{{ $day['currentDate'] }}">
                                                         {{ $day['currentDay'] }}
                                                     </div>
                                                 @else
@@ -526,7 +524,7 @@
                                         <div class="btn_for_edit">Изменить</div>
                                     </div>
                                     @foreach ($block['entryDates'] as $index => $date)
-                                        <div class="entry_day @if ($date['lastDate']) last @endif @if (isset($date['enable'])) disable @endif">{{ date('d.m.Y', $index) }}</div>
+                                        <div class="entry_day @if (isset($date['enable'])) disable @endif @if (isset($date['buyed'])) buyed @endif">{{ date('d.m.Y', $index) }}</div>
                                     @endforeach
                                     <div class="btn_for_delete_block">Удалить</div>
                                 </div>
@@ -728,13 +726,10 @@
                         let classesForBlock = '';
                         let classesForCalendar = 'entry';
                         let tagIEnable = true;
-                        if (element.classList.contains('last') && element.classList.contains('disable')) {
-                            classesForBlock = 'last disable';
-                            classesForCalendar = 'last_online_entry';
+                        if (element.classList.contains('buyed')) {
+                            classesForBlock = 'buyed';
+                            classesForCalendar = 'entryBuyed';
                             tagIEnable = false;
-                        } else if (element.classList.contains('last')) {
-                            classesForBlock = 'last';
-                            clasesForCalendar = 'last'
                         } else if (element.classList.contains('disable')) {
                             classesForBlock = 'disable';
                             classesForCalendar = 'online_entry';

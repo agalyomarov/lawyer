@@ -6,10 +6,20 @@ use App\Http\Controllers\Admin\PersonalController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ServiceForSimpleClient;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [MainController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'yuridicheskoe-obsluzhivanie-fiz-lic', 'as' => 'serviceForSimpleClient.'], function () {
+   Route::get('/', [ServiceForSimpleClient::class, 'index'])->name('index');
+   Route::get('/advokat-po-ugolovnym-delam', [ServiceForSimpleClient::class, 'pageAdvokatPoUgalownymDelam'])->name('pageAdvokatPoUgalownymDelam');
+   Route::get('/advokat-po-administrativnym-delam', [ServiceForSimpleClient::class, 'pageAdvokatPoAdministrativnymDelam'])->name('pageAdvokatPoAdministrativnymDelam');
+   Route::get('/advokat-po-dtp', [ServiceForSimpleClient::class, 'pageAdvokatPoDtp'])->name('pageAdvokatPoDtp');
+   Route::get('/vzyskanie-dolgov-s-fizicheskih-lic', [ServiceForSimpleClient::class, 'pageVzyskanieDolgovSFizicheskihLic'])->name('pageVzyskanieDolgovSFizicheskihLic');
+});
+
 Route::post('/getentry', [MainController::class, 'getentry']);
 Route::get('/getentry', [MainController::class, 'getentry']);
 

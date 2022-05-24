@@ -60,6 +60,11 @@ class EntryController extends Controller
                         $thisMonth->week[$i][$j]['disableDay'] = true;
                     }
 
+                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_buyed' => 1, 'entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate'])])->first();
+                    if ($getEntryForEnable) {
+                        $thisMonth->week[$i][$j]['entryBuyed'] = true;
+                    }
+
                     $currentDayThisMonth++;
                 } elseif ($i == $countWeekThisMonth  && $j < $currentWeekDayStartNextMonth) {
                     $thisMonth->week[$i][$j]['simpleDay'] = true;
@@ -76,6 +81,11 @@ class EntryController extends Controller
                         $thisMonth->week[$i][$j]['disableDay'] = true;
                     }
 
+                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_buyed' => 1, 'entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate'])])->first();
+                    if ($getEntryForEnable) {
+                        $thisMonth->week[$i][$j]['entryBuyed'] = true;
+                    }
+
                     $currentDayThisMonth++;
                 } elseif ($i != 1 && $i != $countWeekThisMonth) {
                     $thisMonth->week[$i][$j]['simpleDay'] = true;
@@ -90,6 +100,11 @@ class EntryController extends Controller
                     $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_enable' => 0, 'entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate'])])->first();
                     if ($getEntryForEnable) {
                         $thisMonth->week[$i][$j]['disableDay'] = true;
+                    }
+
+                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_buyed' => 1, 'entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate'])])->first();
+                    if ($getEntryForEnable) {
+                        $thisMonth->week[$i][$j]['entryBuyed'] = true;
                     }
 
                     $currentDayThisMonth++;
@@ -118,6 +133,11 @@ class EntryController extends Controller
                         $nextMonth->week[$i][$j]['disableDay'] = true;
                     }
 
+                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_enable' => 0, 'entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate'])])->first();
+                    if ($getEntryForEnable) {
+                        $nextMonth->week[$i][$j]['entryBuyed'] = true;
+                    }
+
                     $currentDayNextMonth++;
                 }
                 if ($i == $countWeekNextMonth  && $j < $currentWeekDayStartNext2NextMonth) {
@@ -133,6 +153,11 @@ class EntryController extends Controller
                     $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_enable' => 0, 'entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate'])])->first();
                     if ($getEntryForEnable) {
                         $nextMonth->week[$i][$j]['disableDay'] = true;
+                    }
+
+                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_enable' => 0, 'entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate'])])->first();
+                    if ($getEntryForEnable) {
+                        $nextMonth->week[$i][$j]['entryBuyed'] = true;
                     }
 
                     $currentDayNextMonth++;
@@ -152,12 +177,17 @@ class EntryController extends Controller
                         $nextMonth->week[$i][$j]['disableDay'] = true;
                     }
 
+                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_enable' => 0, 'entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate'])])->first();
+                    if ($getEntryForEnable) {
+                        $nextMonth->week[$i][$j]['entryBuyed'] = true;
+                    }
+
                     $currentDayNextMonth++;
                 }
             }
         }
 
-        $allBlocks = DB::table('personal_entries')->where('personal_id', $personal->id)->select('block_count', 'block_start_time', 'block_end_time', 'entry_date', 'entry_enable')->get()->groupBy('block_count')->toArray();
+        $allBlocks = DB::table('personal_entries')->where('personal_id', $personal->id)->select('block_count', 'block_start_time', 'block_end_time', 'entry_date', 'entry_enable', 'entry_buyed')->get()->groupBy('block_count')->toArray();
 
         $blocks = [];
         foreach ($allBlocks as $block) {
@@ -169,8 +199,11 @@ class EntryController extends Controller
                 } else {
                     $blocks[$block[0]->block_count]['entryDates'][$blockData->entry_date]['lastDate'] = false;
                 }
-                if ($blockData->entry_enable == 0) {
-                    $blocks[$block[0]->block_count]['entryDates'][$blockData->entry_date]['enable'] = 0;
+                if ($blockData->entry_enable == false) {
+                    $blocks[$block[0]->block_count]['entryDates'][$blockData->entry_date]['enable'] = false;
+                }
+                if ($blockData->entry_buyed == true) {
+                    $blocks[$block[0]->block_count]['entryDates'][$blockData->entry_date]['buyed'] = true;
                 }
             }
         }
@@ -203,7 +236,7 @@ class EntryController extends Controller
                     if (boolval($checkEntryIsHas)) {
                         return response()->json(['status' => 'validate', 'message' => 'Дынный не записовался в БД.Ест дубликат записа для дата ' . date('d.m.Y H:i', $checkEntryIsHas->entry_start_time)]);
                     }
-                    DB::table('personal_entries')->insert(['personal_id' => $personal->id, 'block_count' => $blockCount, 'block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1]);
+                    DB::table('personal_entries')->insert(['personal_id' => $personal->id, 'block_count' => $blockCount, 'block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1, 'entry_buyed' => 0]);
                 }
             }
             DB::commit();
@@ -259,7 +292,6 @@ class EntryController extends Controller
             }
 
             $getDisableEntryInBlock = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'block_count' => $blockCount, 'entry_enable' => 0])->first();
-            // return response()->json([strtotime(Carbon::now()->format('d.m.Y ') . date('H:i', $getDisableEntryInBlock->entry_start_time)) - strtotime(Carbon::now()->format('d.m.Y') . ' 00:00:00')]);
 
             if ($getDisableEntryInBlock && (strtotime(Carbon::now()->format('d.m.Y ') . date('H:i', $getDisableEntryInBlock->entry_start_time)) - strtotime(Carbon::now()->format('d.m.Y') . ' 00:00:00')) < $blockStartTime) {
                 return response()->json(['status' => 'validate', 'message' => 'Дынный не записовался в БД.Ест активный онлайн запис для дата ' . date('d.m.Y H:i', $getDisableEntryInBlock->entry_start_time) . ' - ' . date('H:i', $getDisableEntryInBlock->entry_end_time)]);
@@ -284,7 +316,7 @@ class EntryController extends Controller
                     if ($checkEntryIsHas) {
                         return response()->json(['status' => 'validate', 'message' => 'Дынный не записовался в БД.Ест дубликат записа для дата ' . date('d.m.Y H:i', $checkEntryIsHas->entry_date)]);
                     }
-                    DB::table('personal_entries')->insert(['personal_id' => $personal->id, 'block_count' => $blockCount, 'block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1]);
+                    DB::table('personal_entries')->insert(['personal_id' => $personal->id, 'block_count' => $blockCount, 'block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1, 'entry_buyed' => 0]);
                 }
             }
 
@@ -303,7 +335,7 @@ class EntryController extends Controller
                     if ($checkEntryIsHas) {
                         return response()->json(['status' => 'validate', 'message' => 'Дынный не записовался в БД.Ест дубликат записа для дата ' . date('d.m.Y H:i', $checkEntryIsHas->entry_date)]);
                     }
-                    DB::table('personal_entries')->insert(['personal_id' => $personal->id, 'block_count' => $blockCount, 'block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1]);
+                    DB::table('personal_entries')->insert(['personal_id' => $personal->id, 'block_count' => $blockCount, 'block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1, 'entry_buyed' => 0]);
                 }
             }
 
@@ -315,7 +347,7 @@ class EntryController extends Controller
                     $endTime = $startTime + 3600;
                     $checkEntryIsHas = DB::table('personal_entries')->where('personal_id', $personal->id)->where(['entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'block_count' => $blockCount])->first();
                     if (!$checkEntryIsHas) {
-                        DB::table('personal_entries')->insert(['personal_id' => $personal->id, 'block_count' => $blockCount, 'block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1]);
+                        DB::table('personal_entries')->insert(['personal_id' => $personal->id, 'block_count' => $blockCount, 'block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime, 'entry_enable' => 1, 'entry_buyed' => 0]);
                     } else {
                         DB::table('personal_entries')->where(['personal_id' => $personal->id, 'block_count' => $blockCount, 'entry_date' => $date, 'entry_start_time' => $startTime, 'entry_end_time' => $endTime])->update(['block_start_time' => $blockStartTime, 'block_end_time' => $blockEndTime]);
                     }

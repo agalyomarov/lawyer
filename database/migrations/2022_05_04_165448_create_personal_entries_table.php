@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('entry_start_time');
             $table->string('entry_end_time');
             $table->boolean('entry_enable');
+            $table->boolean('entry_buyed');
             $table->unique(['personal_id', 'entry_date', 'entry_start_time', 'entry_end_time'], 'personal_date_start_end_unigx');
         });
     }

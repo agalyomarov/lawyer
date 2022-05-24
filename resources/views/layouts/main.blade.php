@@ -73,7 +73,6 @@
 
 <body class="body">
     @include('includes.header')
-    @include('includes.beard')
     <section class="home-one">
         <div class="swiper-container">
             <div class="swiper-wrapper">
