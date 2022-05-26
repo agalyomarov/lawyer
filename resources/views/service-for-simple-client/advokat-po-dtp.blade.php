@@ -28,6 +28,9 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap&subset=cyrillic" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" id="wp-customer-reviews-3-frontend-css" href="{{ asset('css/wp-customer-reviews.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" id="wp-block-library-css" href="{{ asset('css/style.min.css') }}" type="text/css" media="all">
+    <script type="text/javascript" async="" src="{{ asset('js/tag.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 </head>
 

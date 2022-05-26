@@ -27,4 +27,9 @@ class ServiceForSimpleClient extends Controller
     {
         return view('service-for-simple-client.vzyskanie-dolgov-s-fizicheskih-lic');
     }
+
+    public function pageAdvokatPoZhilishchnymVoprosam()
+    {
+        return view('service-for-simple-client.advokat-po-zhilishchnym-voprosam');
+    }
 }

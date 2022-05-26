@@ -30,7 +30,6 @@
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 
     <meta name='robots' content='max-image-preview:large' />
-    {{-- <link rel='stylesheet' id='wp-customer-reviews-3-frontend-css' href='https://a-advokat.ru/wp-content/plugins/wp-customer-reviews/css/wp-customer-reviews.css?ver=3.6.2' type='text/css' media='all' /> --}}
 
 </head>
 
@@ -57,8 +56,8 @@
                 <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoUgalownymDelam') }}">Уголовный адвокат</a></li>
                 <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoAdministrativnymDelam') }}">Услуги адвоката по административным делам</a></li>
                 <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoDtp') }}">Услуги адвокатов по ДТП </a></li>
-                <li><a href="https://a-advokat.ru/vzyskanie-dolgov-s-fizicheskih-lic/">Возврат долгов с физических лиц</a></li>
-                <li><a href="https://a-advokat.ru/advokat-po-zhilishchnym-voprosam/">Адвокат по жилищным вопросам</a></li>
+                <li><a href="{{ route('serviceForSimpleClient.pageVzyskanieDolgovSFizicheskihLic') }}">Возврат долгов с физических лиц</a></li>
+                <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoZhilishchnymVoprosam') }}">Адвокат по жилищным вопросам</a></li>
                 <li><a href="https://a-advokat.ru/advokat-po-nasledstvennym-delam/">Адвокат по наследственным делам</a></li>
                 <li><a href="https://a-advokat.ru/yurist-po-trudovym-sporam/">Услуги юриста по трудовым вопросам</a></li>
                 <li><a href="https://a-advokat.ru/predstavlenie-interesov-v-arbitrazhnom-sude/">Представительство в Арбитражном суде</a></li>

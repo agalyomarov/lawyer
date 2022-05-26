@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-
+    <script src="https://kit.fontawesome.com/aa53675e71.js" crossorigin="anonymous"></script>
     <meta name='robots' content='max-image-preview:large' />
     <link rel='dns-prefetch' href='//s.w.org' />
     <link rel='stylesheet' id='wp-customer-reviews-3-frontend-css' href='https://a-advokat.ru/wp-content/plugins/wp-customer-reviews/css/wp-customer-reviews.css?ver=3.6.2' type='text/css' media='all' />
@@ -96,8 +96,78 @@
         }
 
         .form_fields .oz_submit.oz_btn {
-            background-color: rgba(138, 68, 75, 0.7) !important;
+            background: #6E171E;
             height: 40px;
+        }
+
+        .block_for_phone_verify {
+            width: 100%;
+            height: auto;
+            /* background-color: #fff; */
+        }
+
+        .block_for_phone_verify .block {
+            padding: 40px 20px;
+            width: 400px;
+            height: auto;
+            background-color: #fff;
+            margin: 0 auto;
+        }
+
+        .block_for_phone_verify .block p.block_title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+
+        .block_for_phone_verify .block p.block_description {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .block_for_phone_verify .block label {
+            display: inline-block;
+            margin-top: 30px;
+            width: 100%;
+            font-size: 15px;
+        }
+
+        .block_for_phone_verify .block input.result {
+            display: inline-block;
+            width: 100%;
+            height: 40px;
+            font-size: 15px;
+            border-radius: 5px;
+            padding: 0 10px;
+        }
+
+        .block_for_phone_verify .block .block_turn {
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+            width: 100%;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .block_for_phone_verify .block .block_turn i {
+            margin-right: 5px;
+        }
+
+        .block_for_phone_verify .block input.btn_send {
+            margin-top: 50px;
+            width: 100%;
+            height: 40px;
+            background: #6E171E;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .btn_for_zabronirovat.disabled {
+            background-color: rgba(110, 23, 30, 0.4) !important;
         }
 
     </style>
@@ -673,32 +743,43 @@
                                                 </div>
                                             </label>
                                             <label>
-                                                <input type="text" name="clientEmail" size="40" class="" placeholder="Email (объязательно при онлайн оплате)" value="">
+                                                <input type="text" name="clientEmail" size="40" class="clientEmail" placeholder="Email (объязательно при онлайн оплате)" value="">
                                             </label>
                                             <label class="field-cf_1633706216_0-0 oz_cust_checkbox">
-                                                <input type="checkbox" name="cf_1633706216_0" value="Согласен с условиями договора аферты">Согласен с условиями договора аферты</label>
+                                                <input type="checkbox" name="cf_1633706216_0" class="dogovor_oferty" value="Согласен с условиями договора аферты">Согласен с условиями договора аферты</label>
                                             <label>Способ оплаты</label>
                                             <ul class="oz_select select_check_oplata">
                                                 <li class="oz_li oz_li_sub">
                                                     <ul class="select_type_send_money">
-                                                        <li class="oz_li_sub_li active">Не выбрано</li>
-                                                        <li class="oz_li_sub_li">Онлайн картой</li>
+                                                        <li class="oz_li_sub_li active not_buyed">Не выбрано</li>
+                                                        <li class="oz_li_sub_li buyed">Онлайн картой</li>
                                                     </ul>
                                                 </li>
                                             </ul>
                                             <label class="text-center oz_submit_label">
                                                 <span>
-                                                    <input type="button" class="oz_submit oz_btn" value="Забронировать">
+                                                    <input type="button" class="oz_submit oz_btn btn_for_zabronirovat disabled" value="Забронировать">
                                                 </span>
                                             </label>
                                         </div>
                                     </form>
                                 </div>
                             </div>
+                            <div class="block_for_phone_verify">
+                                <div class="block">
+                                    <p class="block_title">ПОДВЕРЖДЕНИЕ ВХОДА</з>
+                                    <p class="block_description">мы отправили код с SMS</p>
+                                    <label>Последный 4 цифры </label>
+                                    <input type="text" class="result">
+                                    <p class="block_turn"><i class="fa-solid fa-arrows-rotate"></i><span>Отправить код повторно через 4:43</span></p>
+                                    <input type="button" value="Войти" class="btn_send">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     @include('includes.vremenno')
@@ -941,12 +1022,33 @@
                         timeForm.querySelector('span.data_before_buy_price').innerText = data.body.price + '  руб';
                         timeForm.querySelector('span.data_before_buy_service').innerText = data.body.service;
                         timeForm.querySelector('span.data_before_buy_time').innerText = data.body.time;
+                        timeForm.querySelector('input.input_name').addEventListener('input', function(e) {
+                            const inputNameValue = timeForm.querySelector('input.input_name').value.trim();
+                            const inputPhoneValue = timeForm.querySelector('input.oz_phone_input').value.trim();
+                            const clientEmail = timeForm.querySelector('input.clientEmail').value.trim();
+                            let typeBuyed = document.querySelector('.select_type_send_money .active');
+                            const dogovorOferty = timeForm.querySelector('.dogovor_oferty').checked;
+                            if (typeBuyed.classList.contains('not_buyed')) {
+                                typeBuyed = 'not';
+                            } else if (typeBuyed.classList.contains('buyed')) {
+                                typeBuyed = 'yes';
+                            }
+
+                            console.log(inputNameValue, inputPhoneValue.length, clientEmail, typeBuyed, dogovorOferty);
+                        })
                         // console.log();
                     }
                     // console.log(data);
                 })
                 // console.log(e.target);
                 // console.log(body);
+            } else if (e.target.classList.contains('btn_for_zabronirovat')) {
+                const timeForm = oz_container.querySelector('#timeForm');
+                oz_container.querySelector('.oz_hid_carousel').style.transform = 'translateX(-71.4428%)';
+                oz_container.querySelector('h3.stepname').textContent = 'ПОДВЕРЖДЕНИЕ НОМЕРА';
+                oz_container.querySelector('.block_for_phone_verify').classList.add('active');
+                timeForm.classList.remove('active');
+
             }
         })
         document.querySelector('.select_check_oplata').addEventListener('click', function(e) {
@@ -964,6 +1066,8 @@
             const oz_services = oz_container.querySelector('.oz_services');
             const oz_employees = oz_container.querySelector('.oz_employees');
             const timeForm = oz_container.querySelector('#timeForm');
+            const blockPhoneVerify = oz_container.querySelector('.block_for_phone_verify');
+
             const oz_hid_carousel = oz_container.querySelector('.oz_hid_carousel');
             const stepname = oz_container.querySelector('h3.stepname');
             if (oz_time.classList.contains('active')) {
@@ -1002,6 +1106,21 @@
                 timeForm.querySelector('span.data_before_buy_price').innerText = '';
                 timeForm.querySelector('span.data_before_buy_service').innerText = '';
                 timeForm.querySelector('span.data_before_buy_time').innerText = '';
+
+            } else if (blockPhoneVerify.classList.contains('active')) {
+                oz_hid_carousel.style.transform = "translateX(-57.1471%)";
+                stepname.textContent = 'КОНТАКТНАЯ ИНФОРМАЦИЯ';
+                timeForm.classList.add('active');
+                blockPhoneVerify.classList.remove('active');
+                // timeForm.dataset.personal_id = '';
+                // timeForm.dataset.date = '';
+                // timeForm.dataset.time = '';
+                // timeForm.dataset.service_id = '';
+                // timeForm.querySelector('span.data_before_buy_date').innerText = '';
+                // timeForm.querySelector('span.data_before_buy_fullname').innerText = '';
+                // timeForm.querySelector('span.data_before_buy_price').innerText = '';
+                // timeForm.querySelector('span.data_before_buy_service').innerText = '';
+                // timeForm.querySelector('span.data_before_buy_time').innerText = '';
             }
         }
         document.querySelector('.select_type_send_money').addEventListener('click', function(e) {

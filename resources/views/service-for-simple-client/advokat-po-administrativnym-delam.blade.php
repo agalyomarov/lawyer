@@ -28,6 +28,9 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap&subset=cyrillic" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" id="wp-customer-reviews-3-frontend-css" href="{{ asset('css/wp-customer-reviews.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" id="wp-block-library-css" href="{{ asset('css/style.min.css') }}" type="text/css" media="all">
+    <script type="text/javascript" async="" src="{{ asset('js/tag.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 </head>
 
@@ -54,9 +57,8 @@
             <h1>Услуги адвоката по административным делам</h1>
         </div>
         <div class="container">
-            <p><img class="aligncenter wp-image-286 size-large" title="Услуги адвокатов по административным делам в Москве" src="https://cb08590.tmweb.ru/wp-content/uploads/2021/10/advokat-po-administrativnym-delam-1024x651.jpg" alt="Услуги адвоката по административным делам" width="1024"
-                    height="651"
-                    srcset="https://a-advokat.ru/wp-content/uploads/2021/10/advokat-po-administrativnym-delam-1024x651.jpg 1024w, https://a-advokat.ru/wp-content/uploads/2021/10/advokat-po-administrativnym-delam-300x191.jpg 300w, https://a-advokat.ru/wp-content/uploads/2021/10/advokat-po-administrativnym-delam-768x488.jpg 768w, https://a-advokat.ru/wp-content/uploads/2021/10/advokat-po-administrativnym-delam.jpg 1353w"
+            <p><img class="aligncenter wp-image-286 size-large" title="Услуги адвокатов по административным делам в Москве" src="{{ asset('images/advokat-po-administrativnym-delam-1024x651.jpg') }}" alt="Услуги адвоката по административным делам" width="1024" height="651"
+                    srcset="{{ asset('images/advokat-po-administrativnym-delam') }}-1024x651.jpg 1024w, {{ asset('images/advokat-po-administrativnym-delam') }}-300x191.jpg 300w, {{ asset('images/advokat-po-administrativnym-delam') }}-768x488.jpg 768w, {{ asset('images/advokat-po-administrativnym-delam') }}.jpg 1353w"
                     sizes="(max-width: 1024px) 100vw, 1024px"></p>
             <p>Упрощенный порядок административного производства — причина ошибочных решений/действий компетентных лиц. Оставаясь один на один с государственным аппаратом, человеку крайне трудно доказать свою правоту. В итоге за незаконно вмененное правонарушение, гражданин несет предусмотренное
                 законодательством наказание. Таких обстоятельств можно избежать, если заранее заручиться помощью профессионала — адвоката по административным делам. Специалисты московской коллегии «Почетный Адвокатъ» предлагают свои услуги с предоставлением соответствующих гарантий.</p>

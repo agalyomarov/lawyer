@@ -18,6 +18,7 @@ Route::group(['prefix' => 'yuridicheskoe-obsluzhivanie-fiz-lic', 'as' => 'servic
    Route::get('/advokat-po-administrativnym-delam', [ServiceForSimpleClient::class, 'pageAdvokatPoAdministrativnymDelam'])->name('pageAdvokatPoAdministrativnymDelam');
    Route::get('/advokat-po-dtp', [ServiceForSimpleClient::class, 'pageAdvokatPoDtp'])->name('pageAdvokatPoDtp');
    Route::get('/vzyskanie-dolgov-s-fizicheskih-lic', [ServiceForSimpleClient::class, 'pageVzyskanieDolgovSFizicheskihLic'])->name('pageVzyskanieDolgovSFizicheskihLic');
+   Route::get('/advokat-po-zhilishchnym-voprosam', [ServiceForSimpleClient::class, 'pageAdvokatPoZhilishchnymVoprosam'])->name('pageAdvokatPoZhilishchnymVoprosam');
 });
 
 Route::post('/getentry', [MainController::class, 'getentry']);
