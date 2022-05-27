@@ -149,6 +149,11 @@
             width: 100%;
             font-size: 13px;
             margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .block_for_phone_verify .block .block_turn.disabled {
+            color: rgba(0, 0, 0, 0.3);
         }
 
         .block_for_phone_verify .block .block_turn i {
@@ -164,10 +169,22 @@
             border: none;
             font-size: 16px;
             border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .block_for_phone_verify .block input.btn_send.disabled {
+            background-color: rgba(110, 23, 30, 0.4) !important;
         }
 
         .btn_for_zabronirovat.disabled {
             background-color: rgba(110, 23, 30, 0.4) !important;
+        }
+
+        p.msg_for_client {
+            color: red;
+            font-size: 12px;
+            margin-top: 20px;
+            margin-bottom: -30px;
         }
 
     </style>
@@ -771,8 +788,12 @@
                                     <p class="block_description">мы отправили код с SMS</p>
                                     <label>Последный 4 цифры </label>
                                     <input type="text" class="result">
-                                    <p class="block_turn"><i class="fa-solid fa-arrows-rotate"></i><span>Отправить код повторно через 4:43</span></p>
-                                    <input type="button" value="Войти" class="btn_send">
+                                    <p class="block_turn disabled">
+                                        <i class="fa-solid fa-arrows-rotate"></i>
+                                        <span>Отправить код повторно через <span class="time" data-time_value="119">1:59</span></span>
+                                    </p>
+                                    <p class="msg_for_client hidden">Произошла серверная ошибка,перезагрузите страницу </p>
+                                    <input type="button" value="Войти" class="btn_send disabled">
                                 </div>
                             </div>
                         </div>
@@ -1022,20 +1043,41 @@
                         timeForm.querySelector('span.data_before_buy_price').innerText = data.body.price + '  руб';
                         timeForm.querySelector('span.data_before_buy_service').innerText = data.body.service;
                         timeForm.querySelector('span.data_before_buy_time').innerText = data.body.time;
-                        timeForm.querySelector('input.input_name').addEventListener('input', function(e) {
+                        const timeFormFunction = function() {
                             const inputNameValue = timeForm.querySelector('input.input_name').value.trim();
                             const inputPhoneValue = timeForm.querySelector('input.oz_phone_input').value.trim();
                             const clientEmail = timeForm.querySelector('input.clientEmail').value.trim();
                             let typeBuyed = document.querySelector('.select_type_send_money .active');
                             const dogovorOferty = timeForm.querySelector('.dogovor_oferty').checked;
+                            const regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
                             if (typeBuyed.classList.contains('not_buyed')) {
                                 typeBuyed = 'not';
                             } else if (typeBuyed.classList.contains('buyed')) {
                                 typeBuyed = 'yes';
                             }
-
-                            console.log(inputNameValue, inputPhoneValue.length, clientEmail, typeBuyed, dogovorOferty);
-                        })
+                            timeForm.dataset.client_name = inputNameValue;
+                            timeForm.dataset.client_phone = inputPhoneValue.replace(/\D/g, '');
+                            timeForm.dataset.type_buyed = typeBuyed;
+                            timeForm.dataset.client_email = clientEmail;
+                            if (inputNameValue.length >= 3 && inputPhoneValue.replace(/\D/g, '').length == 11 && dogovorOferty) {
+                                if (typeBuyed == 'yes' && regex.test(clientEmail)) {
+                                    timeForm.querySelector('.btn_for_zabronirovat').classList.remove('disabled');
+                                    // console.log('yes');
+                                } else {
+                                    if (!timeForm.querySelector('.btn_for_zabronirovat').classList.contains('disabled')) {
+                                        timeForm.querySelector('.btn_for_zabronirovat').classList.add('disabled');
+                                    }
+                                }
+                                if (typeBuyed == 'not') {
+                                    timeForm.querySelector('.btn_for_zabronirovat').classList.remove('disabled');
+                                    // console.log('yes');
+                                }
+                            } else {
+                                timeForm.querySelector('.btn_for_zabronirovat').classList.add('disabled');
+                            }
+                            // console.log(inputNameValue, inputPhoneValue.replace(/\D/g, '').length, clientEmail, typeBuyed, dogovorOferty);
+                        }
+                        setInterval(timeFormFunction, 500);
                         // console.log();
                     }
                     // console.log(data);
@@ -1043,12 +1085,164 @@
                 // console.log(e.target);
                 // console.log(body);
             } else if (e.target.classList.contains('btn_for_zabronirovat')) {
-                const timeForm = oz_container.querySelector('#timeForm');
-                oz_container.querySelector('.oz_hid_carousel').style.transform = 'translateX(-71.4428%)';
-                oz_container.querySelector('h3.stepname').textContent = 'ПОДВЕРЖДЕНИЕ НОМЕРА';
-                oz_container.querySelector('.block_for_phone_verify').classList.add('active');
-                timeForm.classList.remove('active');
-
+                if (!e.target.classList.contains('disabled')) {
+                    const interval_id = window.setInterval(function() {}, Number.MAX_SAFE_INTEGER);
+                    for (let i = 2; i < interval_id; i++) {
+                        window.clearInterval(i);
+                    }
+                    oz_container.querySelector('.block_for_phone_verify .block_turn').innerHTML = `
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                           <span>Отправить код повторно <span class="time" data-time_value="119">1:59</span></span>`;
+                    oz_container.querySelector('.block_for_phone_verify .block_turn').classList.add('disabled');
+                    const timeForm = oz_container.querySelector('#timeForm');
+                    oz_container.querySelector('.oz_hid_carousel').style.transform = 'translateX(-71.4428%)';
+                    oz_container.querySelector('h3.stepname').textContent = 'ПОДВЕРЖДЕНИЕ НОМЕРА';
+                    oz_container.querySelector('.block_for_phone_verify').classList.add('active');
+                    timeForm.classList.remove('active');
+                    const blockForVerifyPhone = oz_container.querySelector('.block_for_phone_verify');
+                    blockForVerifyPhone.dataset.personal_id = timeForm.dataset.personal_id;
+                    blockForVerifyPhone.dataset.date = timeForm.dataset.date;
+                    blockForVerifyPhone.dataset.time = timeForm.dataset.time;
+                    blockForVerifyPhone.dataset.service_id = timeForm.dataset.service_id;
+                    blockForVerifyPhone.dataset.client_name = timeForm.dataset.client_name;
+                    blockForVerifyPhone.dataset.client_phone = timeForm.dataset.client_phone;
+                    blockForVerifyPhone.dataset.client_email = timeForm.dataset.client_email;
+                    blockForVerifyPhone.dataset.type_buyed = timeForm.dataset.type_buyed;
+                    const body = {};
+                    body.phone = blockForVerifyPhone.dataset.client_phone;
+                    body.count = 1;
+                    fetch('/verification', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(body)
+                    }).then(res => {
+                        // res.text().then(data => {
+                        //     console.log(data);
+                        // })
+                        return res.json();
+                    }).then(data => {
+                        if (data.status == false) {
+                            blockForVerifyPhone.querySelector('.msg_for_client').classList.remove('hidden');
+                        }
+                        // console.log(data);
+                    });
+                    const timer = function() {
+                        time_value = parseInt(oz_container.querySelector('.block_for_phone_verify .block_turn span.time').dataset.time_value);
+                        if (time_value <= 0) {
+                            const interval_id = window.setInterval(function() {}, Number.MAX_SAFE_INTEGER);
+                            for (let i = 2; i < interval_id; i++) {
+                                window.clearInterval(i);
+                            }
+                            // clearInterval(firstIntarval);
+                            oz_container.querySelector('.block_for_phone_verify .block_turn').classList.remove('disabled');
+                            oz_container.querySelector('.block_for_phone_verify .block_turn').innerHTML = `
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                           <span>Отправить код повторно <span class="time" data-time_value=""></span></span>`;
+                        } else {
+                            const minute = parseInt(time_value / 60);
+                            let second = time_value - (minute * 60);
+                            if (second < 10) {
+                                second = `0${second}`;
+                            }
+                            oz_container.querySelector('.block_for_phone_verify .block_turn span.time').textContent = `${minute}:${second}`;
+                            time_value--;
+                            oz_container.querySelector('.block_for_phone_verify .block_turn span.time').dataset.time_value = time_value;
+                        }
+                    }
+                    setInterval(timer, 1000);
+                    oz_container.querySelector('.block_for_phone_verify .block_turn').addEventListener('click', function(event) {
+                        if (!this.classList.contains('disabled')) {
+                            this.classList.add('disabled');
+                            oz_container.querySelector('.block_for_phone_verify .block_turn').innerHTML = `
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                           <span>Отправить код повторно <span class="time" data-time_value="119">1:59</span></span>`;
+                            const interval_id = window.setInterval(function() {}, Number.MAX_SAFE_INTEGER);
+                            for (let i = 2; i < interval_id; i++) {
+                                window.clearInterval(i);
+                            }
+                            setInterval(timer, 1000);
+                            fetch('/verification', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                },
+                                body: JSON.stringify(body)
+                            }).then(res => {
+                                return res.json();
+                            }).then(data => {
+                                if (data.status == 'false') {
+                                    if (data.status == false) {
+                                        blockForVerifyPhone.querySelector('.msg_for_client').classList.remove('hidden');
+                                    }
+                                }
+                                // console.log(data);
+                            });
+                        }
+                    })
+                    oz_container.querySelector('.block_for_phone_verify input.result').addEventListener('input', function(e) {
+                        if (this.value.trim().length == 4) {
+                            oz_container.querySelector('.block_for_phone_verify input.btn_send').classList.remove('disabled');
+                        } else {
+                            oz_container.querySelector('.block_for_phone_verify input.btn_send').classList.add('disabled');
+                        }
+                    });
+                    const endBtnForLogin = oz_container.querySelector('.block_for_phone_verify input.btn_send');
+                    endBtnForLogin.addEventListener('click', function(e) {
+                        if (!e.target.classList.contains('disabled')) {
+                            const blockForPhoneVerify = oz_container.querySelector('.block_for_phone_verify');
+                            const client_input_code_value = oz_container.querySelector('.block_for_phone_verify input.result').value.trim();
+                            const body = {};
+                            body.phone = blockForPhoneVerify.dataset.client_phone;
+                            body.code = client_input_code_value;
+                            console.log(body);
+                            fetch('/verification/check', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                },
+                                body: JSON.stringify(body)
+                            }).then(res => {
+                                return res.json();
+                            }).then(data => {
+                                if (data.status == false) {
+                                    blockForVerifyPhone.querySelector('.msg_for_client').classList.remove('hidden');
+                                    blockForVerifyPhone.querySelector('.msg_for_client').textContent = 'Неправилный код';
+                                } else if (data.status == true) {
+                                    const body = {};
+                                    body.client_phone = blockForPhoneVerify.dataset.client_phone;
+                                    body.client_name = blockForPhoneVerify.dataset.client_name;
+                                    body.personal_id = blockForPhoneVerify.dataset.personal_id;
+                                    body.date = blockForPhoneVerify.dataset.date;
+                                    body.time = blockForPhoneVerify.dataset.time;
+                                    body.service_id = blockForPhoneVerify.dataset.service_id;
+                                    body.type_buyed = blockForPhoneVerify.dataset.type_buyed;
+                                    body.client_email = blockForPhoneVerify.dataset.client_email;
+                                    fetch('/verification/store', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                        },
+                                        body: JSON.stringify(body)
+                                    }).then(res => {
+                                        return res.json();
+                                    }).then(data => {
+                                        console.log(data);
+                                    })
+                                    // console.log(body);
+                                }
+                                // console.log(data);
+                            });
+                            // console.log(client_input_code_value);
+                        }
+                        // console.log(e.target);
+                    })
+                }
             }
         })
         document.querySelector('.select_check_oplata').addEventListener('click', function(e) {
@@ -1067,7 +1261,6 @@
             const oz_employees = oz_container.querySelector('.oz_employees');
             const timeForm = oz_container.querySelector('#timeForm');
             const blockPhoneVerify = oz_container.querySelector('.block_for_phone_verify');
-
             const oz_hid_carousel = oz_container.querySelector('.oz_hid_carousel');
             const stepname = oz_container.querySelector('h3.stepname');
             if (oz_time.classList.contains('active')) {
@@ -1112,15 +1305,42 @@
                 stepname.textContent = 'КОНТАКТНАЯ ИНФОРМАЦИЯ';
                 timeForm.classList.add('active');
                 blockPhoneVerify.classList.remove('active');
-                // timeForm.dataset.personal_id = '';
-                // timeForm.dataset.date = '';
-                // timeForm.dataset.time = '';
-                // timeForm.dataset.service_id = '';
-                // timeForm.querySelector('span.data_before_buy_date').innerText = '';
-                // timeForm.querySelector('span.data_before_buy_fullname').innerText = '';
-                // timeForm.querySelector('span.data_before_buy_price').innerText = '';
-                // timeForm.querySelector('span.data_before_buy_service').innerText = '';
-                // timeForm.querySelector('span.data_before_buy_time').innerText = '';
+                const interval_id = window.setInterval(function() {}, Number.MAX_SAFE_INTEGER);
+                for (let i = 2; i < interval_id; i++) {
+                    window.clearInterval(i);
+                }
+                const timeFormFunction = function() {
+                    const inputNameValue = timeForm.querySelector('input.input_name').value.trim();
+                    const inputPhoneValue = timeForm.querySelector('input.oz_phone_input').value.trim();
+                    const clientEmail = timeForm.querySelector('input.clientEmail').value.trim();
+                    let typeBuyed = document.querySelector('.select_type_send_money .active');
+                    const dogovorOferty = timeForm.querySelector('.dogovor_oferty').checked;
+                    const regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+                    if (typeBuyed.classList.contains('not_buyed')) {
+                        typeBuyed = 'not';
+                    } else if (typeBuyed.classList.contains('buyed')) {
+                        typeBuyed = 'yes';
+                    }
+                    timeForm.dataset.client_name = inputNameValue;
+                    timeForm.dataset.client_phone = inputPhoneValue.replace(/\D/g, '');
+                    timeForm.dataset.type_buyed = typeBuyed;
+                    timeForm.dataset.client_email = clientEmail;
+                    if (inputNameValue.length >= 3 && inputPhoneValue.replace(/\D/g, '').length == 11 && dogovorOferty) {
+                        if (typeBuyed == 'yes' && regex.test(clientEmail)) {
+                            timeForm.querySelector('.btn_for_zabronirovat').classList.remove('disabled');
+                        } else {
+                            if (!timeForm.querySelector('.btn_for_zabronirovat').classList.contains('disabled')) {
+                                timeForm.querySelector('.btn_for_zabronirovat').classList.add('disabled');
+                            }
+                        }
+                        if (typeBuyed == 'not') {
+                            timeForm.querySelector('.btn_for_zabronirovat').classList.remove('disabled');
+                        }
+                    } else {
+                        timeForm.querySelector('.btn_for_zabronirovat').classList.add('disabled');
+                    }
+                }
+                setInterval(timeFormFunction, 500);
             }
         }
         document.querySelector('.select_type_send_money').addEventListener('click', function(e) {
@@ -1128,7 +1348,6 @@
                 element.classList.remove('active');
             })
             e.target.classList.add('active');
-            // console.log(e.target);
         })
     </script>
 </body>

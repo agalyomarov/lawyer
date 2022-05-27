@@ -16,7 +16,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-
+    'ucaller_service_id' => env('UCALLER_SERVICE_ID'),
+    'ucaller_security_key' => env('UCALLER_SECURITY_KEY'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

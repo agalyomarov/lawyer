@@ -22,8 +22,11 @@ Route::group(['prefix' => 'yuridicheskoe-obsluzhivanie-fiz-lic', 'as' => 'servic
 });
 
 Route::post('/getentry', [MainController::class, 'getentry']);
-Route::get('/getentry', [MainController::class, 'getentry']);
+// Route::get('/getentry', [MainController::class, 'getentry']);
 
+Route::post('/verification', [MainController::class, 'verification']);
+Route::post('/verification/check', [MainController::class, 'verificationCheck']);
+Route::post('/verification/store', [MainController::class, 'verificationStore']);
 
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {

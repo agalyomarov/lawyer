@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use stdClass;
 
 class MainController extends Controller
@@ -222,5 +223,46 @@ class MainController extends Controller
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
         }
+    }
+
+    public function verification(Request $request)
+    {
+        try {
+            $data = $request->json()->all();
+            if ($data['count'] == 1) {
+                $code = rand(1111, 9999);
+                $key = config('app.ucaller_security_key');
+                $service_id = config('app.ucaller_service_id');
+                $response = Http::get("https://api.ucaller.ru/v1.0/initCall?phone=" . $data['phone'] . "&code=" . $code . "&key=" . $key . "&voice=false&service_id=" . $service_id);
+                if ($response->json()['status']) {
+                    $check_phone = DB::table('verification_code')->where(['phone' => $data['phone']])->first();
+                    if (!$check_phone) {
+                        DB::table('verification_code')->insert(['phone' => $data['phone'], 'code' => $code]);
+                    } else {
+                        DB::table('verification_code')->where(['phone' => $data['phone']])->update(['code' => $code]);
+                    }
+                    return response()->json(['status' => true]);
+                }
+                return response()->json(['status' => false]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+    public function verificationCheck(Request $request)
+    {
+        $data = $request->json()->all();
+        try {
+            $checkCode = DB::table('verification_code')->where(['phone' => $data['phone'], 'code' => $data['code']])->first();
+            if ($checkCode) {
+                return response()->json(['status' => true]);
+            }
+            return response()->json(['status' => false]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+    public function verificationStore(Request $request)
+    {
     }
 }
