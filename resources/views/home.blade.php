@@ -1198,7 +1198,7 @@
                             const body = {};
                             body.phone = blockForPhoneVerify.dataset.client_phone;
                             body.code = client_input_code_value;
-                            console.log(body);
+                            // console.log(body);
                             fetch('/verification/check', {
                                 method: 'POST',
                                 headers: {
@@ -1222,6 +1222,8 @@
                                     body.service_id = blockForPhoneVerify.dataset.service_id;
                                     body.type_buyed = blockForPhoneVerify.dataset.type_buyed;
                                     body.client_email = blockForPhoneVerify.dataset.client_email;
+
+                                    // console.log(body);
                                     fetch('/verification/store', {
                                         method: 'POST',
                                         headers: {
@@ -1230,17 +1232,19 @@
                                         },
                                         body: JSON.stringify(body)
                                     }).then(res => {
+                                        res.text().then(data => {
+                                            console.log(data);
+                                        })
                                         return res.json();
                                     }).then(data => {
-                                        console.log(data);
+                                        // console.log(data);
+                                        if (data.status == true) {
+                                            console.log(data);
+                                        }
                                     })
-                                    // console.log(body);
                                 }
-                                // console.log(data);
                             });
-                            // console.log(client_input_code_value);
                         }
-                        // console.log(e.target);
                     })
                 }
             }

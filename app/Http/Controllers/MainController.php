@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\DatePicker;
+use App\Models\Client;
+use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -264,5 +266,29 @@ class MainController extends Controller
     }
     public function verificationStore(Request $request)
     {
+        try {
+            $data = $request->json()->all();
+            DB::beginTransaction();
+            $entry = DB::table('personal_entries')->where(['personal_id' => $data['personal_id'], 'entry_date' => $data['date'], 'entry_start_time' => strtotime(date('Y-m-d', $data['date']) . ' ' . $data['time'])])->first();
+            $client = Client::where('phone', $data['client_phone'])->first();
+            if (!$client) {
+                $client = Client::create(['name' => $data['client_name'], 'email' => $data['client_email'], 'phone' => $data['client_phone']]);
+            }
+            DB::table('client_entry')->insert(['client_id' => $client->id, 'entry_id' => $entry->id, 'status' => 'not_buyed']);
+            DB::table('personal_entries')->where(['personal_id' => $data['personal_id'], 'entry_date' => $data['date'], 'entry_start_time' => strtotime(date('Y-m-d', $data['date']) . ' ' . $data['time'])])->update(['entry_enable' => false]);
+            DB::commit();
+            $service = Service::where('id', $data['service_id'])->first();
+
+            if ($data['type_buyed'] == 'not') {
+                return response()->json(['status' => true, 'url' => 'profile']);
+            }
+            if ($data['type_buyed'] == 'yes') {
+                return response()->json(['status' => true, 'url' => 'buy', 'price' => $service->price]);
+            }
+            return response()->json(['status' => true]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
     }
 }
