@@ -5,12 +5,19 @@ use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\PersonalController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SpecialityController;
+use App\Http\Controllers\KassaController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceForSimpleClient;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [MainController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+   Route::get('/', [ProfileController::class, 'index']);
+});
+
 
 Route::group(['prefix' => 'yuridicheskoe-obsluzhivanie-fiz-lic', 'as' => 'serviceForSimpleClient.'], function () {
    Route::get('/', [ServiceForSimpleClient::class, 'index'])->name('index');
@@ -66,3 +73,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::delete('/delete/{personal}', [EntryController::class, 'delete'])->name('delete');
    });
 });
+
+
+
+Route::get('/kassa/buy', [KassaController::class, 'oplataUslugi']);
+Route::get('/kassa/check', [KassaController::class, 'checkOplata']);

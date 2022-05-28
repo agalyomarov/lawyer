@@ -18,16 +18,8 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
     'ucaller_service_id' => env('UCALLER_SERVICE_ID'),
     'ucaller_security_key' => env('UCALLER_SECURITY_KEY'),
-    /*
-    |--------------------------------------------------------------------------
-    | Application Environment
-    |--------------------------------------------------------------------------
-    |
-    | This value determines the "environment" your application is currently
-    | running in. This may determine how you prefer to configure various
-    | services the application utilizes. Set this in your ".env" file.
-    |
-    */
+    'yoomoney_shop_id' => env('YOOMONEY_SHOP_ID'),
+    'yoomoney_shop_key' => env('YOOMONEY_SHOP_KEY'),
 
     'env' => env('APP_ENV', 'production'),
 
@@ -55,7 +47,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost:8000'),
 
     'asset_url' => env('ASSET_URL'),
 

@@ -750,17 +750,17 @@
                                     <form action="#" method="post" class="oz-form false" novalidate="novalidate">
                                         <div class="form_fields">
                                             <label class="label_input_name">
-                                                <input type="text" name="clientName" class="input_name" ariarequired="1" placeholder="Имя" value="">
+                                                <input type="text" name="clientName" class="input_name" ariarequired="1" placeholder="Имя" value="{{ $client_name != null ? $client_name : '' }}">
                                                 <div class="star_for_name">*</div>
                                             </label>
                                             <label class="label_input_phone">
                                                 <div class="react-tel-input">
-                                                    <input id="oz_phone_input" class="oz_phone_input form-control" type="text" value="" placeholder="+7 (___)___-__-__">
+                                                    <input id="oz_phone_input" class="oz_phone_input form-control" type="text" value="{{ $client_phone != null ? substr($client_phone, 1) : '' }}" placeholder="+7 (___)___-__-__">
                                                     <div class="star_for_phone">*</div>
                                                 </div>
                                             </label>
                                             <label>
-                                                <input type="text" name="clientEmail" size="40" class="clientEmail" placeholder="Email (объязательно при онлайн оплате)" value="">
+                                                <input type="text" name="clientEmail" size="40" class="clientEmail" placeholder="Email (объязательно при онлайн оплате)" value="{{ $client_email != null ? $client_email : '' }}">
                                             </label>
                                             <label class="field-cf_1633706216_0-0 oz_cust_checkbox">
                                                 <input type="checkbox" name="cf_1633706216_0" class="dogovor_oferty" value="Согласен с условиями договора аферты">Согласен с условиями договора аферты</label>
@@ -1047,12 +1047,13 @@
                             const inputNameValue = timeForm.querySelector('input.input_name').value.trim();
                             const inputPhoneValue = timeForm.querySelector('input.oz_phone_input').value.trim();
                             const clientEmail = timeForm.querySelector('input.clientEmail').value.trim();
-                            let typeBuyed = document.querySelector('.select_type_send_money .active');
+                            const formSelectTypeBuyed = document.querySelector('.select_type_send_money li.active');
                             const dogovorOferty = timeForm.querySelector('.dogovor_oferty').checked;
                             const regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-                            if (typeBuyed.classList.contains('not_buyed')) {
+                            let typeBuyed = '';
+                            if (formSelectTypeBuyed.classList.contains('not_buyed')) {
                                 typeBuyed = 'not';
-                            } else if (typeBuyed.classList.contains('buyed')) {
+                            } else if (formSelectTypeBuyed.classList.contains('buyed')) {
                                 typeBuyed = 'yes';
                             }
                             timeForm.dataset.client_name = inputNameValue;
@@ -1232,14 +1233,18 @@
                                         },
                                         body: JSON.stringify(body)
                                     }).then(res => {
-                                        res.text().then(data => {
-                                            console.log(data);
-                                        })
+                                        // res.text().then(data => {
+                                        //     console.log(data);
+                                        // })
                                         return res.json();
                                     }).then(data => {
                                         // console.log(data);
                                         if (data.status == true) {
-                                            console.log(data);
+                                            if (data.url == 'profile') {
+                                                window.location.href = '/profile';
+                                            } else if (data.url == 'buy') {
+                                                window.location.href = `/kassa/buy?service=${data.service_id}&client_entry=${data.client_entry_id}`;
+                                            }
                                         }
                                     })
                                 }

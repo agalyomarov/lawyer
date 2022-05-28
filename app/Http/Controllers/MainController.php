@@ -16,6 +16,9 @@ class MainController extends Controller
 {
     public function index()
     {
+        $client_name = session()->get('client_name');
+        $client_phone = session()->get('client_phone');
+        $client_email = session()->get('client_email');
         $nameThisMonth = Str::ucfirst(Carbon::now()->translatedFormat('F'));
         $nameNextMonth = Str::ucfirst(Carbon::now()->addMonthsNoOverflow()->translatedFormat('F'));
         $startThisMonth = Carbon::now()->startOfMonth()->format('d.m.Y');
@@ -134,7 +137,7 @@ class MainController extends Controller
             }
         }
 
-        return view('home', compact('thisMonth', 'nextMonth'));
+        return view('home', compact('thisMonth', 'nextMonth', 'client_email', 'client_name', 'client_phone'));
     }
     public function getentry(Request $request)
     {
@@ -273,19 +276,23 @@ class MainController extends Controller
             $client = Client::where('phone', $data['client_phone'])->first();
             if (!$client) {
                 $client = Client::create(['name' => $data['client_name'], 'email' => $data['client_email'], 'phone' => $data['client_phone']]);
+            } else {
+                Client::where('phone', $data['client_phone'])->update(['email' => $data['client_email']]);
             }
-            DB::table('client_entry')->insert(['client_id' => $client->id, 'entry_id' => $entry->id, 'status' => 'not_buyed']);
+            DB::table('client_entry')->insert(['client_id' => $client->id, 'entry_id' => $entry->id, 'status' => 'not_buyed', 'payment_id' => '']);
+            $clientEntry =  DB::table('client_entry')->where(['client_id' => $client->id, 'entry_id' => $entry->id])->first();
             DB::table('personal_entries')->where(['personal_id' => $data['personal_id'], 'entry_date' => $data['date'], 'entry_start_time' => strtotime(date('Y-m-d', $data['date']) . ' ' . $data['time'])])->update(['entry_enable' => false]);
             DB::commit();
             $service = Service::where('id', $data['service_id'])->first();
-
+            session(['client_name' => $data['client_name']]);
+            session(['client_phone' => $data['client_phone']]);
+            session(['client_email' => $data['client_email']]);
             if ($data['type_buyed'] == 'not') {
                 return response()->json(['status' => true, 'url' => 'profile']);
             }
             if ($data['type_buyed'] == 'yes') {
-                return response()->json(['status' => true, 'url' => 'buy', 'price' => $service->price]);
+                return response()->json(['status' => true, 'url' => 'buy', 'service_id' => $service->id, 'client_entry_id' => $clientEntry->id]);
             }
-            return response()->json(['status' => true]);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
