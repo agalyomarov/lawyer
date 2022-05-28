@@ -14,7 +14,7 @@ class ProfileController extends Controller
             $client = Client::where('phone', session('client_phone'))->first();
             $client_entries = DB::table('client_entry')->where('client_id', $client->id)->get();
             // dd($client_entries);
-            return view('profile.index');
+            return view('profile.index', compact('client'));
         }
         return redirect()->route('home');
     }

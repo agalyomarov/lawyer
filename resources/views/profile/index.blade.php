@@ -35,13 +35,100 @@
             display: none;
             visibility: hidden;
             z-index: -999;
+            position: absolute;
         }
 
         .content {
             width: 1200px;
             height: 80vh;
             /* background-color: none; */
+            /* border: 0.5px solid silver; */
             margin: 0 auto;
+        }
+
+        .content .header {
+            width: 100%;
+            height: 40px;
+            background: #6E171E;
+            border-radius: 3px;
+        }
+
+        .content .header .list {
+            line-height: 40px;
+            color: #fff;
+            display: inline-block;
+            float: left;
+            margin-left: 20px;
+            font-size: 14px;
+            padding: 0 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .content .header .list i {
+            margin: 0 3px;
+
+        }
+
+        .content .header .list.active {
+            background: #fff;
+            color: #6E171E;
+            /* border: 1px solid #6E171E; */
+            border-left: none;
+            border-right: none;
+            line-height: 30px;
+            margin-top: 5px;
+            /* height: 35px; */
+            border-radius: 5px;
+        }
+
+        form.data_form .form_input {
+            width: 100%;
+            height: auto;
+            padding: 0 20px;
+            display: inline-block;
+            float: left;
+            margin-top: 20px;
+        }
+
+        .form_input label {
+            display: inline-block;
+            width: 100%;
+            float: left;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .form_input input {
+            display: inline-block;
+            width: 350px;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 10px;
+            border: 2px solid #6E171E;
+            border-radius: 3px;
+        }
+
+        .form_input input:hover,
+        .form_input input:focus,
+        .form_input input:active {
+            border: 2px solid #6E171E;
+            outline: none;
+        }
+
+        .form_input input.btn_for_save {
+            width: 375px;
+            background-color: #6E171E;
+            color: #fff;
+            font-size: 14px;
+            line-height: 40px;
+            height: 40px;
+            border: none;
+            /* margin-top: 20px; */
+        }
+
+        .form_input input.btn_for_save.disabled {
+            background-color: rgba(110, 23, 30, 0.4) !important;
         }
 
     </style>
@@ -87,7 +174,30 @@
     </header>
 
     <div class="content">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum totam, tempore amet veritatis blanditiis deleniti nobis quam veniam provident nesciunt eos, harum aliquam sunt velit illum ratione atque expedita obcaecati.
+        <div class="header">
+            <a href="{{ route('profile.index') }}" class="list {{ Route::has('profile.index') ? 'active' : '' }}"><i class="fa-solid fa-user"></i><span> Личные данные</span></a>
+            <a href="" class="list"><i class="fa-solid fa-video"></i><span> Онлайн записи</span></a>
+        </div>
+        <form action="" class="data_form">
+            <div class="form_input">
+                <label for="name">Имя</label>
+                <input type="text" name="name" placeholder="" id="name" value="{{ $client->name }}" data-name="{{ $client->name }}">
+            </div>
+            <div class="form_input">
+                <label for="email">Email</label>
+                <input type="email" name="email" placeholder="" id="email" value="{{ $client->email ? $client->email : '' }}" data-email={{ $client->email }}>
+            </div>
+            <div class="form_input">
+                <label for="phone">Тел.номер</label>
+                <input type="text" name="phone" placeholder="+7 (___)___-__-__" id="phone" value="{{ substr($client->phone, 1) }}" data-phone="{{ $client->phone }}">
+            </div>
+            <div class="form_input confirm_phone hidden">
+                <input class="btn_for_save" type="button" value="Подвердить">
+            </div>
+            <div class="form_input">
+                <input class="btn_for_save disabled" type="button" value="Сохранить">
+            </div>
+        </form>
     </div>
 
     @include('includes.footer')
@@ -121,8 +231,35 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('js/tabs.js') }}"></script>
+    {{-- <script src="{{ asset('js/tabs.js') }}"></script> --}}
     <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
+
+    <script>
+        $(function() {
+            $('#phone').inputmask({
+                mask: "+7 (999)999-99-99",
+                definitions: {
+                    'X': {
+                        validator: "9",
+                        placeholder: "9"
+                    }
+                }
+            });
+        });
+
+        const controlFormData = function() {
+            const formData = document.querySelector('.content .data_form');
+            const name = formData.querySelector('#name');
+            const email = formData.querySelector('#email');
+            const phone = formData.querySelector('#phone');
+            const btnForSave = formData.querySelector('input.btn_for_save');
+            if (name.value.trim().length > 3) {
+                //  btnForSave.classList.remove('disabled');
+                //  console.log(name.value);
+            }
+        }
+        setInterval(controlFormData, 500);
+    </script>
 </body>
 
 </html>

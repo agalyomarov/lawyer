@@ -29,14 +29,9 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
     <script src="https://kit.fontawesome.com/aa53675e71.js" crossorigin="anonymous"></script>
-    <meta name='robots' content='max-image-preview:large' />
     <link rel='dns-prefetch' href='//s.w.org' />
     <link rel='stylesheet' id='wp-customer-reviews-3-frontend-css' href='https://a-advokat.ru/wp-content/plugins/wp-customer-reviews/css/wp-customer-reviews.css?ver=3.6.2' type='text/css' media='all' />
 
-    <link rel="canonical" href="https://a-advokat.ru/" />
-    <link rel='shortlink' href='https://a-advokat.ru/' />
-    {{-- <link rel="alternate" type="application/json+oembed" href="https://a-advokat.ru/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fa-advokat.ru%2F" /> --}}
-    {{-- <link rel="alternate" type="text/xml+oembed" href="https://a-advokat.ru/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fa-advokat.ru%2F&#038;format=xml" /> --}}
     <style>
         .hidden {
             display: none;
@@ -760,7 +755,7 @@
                                                 </div>
                                             </label>
                                             <label>
-                                                <input type="text" name="clientEmail" size="40" class="clientEmail" placeholder="Email (объязательно при онлайн оплате)" value="{{ $client_email != null ? $client_email : '' }}">
+                                                <input type="email" name="clientEmail" size="40" class="clientEmail" placeholder="Email (объязательно при онлайн оплате)" value="{{ $client_email != null ? $client_email : '' }}">
                                             </label>
                                             <label class="field-cf_1633706216_0-0 oz_cust_checkbox">
                                                 <input type="checkbox" name="cf_1633706216_0" class="dogovor_oferty" value="Согласен с условиями договора аферты">Согласен с условиями договора аферты</label>

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MainController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
-   Route::get('/', [ProfileController::class, 'index']);
+   Route::get('/', [ProfileController::class, 'index'])->name('index');
 });
 
 
