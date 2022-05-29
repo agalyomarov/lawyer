@@ -279,7 +279,7 @@ class MainController extends Controller
             } else {
                 Client::where('phone', $data['client_phone'])->update(['email' => $data['client_email']]);
             }
-            DB::table('client_entry')->insert(['client_id' => $client->id, 'entry_id' => $entry->id, 'status' => 'not_buyed', 'payment_id' => '']);
+            DB::table('client_entry')->insert(['client_id' => $client->id, 'entry_id' => $entry->id, 'service_id' => $data['service_id'], 'status' => 'not_buyed', 'payment_id' => '']);
             $clientEntry =  DB::table('client_entry')->where(['client_id' => $client->id, 'entry_id' => $entry->id])->first();
             DB::table('personal_entries')->where(['personal_id' => $data['personal_id'], 'entry_date' => $data['date'], 'entry_start_time' => strtotime(date('Y-m-d', $data['date']) . ' ' . $data['time'])])->update(['entry_enable' => false]);
             DB::commit();
@@ -295,6 +295,56 @@ class MainController extends Controller
             }
         } catch (\Exception $e) {
             DB::rollback();
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function verificationProfilePhone(Request $request)
+    {
+        try {
+            $data = $request->json()->all();
+            $code = rand(1111, 9999);
+            $key = config('app.ucaller_security_key');
+            $service_id = config('app.ucaller_service_id');
+            $response = Http::get("https://api.ucaller.ru/v1.0/initCall?phone=" . $data['phone'] . "&code=" . $code . "&key=" . $key . "&voice=false&service_id=" . $service_id);
+            if ($response->json()['status']) {
+                DB::table('verification_code')->where(['phone' => $data['phone']])->delete();
+                DB::table('verification_code')->insert(['phone' => $data['phone'], 'code' => $code]);
+                return response()->json(['status' => true]);
+            }
+            return response()->json(['status' => false]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+    public function verificationProfilePhoneCheck(Request $request)
+    {
+        try {
+            $data = $request->json()->all();
+            $check_phone = DB::table('verification_code')->where(['phone' => $data['phone'], 'code' => $data['code']])->first();
+            if ($check_phone) {
+                return response()->json(['status' => true]);
+            }
+            return response()->json(['status' => false]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+    public function verificationProfilePhoneCallTurn(Request $request)
+    {
+        try {
+            $data = $request->json()->all();
+            $code = rand(1111, 9999);
+            $key = config('app.ucaller_security_key');
+            $service_id = config('app.ucaller_service_id');
+            $response = Http::get("https://api.ucaller.ru/v1.0/initCall?phone=" . $data['phone'] . "&code=" . $code . "&key=" . $key . "&voice=false&service_id=" . $service_id);
+            if ($response->json()['status']) {
+                DB::table('verification_code')->where(['phone' => $data['phone']])->delete();
+                DB::table('verification_code')->insert(['phone' => $data['phone'], 'code' => $code]);
+                return response()->json(['status' => true]);
+            }
+            return response()->json(['status' => false]);
+        } catch (\Exception $e) {
             return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
         }
     }

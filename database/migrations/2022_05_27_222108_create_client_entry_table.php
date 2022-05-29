@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('entry_id');
+            $table->unsignedBigInteger('service_id');
             $table->string('status');
             $table->string('payment_id');
-            $table->unique(['client_id', 'entry_id'], 'client_entry_uniquex');
+            $table->unique(['client_id', 'entry_id', 'service_id'], 'client_entry_uniquex');
         });
     }
 

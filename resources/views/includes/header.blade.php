@@ -74,7 +74,7 @@
                         <li id="menu-item-38" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-38"><a href="/kontakty">Контакты</a></li>
                     </ul>
                 </div>
-                <a href="https://a-advokat.ru/lk/" class="header-bottom-cab">
+                <a href="{{ route('profile.index') }}" class="header-bottom-cab">
                     <img class="man" src="{{ asset('svg/man.svg') }}">
                     <span>Личный кабинет</span>
                 </a>

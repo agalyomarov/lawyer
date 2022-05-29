@@ -16,6 +16,8 @@ Route::get('/', [MainController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
    Route::get('/', [ProfileController::class, 'index'])->name('index');
+   Route::post('/update', [ProfileController::class, 'update'])->name('update');
+   Route::get('/online_entries', [ProfileController::class, 'entries'])->name('entries');
 });
 
 
@@ -34,6 +36,10 @@ Route::post('/getentry', [MainController::class, 'getentry']);
 Route::post('/verification', [MainController::class, 'verification']);
 Route::post('/verification/check', [MainController::class, 'verificationCheck']);
 Route::post('/verification/store', [MainController::class, 'verificationStore']);
+Route::post('/verification/profile/phone', [MainController::class, 'verificationProfilePhone']);
+Route::post('/verification/profile/phone/check', [MainController::class, 'verificationProfilePhoneCheck']);
+Route::post('/verification/profile/phone/call_turn', [MainController::class, 'verificationProfilePhoneCallTurn']);
+
 
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {

@@ -21,11 +21,11 @@ class KassaController extends Controller
 
             $payment = new YooKassaClient();
             $payment->setAuth(config('app.yoomoney_shop_id'), config('app.yoomoney_shop_key'));
-
             $idempotenceKey = uniqid('', true);
             $response = $payment->createPayment(
                 array(
                     'amount' => array(
+                        // 'value' => $service->price . '.00',
                         'value' => '2.00',
                         'currency' => 'RUB',
                     ),
@@ -50,6 +50,11 @@ class KassaController extends Controller
         try {
             $client_entry_id = $request->get('client_entry_id');
             $client_entry = DB::table('client_entry')->where('id', $client_entry_id)->first();
+            $service = Service::find($client_entry->service_id);
+            $price = 0;
+            if ($service) {
+                $price = $service->price;
+            }
             // dd($client_entry);
             $payment = new YooKassaClient();
             $payment->setAuth(config('app.yoomoney_shop_id'), config('app.yoomoney_shop_key'));
@@ -67,11 +72,15 @@ class KassaController extends Controller
                     $paymentId,
                     $idempotenceKey
                 );
+                if ($response->status == 'succeeded') {
+                    DB::beginTransaction();
+                    DB::table('client_entry')->where('id', $client_entry->id)->update(['status' => 'buyed']);
+                    DB::table('personal_entries')->where('id', $client_entry->entry_id)->update(['entry_buyed' => '1']);
+                    DB::commit();
+                }
             }
-            DB::beginTransaction();
-            DB::table('client_entry')->where('id', $client_entry->id)->update(['status' => 'buyed']);
-            DB::table('personal_entries')->where('id', $client_entry->entry_id)->update(['entry_buyed' => '1']);
-            DB::commit();
+            // dd($response);
+
             return redirect('/profile');
         } catch (\Exception $e) {
             DB::rollback();

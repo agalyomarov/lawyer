@@ -785,7 +785,7 @@
                                     <input type="text" class="result">
                                     <p class="block_turn disabled">
                                         <i class="fa-solid fa-arrows-rotate"></i>
-                                        <span>Отправить код повторно через <span class="time" data-time_value="119">1:59</span></span>
+                                        <span>Отправить код повторно через <span class="time" data-time_value="59">0:59</span></span>
                                     </p>
                                     <p class="msg_for_client hidden">Произошла серверная ошибка,перезагрузите страницу </p>
                                     <input type="button" value="Войти" class="btn_send disabled">
@@ -1088,7 +1088,7 @@
                     }
                     oz_container.querySelector('.block_for_phone_verify .block_turn').innerHTML = `
                             <i class="fa-solid fa-arrows-rotate"></i>
-                           <span>Отправить код повторно <span class="time" data-time_value="119">1:59</span></span>`;
+                           <span>Отправить код повторно <span class="time" data-time_value="59">0:59</span></span>`;
                     oz_container.querySelector('.block_for_phone_verify .block_turn').classList.add('disabled');
                     const timeForm = oz_container.querySelector('#timeForm');
                     oz_container.querySelector('.oz_hid_carousel').style.transform = 'translateX(-71.4428%)';
@@ -1154,7 +1154,7 @@
                             this.classList.add('disabled');
                             oz_container.querySelector('.block_for_phone_verify .block_turn').innerHTML = `
                             <i class="fa-solid fa-arrows-rotate"></i>
-                           <span>Отправить код повторно <span class="time" data-time_value="119">1:59</span></span>`;
+                           <span>Отправить код повторно <span class="time" data-time_value="59">0:59</span></span>`;
                             const interval_id = window.setInterval(function() {}, Number.MAX_SAFE_INTEGER);
                             for (let i = 2; i < interval_id; i++) {
                                 window.clearInterval(i);
