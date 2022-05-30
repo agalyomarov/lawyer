@@ -161,7 +161,7 @@
         }
 
         .table_header .table_header_element {
-            width: 200px;
+            width: 130px;
             height: 40px;
             line-height: 40px;
             float: left;
@@ -195,10 +195,12 @@
         }
 
         .table_body_element {
-            width: 200px;
+            width: 130px;
             height: 40px;
             line-height: 40px;
             float: left;
+            color: #000;
+            cursor: pointer;
         }
 
         .table_body_element.usluga {
@@ -263,15 +265,21 @@
                     <div class="table_header_element usluga">Услуга</div>
                     <div class="table_header_element">Цена (руб)</div>
                     <div class="table_header_element">Статус</div>
+                    <div class="table_header_element"></div>
+                    <div class="table_header_element"></div>
+                    <div class="table_header_element"></div>
                     {{-- <div class="table_header_element">Цена</div> --}}
                 </div>
                 <div class="table_body">
                     @foreach ($entries as $index => $entry)
-                        <div class="table_body_element_list {{ $index % 2 == 0 ? 'active' : '' }}">
+                        <div class="table_body_element_list {{ $index % 2 == 0 ? 'active' : '' }}" data-client_entry_id="{{ $entry['client_entry_id'] }}">
                             <div class="table_body_element">{{ $entry['entry_start_time'] }}</div>
-                            <div class="table_body_element usluga">{{ $entry['service_title'] }}</div>
+                            <a href="" class="table_body_element usluga">{{ $entry['service_title'] }}</a>
                             <div class="table_body_element">{{ $entry['service_price'] }}</div>
                             <div class="table_body_element">{{ $entry['status'] }}</div>
+                            <div class="table_body_element {{ $entry['action'] ? 'btn_for_buyed' : '' }}">{{ $entry['action'] ? 'Оплатить' : '' }}</div>
+                            <div class="table_body_element {{ $entry['status'] != 'Отменен' ? 'btn_for_disabled' : '' }}">{{ $entry['status'] != 'Отменен' ? 'Отменить' : '' }}</div>
+                            <div class="table_body_element">Информация</div>
                         </div>
                     @endforeach
                 </div>
@@ -313,6 +321,20 @@
             </div>
         </div>
     </div>
+    <script>
+        const blockTable = document.querySelector('.table .table_body');
+        if (blockTable) {
+            blockTable.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn_for_buyed')) {
+                    const client_entry_id = e.target.closest('.table_body_element_list').dataset.client_entry_id;
+                    window.location.href = `/kassa/buy?client_entry=${client_entry_id}`;
+                } else if (e.target.classList.contains('btn_for_disabled')) {
+                    const client_entry_id = e.target.closest('.table_body_element_list').dataset.client_entry_id;
+                    window.location.href = `/kassa/disabled?client_entry=${client_entry_id}`;
+                }
+            })
+        }
+    </script>
 </body>
 
 </html>

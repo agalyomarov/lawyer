@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use YooKassa\Client as YooKassaClient;
 
 class ProfileController extends Controller
@@ -47,13 +48,13 @@ class ProfileController extends Controller
     {
         try {
             $client = Client::where('phone', session('client_phone'))->first();
-            $allEntries = DB::table('client_entry')->where('client_id', $client->id)->get()->toArray();
+            $allEntries = DB::table('client_entry')->where('client_id', $client->id)->get()->reverse()->toArray();
             $payment = new YooKassaClient();
             $payment->setAuth(config('app.yoomoney_shop_id'), config('app.yoomoney_shop_key'));
-            $idempotenceKey = uniqid('', true);
             $entries = [];
             foreach ($allEntries as $index => $entry) {
                 if ($entry->status == 'not_buyed' && !$entry->payment_id) {
+                    $idempotenceKey = Str::uuid();
                     $service = Service::find($entry->service_id);
                     $response = $payment->createPayment(
                         array(
@@ -64,7 +65,7 @@ class ProfileController extends Controller
                             ),
                             'confirmation' => array(
                                 'type' => 'redirect',
-                                'return_url' => 'http://localhost:8000/kassa/check?client_entry_id=' . $entry->id,
+                                'return_url' => config('app.url') . '/kassa/check?client_entry_id=' . $entry->id,
                             ),
                             'description' => 'oplata za konsultansiya',
                         ),
@@ -72,9 +73,9 @@ class ProfileController extends Controller
                     );
                     $allEntries[$index]->payment_id = $response->id;
                 } else if ($entry->status == 'not_buyed' && $entry->payment_id) {
+                    $idempotenceKey = Str::uuid();
                     $getPayment = $payment->getPaymentInfo($entry->payment_id);
                     if ($getPayment->status == 'waiting_for_capture') {
-                        $idempotenceKey = uniqid('', true);
                         $response = $payment->capturePayment(
                             array(
                                 'amount' => array(
@@ -100,16 +101,20 @@ class ProfileController extends Controller
                 $service = Service::find($entry->service_id);
                 $personalEntry = DB::table('personal_entries')->where('id', $entry->entry_id)->first();
                 $entryStartTime = date('d.m.Y H:i', $personalEntry->entry_start_time);
-
                 $entries[$index]['entry_start_time'] = $entryStartTime;
                 $entries[$index]['service_title'] = $service->title;
                 $entries[$index]['service_id'] = $service->id;
-                $entries[$index]['cleint_entry_id'] = $entry->id;
+                $entries[$index]['client_entry_id'] = $entry->id;
                 $entries[$index]['service_price'] = $service->price;
                 if ($entry->status == 'buyed') {
+                    $entries[$index]['action'] = false;
                     $entries[$index]['status'] = 'Оплачень';
                 } elseif ($entry->status == 'not_buyed') {
                     $entries[$index]['status'] = 'Неоплачень';
+                    $entries[$index]['action'] = true;
+                } elseif ($entry->status == 'disabled') {
+                    $entries[$index]['status'] = 'Отменен';
+                    $entries[$index]['action'] = false;
                 }
             }
             // dd($allEntries);

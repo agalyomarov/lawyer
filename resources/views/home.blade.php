@@ -1236,7 +1236,7 @@
                                         // console.log(data);
                                         if (data.status == true) {
                                             if (data.url == 'profile') {
-                                                window.location.href = '/profile';
+                                                window.location.href = '/profile/online_entries';
                                             } else if (data.url == 'buy') {
                                                 window.location.href = `/kassa/buy?service=${data.service_id}&client_entry=${data.client_entry_id}`;
                                             }

@@ -84,3 +84,4 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
 Route::get('/kassa/buy', [KassaController::class, 'oplataUslugi']);
 Route::get('/kassa/check', [KassaController::class, 'checkOplata']);
+Route::get('/kassa/disabled', [KassaController::class, 'disabledOplata']);
