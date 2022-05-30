@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Personal;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,6 @@ class ProfileController extends Controller
                 // dd($client_entries);
                 return view('profile.index', compact('client'));
             }
-            return view('profile.index');
         }
         return redirect()->route('home');
     }
@@ -48,6 +48,9 @@ class ProfileController extends Controller
     {
         try {
             $client = Client::where('phone', session('client_phone'))->first();
+            if (!$client) {
+                return redirect()->route('home');
+            }
             $allEntries = DB::table('client_entry')->where('client_id', $client->id)->get()->reverse()->toArray();
             $payment = new YooKassaClient();
             $payment->setAuth(config('app.yoomoney_shop_id'), config('app.yoomoney_shop_key'));
@@ -123,7 +126,20 @@ class ProfileController extends Controller
             return view('profile.entry', compact('entries'));
         } catch (\Exception $e) {
             DB::rollback();
-            return $e->getMessage();
+            // return $e->getMessage();
+            return $e;
         }
+    }
+
+    public function entryData(Request $request)
+    {
+        $client_entry_id = $request->get('client_entry_id');
+        $client_entry = DB::table('client_entry')->where('id', $client_entry_id)->first();
+        $service = Service::find($client_entry->service_id);
+        $personal_entry = DB::table('personal_entries')->where('id', $client_entry->entry_id)->first();
+        $personal = Personal::find($personal_entry->personal_id);
+        $app_url = config('app.url');
+        $personal_entry->entry_start_time = date('d.m.Y H:i', $personal_entry->entry_start_time);
+        return response()->json(['personal' => $personal, 'service' => $service, 'client_entry' => $client_entry, 'app_url' => $app_url, 'personal_entry' => $personal_entry]);
     }
 }

@@ -211,6 +211,108 @@
             /* float: left !important; */
         }
 
+        .bg_black {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100vw;
+            min-height: 100vh;
+            background-color: #000;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .block_for_info {
+            width: 400px;
+            height: auto;
+            background-color: #fff;
+            z-index: 2;
+            position: fixed;
+            top: 30px;
+            left: calc(50vw - 250px);
+            border-radius: 5px;
+        }
+
+        .block_for_info i {
+            display: inline-block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: #fff;
+            background-color: #6E171E;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            line-height: 25px;
+            font-size: 20px;
+            border-radius: 50%;
+        }
+
+        .block_for_info img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-left: calc(50% - 50px);
+            margin-top: 40px;
+        }
+
+        .block_for_info .fio {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: underline;
+        }
+
+        .block_for_info .usluga {
+            margin-top: 10px;
+            width: 100%;
+            /* height: 30px; */
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .block_for_info .sena {
+            width: 100%;
+            /* height: 30px; */
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .block_for_info .date_time {
+            width: 100%;
+            /* height: 30px; */
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .block_for_info .status {
+            width: 100%;
+            /* height: 30px; */
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .block_for_info .link {
+            width: 200px;
+            line-height: 30px;
+            font-size: 14px;
+            text-align: center;
+            background-color: #6E171E;
+            color: #fff;
+            margin-top: 10px;
+            border-radius: 5px;
+            margin-left: calc(50% - 100px);
+            margin-bottom: 40px;
+        }
+
     </style>
 </head>
 
@@ -279,7 +381,7 @@
                             <div class="table_body_element">{{ $entry['status'] }}</div>
                             <div class="table_body_element {{ $entry['action'] ? 'btn_for_buyed' : '' }}">{{ $entry['action'] ? 'Оплатить' : '' }}</div>
                             <div class="table_body_element {{ $entry['status'] != 'Отменен' ? 'btn_for_disabled' : '' }}">{{ $entry['status'] != 'Отменен' ? 'Отменить' : '' }}</div>
-                            <div class="table_body_element">Информация</div>
+                            <div class="table_body_element btn_for_info">Информация</div>
                         </div>
                     @endforeach
                 </div>
@@ -321,7 +423,31 @@
             </div>
         </div>
     </div>
+    <div class="bg_black hidden"></div>
+    <div class="block_for_info hidden">
+        <i class="fa-solid fa-xmark"></i>
+        <img src="{{ asset('image/5qdfnlRJSAuuCIahQA4j36Ud5u142c4etarZErsb.jpg') }}" alt="#">
+        {{-- <div class="img" style="background-image: url(http://localhost:8000/)"></div> --}}
+        <a class="fio">Волоцкая Юлия Владимировна</a>
+        <div class="usluga">Услуга : <span>Консультация по семейным отношениям </span></div>
+        <div class="sena">Цена(руб) : <span>4000</span></div>
+        <div class="date_time">Время и дате : <span>28.02.2022 10:00</span></div>
+        <div class="status">Статус : <span>Оплачен</span></div>
+        <div class="link">Ссылка на консултацию</div>
+    </div>
     <script>
+        const bgBlack = document.querySelector('.bg_black');
+        const block_for_info = document.querySelector('.block_for_info');
+
+        bgBlack.addEventListener('click', function(e) {
+            block_for_info.classList.add('hidden');
+            this.classList.add('hidden');
+        })
+
+        block_for_info.querySelector('i').addEventListener('click', function(e) {
+            bgBlack.classList.add('hidden');
+            block_for_info.classList.add('hidden');
+        })
         const blockTable = document.querySelector('.table .table_body');
         if (blockTable) {
             blockTable.addEventListener('click', function(e) {
@@ -331,6 +457,38 @@
                 } else if (e.target.classList.contains('btn_for_disabled')) {
                     const client_entry_id = e.target.closest('.table_body_element_list').dataset.client_entry_id;
                     window.location.href = `/kassa/disabled?client_entry=${client_entry_id}`;
+                } else if (e.target.classList.contains('btn_for_info')) {
+                    const client_entry_id = e.target.closest('.table_body_element_list').dataset.client_entry_id;
+                    const body = {};
+                    body.client_entry_id = client_entry_id;
+                    // console.log(client_entry_id);
+                    fetch('/profile/get_entry_data', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(body)
+                    }).then(res => {
+                        // res.text().then(data => {
+                        //     console.log(data);
+                        // })
+                        return res.json()
+                    }).then(data => {
+                        block_for_info.querySelector('img').src = `${data.app_url}/${data.personal.image}`;
+                        block_for_info.querySelector('.fio').textContent = data.personal.fullname;
+                        block_for_info.querySelector('.usluga span').textContent = data.service.title;
+                        block_for_info.querySelector('.sena span').textContent = data.service.price;
+                        block_for_info.querySelector('.date_time span').textContent = data.personal_entry.entry_start_time;
+                        let status = '';
+                        data.client_entry.status == 'buyed' ? status = 'Оплачен' : '';
+                        data.client_entry.status == 'not_buyed' ? status = 'Не оплачен' : '';
+                        data.client_entry.status == 'disabled' ? status = 'Отменен' : '';
+                        block_for_info.querySelector('.status span').textContent = status;
+                        block_for_info.classList.remove('hidden');
+                        bgBlack.classList.remove('hidden');
+                        // console.log(data);
+                    })
                 }
             })
         }

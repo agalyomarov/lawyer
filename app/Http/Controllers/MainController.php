@@ -279,7 +279,7 @@ class MainController extends Controller
             } else {
                 Client::where('phone', $data['client_phone'])->update(['email' => $data['client_email']]);
             }
-            DB::table('client_entry')->insert(['client_id' => $client->id, 'entry_id' => $entry->id, 'service_id' => $data['service_id'], 'status' => 'not_buyed', 'payment_id' => '']);
+            DB::table('client_entry')->insert(['client_id' => $client->id, 'entry_id' => $entry->id, 'service_id' => $data['service_id'], 'status' => 'not_buyed', 'payment_id' => '', 'link' => '', 'view' => '']);
             $clientEntry =  DB::table('client_entry')->where(['client_id' => $client->id, 'entry_id' => $entry->id])->first();
             DB::table('personal_entries')->where(['personal_id' => $data['personal_id'], 'entry_date' => $data['date'], 'entry_start_time' => strtotime(date('Y-m-d', $data['date']) . ' ' . $data['time'])])->update(['entry_enable' => false]);
             DB::commit();

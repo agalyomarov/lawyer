@@ -18,6 +18,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
    Route::get('/', [ProfileController::class, 'index'])->name('index');
    Route::post('/update', [ProfileController::class, 'update'])->name('update');
    Route::get('/online_entries', [ProfileController::class, 'entries'])->name('entries');
+   Route::post('/get_entry_data', [ProfileController::class, 'entryData'])->name('entry_data');
 });
 
 

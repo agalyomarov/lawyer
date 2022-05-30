@@ -20,6 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('service_id');
             $table->string('status');
             $table->string('payment_id');
+            $table->string('link');
+            $table->string('view');
             $table->unique(['client_id', 'entry_id', 'service_id'], 'client_entry_uniquex');
         });
     }
