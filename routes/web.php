@@ -78,6 +78,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::post('/store/{personal}', [EntryController::class, 'store'])->name('store');
       Route::post('/update/{personal}', [EntryController::class, 'update'])->name('update');
       Route::delete('/delete/{personal}', [EntryController::class, 'delete'])->name('delete');
+      Route::post('/get_all_hourses/{personal}', [EntryController::class, 'getAllHourses']);
    });
 });
 

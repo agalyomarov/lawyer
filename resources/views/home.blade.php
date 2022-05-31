@@ -788,7 +788,6 @@
                 </div>
             </div>
         </div>
-        </div>
     </section>
     @include('includes.vremenno')
     <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>

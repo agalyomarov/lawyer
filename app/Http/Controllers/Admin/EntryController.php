@@ -360,4 +360,25 @@ class EntryController extends Controller
             return response()->json($e->getMessage());
         }
     }
+    public function getAllHourses(Personal $personal, Request $request)
+    {
+        try {
+            $entry_date = strtotime($request->get('date'));
+            $entries = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_date' => $entry_date])->get();
+            $allHourses = [];
+            foreach ($entries as $entry) {
+                $allHourses[date('H:i', $entry->entry_start_time)] = '';
+                if ($entry->entry_enable == false) {
+                    $allHourses[date('H:i', $entry->entry_start_time)] = 'не оплаченный запис';
+                }
+                if ($entry->entry_buyed == true) {
+                    $allHourses[date('H:i', $entry->entry_start_time)] = 'оплаченный запис';
+                }
+            }
+            return response()->json($allHourses);
+            // return response()->json(['status' => true]);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage());
+        }
+    }
 }

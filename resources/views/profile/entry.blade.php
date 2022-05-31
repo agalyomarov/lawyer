@@ -223,14 +223,15 @@
         }
 
         .block_for_info {
-            width: 400px;
+            width: 350px;
             height: auto;
             background-color: #fff;
             z-index: 2;
             position: fixed;
             top: 30px;
-            left: calc(50vw - 250px);
+            left: calc(50vw - 175px);
             border-radius: 5px;
+            padding-bottom: 40px;
         }
 
         .block_for_info i {
@@ -300,6 +301,31 @@
             text-align: center;
         }
 
+        .block_for_info .btn_for_disabled {
+            width: 80px;
+            line-height: 20px;
+            margin: 0 auto;
+            font-size: 14px;
+            margin-top: 20px;
+            background-color: silver;
+            border-radius: 5px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .block_for_info .btn_for_buyed {
+            width: 80px;
+            line-height: 20px;
+            margin: 0 auto;
+            font-size: 14px;
+            margin-top: 10px;
+            background-color: #6E171E;
+            border-radius: 5px;
+            padding: 8px;
+            text-align: center;
+            color: #fff
+        }
+
         .block_for_info .link,
         .block_for_info .link_not_buyed,
         .block_for_info .link_buyed {
@@ -312,7 +338,7 @@
             margin-top: 10px;
             border-radius: 5px;
             margin-left: calc(50% - 100px);
-            margin-bottom: 40px;
+            /* margin-bottom: 40px; */
             cursor: pointer;
             display: block;
         }
@@ -350,6 +376,61 @@
             text-align: center;
             line-height: 30px;
             font-size: 16px;
+        }
+
+        @media (max-width: 1200px) {
+            .content {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .content .header .list span {
+                display: none;
+                visibility: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
+        @media (max-width: 1150px) {
+
+            .table_header_element.sena,
+            .table_body_element.sena {
+                display: none;
+                visibility: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
+        @media (max-width: 1115px) {
+
+            .table_body_element.usluga,
+            .table_header_element.usluga {
+                display: none;
+                visibility: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
+        @media (max-width: 670px) {
+
+            .table_header_element.status,
+            .table_body_element.buyed,
+            .table_body_element.disabled,
+            .table_body_element.status,
+            .table_header_element.not_name {
+                display: none;
+                visibility: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
+        footer {
+            margin-top: 50px;
         }
 
     </style>
@@ -404,11 +485,11 @@
                 <div class="table_header">
                     <div class="table_header_element">Дата и время</div>
                     <div class="table_header_element usluga">Услуга</div>
-                    <div class="table_header_element">Цена (руб)</div>
-                    <div class="table_header_element">Статус</div>
-                    <div class="table_header_element"></div>
-                    <div class="table_header_element"></div>
-                    <div class="table_header_element"></div>
+                    <div class="table_header_element sena">Цена (руб)</div>
+                    <div class="table_header_element status">Статус</div>
+                    <div class="table_header_element not_name"></div>
+                    <div class="table_header_element not_name"></div>
+                    <div class="table_header_element not_name"></div>
                     {{-- <div class="table_header_element">Цена</div> --}}
                 </div>
                 <div class="table_body">
@@ -416,8 +497,8 @@
                         <div class="table_body_element_list {{ $index % 2 == 0 ? 'active' : '' }}" data-client_entry_id="{{ $entry['client_entry_id'] }}">
                             <div class="table_body_element">{{ $entry['entry_start_time'] }}</div>
                             <a href="" class="table_body_element usluga">{{ $entry['service_title'] }}</a>
-                            <div class="table_body_element">{{ $entry['service_price'] }}</div>
-                            <div class="table_body_element">
+                            <div class="table_body_element sena">{{ $entry['service_price'] }}</div>
+                            <div class="table_body_element status">
                                 @if ($entry['status'] == 'buyed')
                                     Оплачен
                                 @elseif($entry['status'] == 'disabled')
@@ -426,12 +507,12 @@
                                     Не оплачен
                                 @endif
                             </div>
-                            <div class="table_body_element @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false) btn_for_buyed @endif">
+                            <div class="table_body_element buyed @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false) btn_for_buyed @endif">
                                 @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false)
                                     Оплатить
                                 @endif
                             </div>
-                            <div class="table_body_element @if ($entry['lasted'] == false && $entry['active'] == false && $entry['status'] != 'disabled') btn_for_disabled @endif">
+                            <div class="table_body_element disabled @if ($entry['lasted'] == false && $entry['active'] == false && $entry['status'] != 'disabled') btn_for_disabled @endif">
                                 @if ($entry['status'] != 'disabled' && $entry['lasted'] == false && $entry['active'] == false)
                                     Отменить
                                 @elseif($entry['status'] == 'buyed' && $entry['lasted'] == true)
@@ -501,9 +582,11 @@
         <div class="sena">Цена(руб) : <span>4000</span></div>
         <div class="date_time">Время и дате : <span>28.02.2022 10:00</span></div>
         <div class="status">Статус : <span>Оплачен</span></div>
+        <div class="btn_for_buyed">Оплатить</span></div>
         <a href="#" class="link hidden">Ссылка на консултацию</a>
-        <div class="link_not_buyed hidden">Ссылка на консултацию будет доступно после оплаты</div>
+        <div class="link_not_buyed">Ссылка на консултацию будет доступно после оплаты</div>
         <div class="link_buyed hidden">Ссылка на консултацию будет доступно ближаеший время</div>
+        <div class="btn_for_disabled">Отменить</div>
     </div>
     <script>
         const bgBlack = document.querySelector('.bg_black');

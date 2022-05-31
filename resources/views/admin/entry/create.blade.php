@@ -605,9 +605,9 @@
         </div>
     </div>
     <div class="message_for_admin hidden"><span></span><i class="fa-solid fa-xmark"></i></div>
-    <div class="bg_black"></div>
-    <div class="list_entries_of_day">
-        <div class="list">08:00 - </div>
+    <div class="bg_black hidden"></div>
+    <div class="list_entries_of_day hidden">
+        {{-- <div class="list">08:00 - </div>
         <div class="list">09:00 - не оплаченный запис</div>
         <div class="list">10:00 - оплаченный запис</div>
         <div class="list">11:00 - </div>
@@ -621,16 +621,10 @@
         <div class="list">09:00 - не оплаченный запис</div>
         <div class="list">10:00 - оплаченный запис</div>
         <div class="list">11:00 - </div>
-        <div class="list">12:00 - оплаченный запис</div>
+        <div class="list">12:00 - оплаченный запис</div> --}}
 
     </div>
     <script>
-        const bgBlack = document.querySelector('.bg_black');
-        const listHourses = document.querySelector('.list_entries_of_day');
-        bgBlack.addEventListener('click', function(e) {
-            listHourses.classList.add('hidden');
-            this.classList.add('hidden');
-        })
         const messageForAdmin = document.querySelector('.message_for_admin');
         const blockForAddEntry = document.querySelector('.block_for_add_entry');
         const calendarThisMonthBlockAddEntry = blockForAddEntry.querySelector('.calendar');
@@ -840,11 +834,40 @@
                 }
             });
         }
+        const bgBlack = document.querySelector('.bg_black');
+        const listHourses = document.querySelector('.list_entries_of_day');
+        bgBlack.addEventListener('click', function(e) {
+            listHourses.classList.add('hidden');
+            this.classList.add('hidden');
+        })
         if (blockForSavedEntries) {
             blockForSavedEntries.addEventListener('click', function(e) {
                 if (e.target.classList.contains('entry_day')) {
                     if (e.target.classList.contains('disable') || e.target.classList.contains('buyed')) {
-                        console.log(e.target);
+                        const body = {};
+                        body.personal_id = e.target.closest('.saved_entry_block').dataset.personal_id;
+                        body.date = e.target.textContent;
+                        fetch(`/admin/entry/get_all_hourses/${body.personal_id}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify(body)
+                        }).then(res => {
+                            // res.text().then(data => console.log(data));
+                            return res.json();
+                        }).then(data => {
+                            listHourses.innerHTML = '';
+                            for (let index in data) {
+                                const content = `<div class="list">${index} - ${data[index]}</div>`;
+                                listHourses.insertAdjacentHTML('beforeEnd', content);
+                                // console.log(data[index]);
+                            }
+                            listHourses.classList.remove('hidden');
+                            bgBlack.classList.remove('hidden');
+                        })
+                        // console.log(body);
                     }
                 }
             })
