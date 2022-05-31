@@ -112,12 +112,12 @@ class KassaController extends Controller
                             Str::uuid()
                         );
                         if ($response->status == 'succeeded') {
-                            DB::table('client_entry')->where(['id' => $request->get('client_entry'), 'client_id' => $client->id])->update(['status' => 'disabled']);
+                            DB::table('client_entry')->where(['id' => $client_entry->id, 'client_id' => $client->id])->delete();
                             DB::table('personal_entries')->where('id', $client_entry->entry_id)->update(['entry_enable' => 1, 'entry_buyed' => 0]);
                         }
                         // dd($response);
                     } else if ($client_entry->status == 'not_buyed') {
-                        DB::table('client_entry')->where(['id' => $request->get('client_entry'), 'client_id' => $client->id])->update(['status' => 'disabled']);
+                        DB::table('client_entry')->where(['id' => $client_entry->id, 'client_id' => $client->id])->delete();
                         DB::table('personal_entries')->where('id', $client_entry->entry_id)->update(['entry_enable' => 1, 'entry_buyed' => 0]);
                     }
                 }

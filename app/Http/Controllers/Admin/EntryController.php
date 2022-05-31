@@ -60,7 +60,7 @@ class EntryController extends Controller
                         $thisMonth->week[$i][$j]['disableDay'] = true;
                     }
 
-                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_buyed' => 1, 'entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate'])])->first();
+                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_buyed' => true, 'entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate'])])->first();
                     if ($getEntryForEnable) {
                         $thisMonth->week[$i][$j]['entryBuyed'] = true;
                     }
@@ -133,7 +133,7 @@ class EntryController extends Controller
                         $nextMonth->week[$i][$j]['disableDay'] = true;
                     }
 
-                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_enable' => 0, 'entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate'])])->first();
+                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_buyed' => 1, 'entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate'])])->first();
                     if ($getEntryForEnable) {
                         $nextMonth->week[$i][$j]['entryBuyed'] = true;
                     }
@@ -155,7 +155,7 @@ class EntryController extends Controller
                         $nextMonth->week[$i][$j]['disableDay'] = true;
                     }
 
-                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_enable' => 0, 'entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate'])])->first();
+                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_buyed' => 1, 'entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate'])])->first();
                     if ($getEntryForEnable) {
                         $nextMonth->week[$i][$j]['entryBuyed'] = true;
                     }
@@ -177,7 +177,7 @@ class EntryController extends Controller
                         $nextMonth->week[$i][$j]['disableDay'] = true;
                     }
 
-                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_enable' => 0, 'entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate'])])->first();
+                    $getEntryForEnable = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_buyed' => 1, 'entry_date' => strtotime($nextMonth->week[$i][$j]['currentDate'])])->first();
                     if ($getEntryForEnable) {
                         $nextMonth->week[$i][$j]['entryBuyed'] = true;
                     }

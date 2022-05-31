@@ -246,11 +246,14 @@
         .saved_entry_block .entry_day.buyed.disable {
             background-color: orange;
             color: #fff;
+            cursor: pointer;
+
         }
 
         .saved_entry_block .entry_day.disable {
             background-color: rgb(17, 0, 255);
             color: #fff;
+            cursor: pointer;
         }
 
         .saved_entry_block .control {
@@ -326,11 +329,77 @@
             border: 1px solid silver;
         }
 
+        .empty_entry_day,
+        .not_buyed_entry_day,
+        .buyed_entry_day {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 50px;
+            position: relative;
+        }
+
+        .empty_entry_day div,
+        .not_buyed_entry_day div,
+        .buyed_entry_day div {
+            position: absolute;
+            top: 5px;
+            left: 20px;
+            min-width: 20px;
+            min-height: 20px;
+            /* background-color: #000; */
+            z-index: 2;
+            border-radius: 50%;
+        }
+
+        .empty_entry_day div {
+            background-color: rgb(72, 127, 163);
+        }
+
+        .not_buyed_entry_day div {
+            background-color: rgb(17, 0, 255);
+        }
+
+        .buyed_entry_day div {
+            background-color: rgb(255, 185, 55);
+        }
+
+        .bg_black {
+            position: fixed;
+            min-width: 100vw;
+            min-height: 100vh;
+            z-index: 1;
+            background-color: #000;
+            opacity: 0.4;
+            top: 0;
+            left: 0;
+        }
+
+        .list_entries_of_day {
+            position: fixed;
+            width: 250px;
+            height: 450px;
+            background: #fff;
+            top: calc(50% - 225px);
+            left: calc(50% - 125px);
+            z-index: 3;
+            padding: 20px;
+        }
+
     </style>
     <div class="row mb-5">
         <div class="col-12 d-flex">
             <h1 class="mr-4">Добавить онлайн запис</h1>
             <a href="{{ route('admin.entry.index') }}" class="btn btn-success">Главная</a>
+        </div>
+        <div class="empty_entry_day">
+            <div></div> - Дни которыми нет не одного записа
+        </div>
+        <div class="not_buyed_entry_day">
+            <div></div>- Дни которыми есть не оплаченный записи
+        </div>
+        <div class="buyed_entry_day">
+            <div></div>- Дни которыми есть оплаченный записи
         </div>
         <div class="col-12 mt-3">
             @if ($errors->any())
@@ -536,7 +605,32 @@
         </div>
     </div>
     <div class="message_for_admin hidden"><span></span><i class="fa-solid fa-xmark"></i></div>
+    <div class="bg_black"></div>
+    <div class="list_entries_of_day">
+        <div class="list">08:00 - </div>
+        <div class="list">09:00 - не оплаченный запис</div>
+        <div class="list">10:00 - оплаченный запис</div>
+        <div class="list">11:00 - </div>
+        <div class="list">12:00 - оплаченный запис</div>
+        <div class="list">08:00 - </div>
+        <div class="list">09:00 - не оплаченный запис</div>
+        <div class="list">10:00 - оплаченный запис</div>
+        <div class="list">11:00 - </div>
+        <div class="list">12:00 - оплаченный запис</div>
+        <div class="list">08:00 - </div>
+        <div class="list">09:00 - не оплаченный запис</div>
+        <div class="list">10:00 - оплаченный запис</div>
+        <div class="list">11:00 - </div>
+        <div class="list">12:00 - оплаченный запис</div>
+
+    </div>
     <script>
+        const bgBlack = document.querySelector('.bg_black');
+        const listHourses = document.querySelector('.list_entries_of_day');
+        bgBlack.addEventListener('click', function(e) {
+            listHourses.classList.add('hidden');
+            this.classList.add('hidden');
+        })
         const messageForAdmin = document.querySelector('.message_for_admin');
         const blockForAddEntry = document.querySelector('.block_for_add_entry');
         const calendarThisMonthBlockAddEntry = blockForAddEntry.querySelector('.calendar');
@@ -745,6 +839,15 @@
                     fisrtBtn.click();
                 }
             });
+        }
+        if (blockForSavedEntries) {
+            blockForSavedEntries.addEventListener('click', function(e) {
+                if (e.target.classList.contains('entry_day')) {
+                    if (e.target.classList.contains('disable') || e.target.classList.contains('buyed')) {
+                        console.log(e.target);
+                    }
+                }
+            })
         }
     </script>
     <script src="https://kit.fontawesome.com/aa53675e71.js" crossorigin="anonymous"></script>

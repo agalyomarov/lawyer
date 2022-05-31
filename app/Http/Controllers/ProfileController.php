@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Personal;
 use App\Models\Service;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -18,7 +19,6 @@ class ProfileController extends Controller
             $client = Client::where('phone', session('client_phone'))->first();
             if ($client) {
                 $client_entries = DB::table('client_entry')->where('client_id', $client->id)->get();
-                // dd($client_entries);
                 return view('profile.index', compact('client'));
             }
         }
@@ -47,11 +47,13 @@ class ProfileController extends Controller
     public function entries(Request $request)
     {
         try {
+            DB::beginTransaction();
             $client = Client::where('phone', session('client_phone'))->first();
             if (!$client) {
                 return redirect()->route('home');
             }
-            $allEntries = DB::table('client_entry')->where('client_id', $client->id)->get()->reverse()->toArray();
+            $allEntries = DB::table('client_entry')->where('client_id', $client->id)->paginate(10);
+            // dd($allEntries);
             $payment = new YooKassaClient();
             $payment->setAuth(config('app.yoomoney_shop_id'), config('app.yoomoney_shop_key'));
             $entries = [];
@@ -90,10 +92,8 @@ class ProfileController extends Controller
                             $idempotenceKey
                         );
                         if ($response->status == 'succeeded') {
-                            DB::beginTransaction();
                             DB::table('client_entry')->where('id', $entry->id)->update(['status' => 'buyed']);
                             DB::table('personal_entries')->where('id', $entry->entry_id)->update(['entry_buyed' => '1']);
-                            DB::commit();
                             $allEntries[$index]->status = 'buyed';
                         }
                     }
@@ -105,25 +105,26 @@ class ProfileController extends Controller
                 $personalEntry = DB::table('personal_entries')->where('id', $entry->entry_id)->first();
                 $entryStartTime = date('d.m.Y H:i', $personalEntry->entry_start_time);
                 $entries[$index]['entry_start_time'] = $entryStartTime;
+
                 $entries[$index]['service_title'] = $service->title;
                 $entries[$index]['service_id'] = $service->id;
                 $entries[$index]['client_entry_id'] = $entry->id;
                 $entries[$index]['service_price'] = $service->price;
-                if ($entry->status == 'buyed') {
-                    $entries[$index]['action'] = false;
-                    $entries[$index]['status'] = 'Оплачень';
-                } elseif ($entry->status == 'not_buyed') {
-                    $entries[$index]['status'] = 'Неоплачень';
-                    $entries[$index]['action'] = true;
-                } elseif ($entry->status == 'disabled') {
-                    $entries[$index]['status'] = 'Отменен';
-                    $entries[$index]['action'] = false;
+                $entries[$index]['status'] = $entry->status;
+                $entries[$index]['lasted'] = false;
+                $entries[$index]['active'] = false;
+                if ($personalEntry->entry_start_time <= time() && time() <=  $personalEntry->entry_end_time) {
+                    $entries[$index]['active'] = true;
+                } else if ($personalEntry->entry_end_time <= time()) {
+                    $entries[$index]['lasted'] = true;
+                    $entries[$index]['active'] = false;
                 }
             }
-            // dd($allEntries);
+
             // dd($entries);
-            // dd($client);
-            return view('profile.entry', compact('entries'));
+            $entries = array_reverse($entries);
+            DB::commit();
+            return view('profile.entry', compact('entries', 'allEntries'));
         } catch (\Exception $e) {
             DB::rollback();
             // return $e->getMessage();
@@ -139,6 +140,9 @@ class ProfileController extends Controller
         $personal_entry = DB::table('personal_entries')->where('id', $client_entry->entry_id)->first();
         $personal = Personal::find($personal_entry->personal_id);
         $app_url = config('app.url');
+        if (intval($personal_entry->entry_start_time) - 600 > time()) {
+            $client_entry->link = '';
+        }
         $personal_entry->entry_start_time = date('d.m.Y H:i', $personal_entry->entry_start_time);
         return response()->json(['personal' => $personal, 'service' => $service, 'client_entry' => $client_entry, 'app_url' => $app_url, 'personal_entry' => $personal_entry]);
     }

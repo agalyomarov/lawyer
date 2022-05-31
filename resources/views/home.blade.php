@@ -187,14 +187,6 @@
 
 <body class="body">
     @include('includes.header')
-    <section class="bread">
-        <div class="container">
-            <span property="itemListElement" typeof="ListItem"><span property="name" class="home current-item">Почетный Адвокатъ</span>
-                <meta property="url" content="https://a-advokat.ru">
-                <meta property="position" content="1">
-            </span>
-        </div>
-    </section>
 
     <section class="home-one">
         <div class="swiper-container">
@@ -862,6 +854,7 @@
                     return res.json();
                 }).then(data => {
                     if (data.status) {
+                        oz_container.querySelector('.oz_time .message_for_hourses').classList.add('hidden');
                         oz_container.querySelector('.oz_hid_carousel').style.transform = 'translateX(-14.2857%)';
                         oz_container.querySelector('.oz_back_btn').classList.remove('fadeOutTop');
                         oz_container.querySelector('h3.stepname').textContent = 'Выберите время записи';
@@ -1205,6 +1198,7 @@
                             }).then(res => {
                                 return res.json();
                             }).then(data => {
+                                // console.log(data);
                                 if (data.status == false) {
                                     blockForVerifyPhone.querySelector('.msg_for_client').classList.remove('hidden');
                                     blockForVerifyPhone.querySelector('.msg_for_client').textContent = 'Неправилный код';

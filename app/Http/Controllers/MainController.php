@@ -145,7 +145,8 @@ class MainController extends Controller
             $data = $request->json()->all();    //Получает тела запроса
             // return response()->json($data);
             $today = strtotime('today 00:00');
-            $allEntries = DB::table('personal_entries')->where('entry_date', '>=', $today)->get()->groupBy(['entry_date', 'entry_start_time'])->toArray();
+            $now = time() + 3600;
+            $allEntries = DB::table('personal_entries')->where('entry_start_time', '>', $now)->get()->groupBy(['entry_date', 'entry_start_time'])->toArray();
             $allServices = DB::table('services')->get()->toArray();
             $allPersonals = DB::table('personals')->get()->toArray();
 

@@ -300,9 +300,11 @@
             text-align: center;
         }
 
-        .block_for_info .link {
+        .block_for_info .link,
+        .block_for_info .link_not_buyed,
+        .block_for_info .link_buyed {
             width: 200px;
-            line-height: 30px;
+            line-height: 18px;
             font-size: 14px;
             text-align: center;
             background-color: #6E171E;
@@ -311,6 +313,43 @@
             border-radius: 5px;
             margin-left: calc(50% - 100px);
             margin-bottom: 40px;
+            cursor: pointer;
+            display: block;
+        }
+
+        .block_for_info .link {
+            line-height: 25px;
+        }
+
+        .paginate {
+            height: 30px;
+            width: 250px;
+            margin: 0 auto;
+            /* background-color: silver; */
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        .paginate a {
+            display: block;
+            width: 43px;
+            height: 30px;
+            background-color: #6E171E;
+            color: #fff;
+            font-size: 16px;
+            float: left;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 5px;
+        }
+
+        .paginate .current_page {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 16px;
         }
 
     </style>
@@ -360,7 +399,7 @@
             <a href="{{ route('profile.index') }}" class="list {{ Route::is('profile.index') ? 'active' : '' }}"><i class="fa-solid fa-user"></i><span> Личные данные</span></a>
             <a href="{{ route('profile.entries') }}" class="list {{ Route::is('profile.entries') ? 'active' : '' }}"><i class="fa-solid fa-video"></i><span> Онлайн записи</span></a>
         </div>
-        @if (isset($entries))
+        @if (isset($entries) && count($entries) > 0)
             <div class="table">
                 <div class="table_header">
                     <div class="table_header_element">Дата и время</div>
@@ -378,14 +417,43 @@
                             <div class="table_body_element">{{ $entry['entry_start_time'] }}</div>
                             <a href="" class="table_body_element usluga">{{ $entry['service_title'] }}</a>
                             <div class="table_body_element">{{ $entry['service_price'] }}</div>
-                            <div class="table_body_element">{{ $entry['status'] }}</div>
-                            <div class="table_body_element {{ $entry['action'] ? 'btn_for_buyed' : '' }}">{{ $entry['action'] ? 'Оплатить' : '' }}</div>
-                            <div class="table_body_element {{ $entry['status'] != 'Отменен' ? 'btn_for_disabled' : '' }}">{{ $entry['status'] != 'Отменен' ? 'Отменить' : '' }}</div>
+                            <div class="table_body_element">
+                                @if ($entry['status'] == 'buyed')
+                                    Оплачен
+                                @elseif($entry['status'] == 'disabled')
+                                    Отменен
+                                @elseif($entry['status'] == 'not_buyed')
+                                    Не оплачен
+                                @endif
+                            </div>
+                            <div class="table_body_element @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false) btn_for_buyed @endif">
+                                @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false)
+                                    Оплатить
+                                @endif
+                            </div>
+                            <div class="table_body_element @if ($entry['lasted'] == false && $entry['active'] == false && $entry['status'] != 'disabled') btn_for_disabled @endif">
+                                @if ($entry['status'] != 'disabled' && $entry['lasted'] == false && $entry['active'] == false)
+                                    Отменить
+                                @elseif($entry['status'] == 'buyed' && $entry['lasted'] == true)
+                                    Время истек
+                                @elseif($entry['status'] == 'buyed' && $entry['active'] == true)
+                                    Активный
+                                @endif
+                            </div>
                             <div class="table_body_element btn_for_info">Информация</div>
                         </div>
                     @endforeach
                 </div>
             </div>
+            @if ($allEntries->lastPage() > 1)
+                <div class="paginate">
+                    <a href="?page=1" class="first_page"><i class="fa-solid fa-angles-left"></i></a>
+                    <a href="{{ $allEntries->previousPageUrl() }}" class="prev_page"><i class="fa-solid fa-angle-left"></i></a>
+                    <div class="current_page">{{ $allEntries->currentPage() }}</div>
+                    <a href="{{ $allEntries->nextPageUrl() }}" class="next_page"><i class="fa-solid fa-angle-right"></i></a>
+                    <a href="?page={{ $allEntries->lastPage() }}" class="last_page"><i class="fa-solid fa-angles-right"></i></a>
+                </div>
+            @endif
         @else
             <p class="not_entries">У вас нет консултации</p>
         @endif
@@ -433,7 +501,9 @@
         <div class="sena">Цена(руб) : <span>4000</span></div>
         <div class="date_time">Время и дате : <span>28.02.2022 10:00</span></div>
         <div class="status">Статус : <span>Оплачен</span></div>
-        <div class="link">Ссылка на консултацию</div>
+        <a href="#" class="link hidden">Ссылка на консултацию</a>
+        <div class="link_not_buyed hidden">Ссылка на консултацию будет доступно после оплаты</div>
+        <div class="link_buyed hidden">Ссылка на консултацию будет доступно ближаеший время</div>
     </div>
     <script>
         const bgBlack = document.querySelector('.bg_black');
@@ -451,12 +521,17 @@
         const blockTable = document.querySelector('.table .table_body');
         if (blockTable) {
             blockTable.addEventListener('click', function(e) {
+                // console.log(e.target);
                 if (e.target.classList.contains('btn_for_buyed')) {
+                    // console.log('test');
                     const client_entry_id = e.target.closest('.table_body_element_list').dataset.client_entry_id;
                     window.location.href = `/kassa/buy?client_entry=${client_entry_id}`;
                 } else if (e.target.classList.contains('btn_for_disabled')) {
-                    const client_entry_id = e.target.closest('.table_body_element_list').dataset.client_entry_id;
-                    window.location.href = `/kassa/disabled?client_entry=${client_entry_id}`;
+                    const check = confirm('Вы действительно хотите отменить косултацию?');
+                    if (check) {
+                        const client_entry_id = e.target.closest('.table_body_element_list').dataset.client_entry_id;
+                        window.location.href = `/kassa/disabled?client_entry=${client_entry_id}`;
+                    }
                 } else if (e.target.classList.contains('btn_for_info')) {
                     const client_entry_id = e.target.closest('.table_body_element_list').dataset.client_entry_id;
                     const body = {};
@@ -475,16 +550,28 @@
                         // })
                         return res.json()
                     }).then(data => {
+                        // console.log(data);
                         block_for_info.querySelector('img').src = `${data.app_url}/${data.personal.image}`;
                         block_for_info.querySelector('.fio').textContent = data.personal.fullname;
                         block_for_info.querySelector('.usluga span').textContent = data.service.title;
                         block_for_info.querySelector('.sena span').textContent = data.service.price;
                         block_for_info.querySelector('.date_time span').textContent = data.personal_entry.entry_start_time;
-                        let status = '';
-                        data.client_entry.status == 'buyed' ? status = 'Оплачен' : '';
-                        data.client_entry.status == 'not_buyed' ? status = 'Не оплачен' : '';
-                        data.client_entry.status == 'disabled' ? status = 'Отменен' : '';
-                        block_for_info.querySelector('.status span').textContent = status;
+                        block_for_info.querySelector('.link_buyed').classList.add('hidden');
+                        block_for_info.querySelector('.link_not_buyed ').classList.add('hidden');
+                        block_for_info.querySelector('.link ').classList.add('hidden');
+                        if (data.client_entry.status == 'buyed') {
+                            block_for_info.querySelector('.status span').textContent = 'Оплачень';
+                            if (data.client_entry.link != '') {
+                                block_for_info.querySelector('.link').classList.remove('hidden');
+                                block_for_info.querySelector('.link').setAttribute('href', data.client_entry.link);
+                            } else if (data.client_entry.link == '') {
+                                block_for_info.querySelector('.link_buyed').classList.remove('hidden');
+                            }
+                        }
+                        if (data.client_entry.status == 'not_buyed') {
+                            block_for_info.querySelector('.status span').textContent = 'Не оплачень';
+                            block_for_info.querySelector('.link_not_buyed').classList.remove('hidden');
+                        }
                         block_for_info.classList.remove('hidden');
                         bgBlack.classList.remove('hidden');
                         // console.log(data);
