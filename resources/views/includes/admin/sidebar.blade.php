@@ -52,9 +52,25 @@
                           </p>
                       </a>
                   </li>
+                  <li class="nav-item">
+                      <a href="{{ route('admin.link.index') }}" class="nav-link">
+                          <i class="nav-icon fa fa-link"></i>
+                          <p>
+                              Ссылки
+                              <span class="right badge badge-danger tag_for_count"></span>
+                          </p>
+                      </a>
+                  </li>
               </ul>
           </nav>
-          <!-- /.sidebar-menu -->
       </div>
-      <!-- /.sidebar -->
   </aside>
+  <script>
+      fetch('/admin/link/get_count')
+          .then(res => {
+              return res.json();
+          }).then(data => {
+              console.log(data);
+              document.querySelector('.tag_for_count').textContent = data.count;
+          })
+  </script>

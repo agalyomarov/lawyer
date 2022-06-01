@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\EntryController;
+use App\Http\Controllers\Admin\LinkController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\PersonalController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -79,6 +80,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::post('/update/{personal}', [EntryController::class, 'update'])->name('update');
       Route::delete('/delete/{personal}', [EntryController::class, 'delete'])->name('delete');
       Route::post('/get_all_hourses/{personal}', [EntryController::class, 'getAllHourses']);
+   });
+
+   Route::group(['prefix' => 'link', 'as' => 'link.'], function () {
+      Route::get('/', [LinkController::class, 'index'])->name('index');
+      Route::post('/store', [LinkController::class, 'store'])->name('store');
+      Route::get('/delete/{link}', [LinkController::class, 'delete'])->name('delete');
+      Route::get('/get_count', [LinkController::class, 'getCount']);
    });
 });
 
