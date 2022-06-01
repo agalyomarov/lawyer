@@ -140,18 +140,10 @@ class ProfileController extends Controller
         $personal_entry = DB::table('personal_entries')->where('id', $client_entry->entry_id)->first();
         $personal = Personal::find($personal_entry->personal_id);
         $app_url = config('app.url');
-        $can_disable = false;
-        $can_buyed = true;
         if (intval($personal_entry->entry_start_time) - 3600 > time()) {
             $client_entry->link = '';
         }
-        if (intval($personal_entry->entry_start_time) > time()) {
-            $can_disable = true;
-        }
-        if (intval($personal_entry->entry_start_time) < time()) {
-            $can_buyed = false;
-        }
         $personal_entry->entry_start_time = date('d.m.Y H:i', $personal_entry->entry_start_time);
-        return response()->json(['personal' => $personal, 'service' => $service, 'client_entry' => $client_entry, 'app_url' => $app_url, 'personal_entry' => $personal_entry, 'can_disabled' => $can_disable, 'can_buyed' => $can_buyed]);
+        return response()->json(['personal' => $personal, 'service' => $service, 'client_entry' => $client_entry, 'app_url' => $app_url, 'personal_entry' => $personal_entry]);
     }
 }

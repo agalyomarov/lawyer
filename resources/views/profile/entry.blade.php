@@ -328,7 +328,8 @@
 
         .block_for_info .link,
         .block_for_info .link_not_buyed,
-        .block_for_info .link_buyed {
+        .block_for_info .link_buyed,
+        .block_for_info .link_lasted {
             width: 200px;
             line-height: 18px;
             font-size: 14px;
@@ -586,6 +587,7 @@
         <a href="#" class="link hidden">Ссылка на консултацию</a>
         <div class="link_not_buyed">Ссылка на консултацию будет доступно после оплаты</div>
         <div class="link_buyed hidden">Ссылка на консултацию будет доступно ближаеший время</div>
+        <div class="link_lasted hidden">Время истек</div>
         <div class="btn_for_disabled hidden">Отменить</div>
     </div>
     <script>
@@ -633,7 +635,7 @@
                         // })
                         return res.json()
                     }).then(data => {
-                        console.log(data);
+                        // console.log(data, Math.floor(Date.now() / 1000));
                         block_for_info.querySelector('img').src = `${data.app_url}/${data.personal.image}`;
                         block_for_info.querySelector('.fio').textContent = data.personal.fullname;
                         block_for_info.querySelector('.usluga span').textContent = data.service.title;
@@ -641,27 +643,31 @@
                         block_for_info.querySelector('.date_time span').textContent = data.personal_entry.entry_start_time;
                         block_for_info.querySelector('.link_buyed').classList.add('hidden');
                         block_for_info.querySelector('.link_not_buyed ').classList.add('hidden');
+                        block_for_info.querySelector('.link_lasted').classList.add('hidden');
+                        block_for_info.querySelector('.btn_for_disabled').classList.add('hidden');
                         block_for_info.querySelector('.link ').classList.add('hidden');
                         if (data.client_entry.status == 'buyed') {
-                            block_for_info.querySelector('.status span').textContent = 'Оплачень';
-                            if (data.client_entry.link != '') {
+                            block_for_info.querySelector('.status span').textContent = 'Оплачен';
+                            if (parseInt(data.personal_entry.entry_end_time) < Math.floor(Date.now() / 1000)) {
+                                block_for_info.querySelector('.link_lasted').classList.remove('hidden');
+                            } else if (data.client_entry.link != '') {
                                 block_for_info.querySelector('.link').classList.remove('hidden');
                                 block_for_info.querySelector('.link').setAttribute('href', data.client_entry.link);
-                            } else if (data.client_entry.link == '') {
+                            } else {
                                 block_for_info.querySelector('.link_buyed').classList.remove('hidden');
                             }
+                        } else if (data.client_entry.status == 'not_buyed') {
+                            block_for_info.querySelector('.status span').textContent = 'Не оплачен';
+                            if (parseInt(data.personal_entry.entry_end_time) < Math.floor(Date.now() / 1000)) {
+                                block_for_info.querySelector('.link_lasted').classList.remove('hidden');
+                            } else {
+                                block_for_info.querySelector('.link_not_buyed').classList.remove('hidden');
+                            }
                         }
-                        if (data.can_disabled) {
+                        // console.log(parseInt(data.personal_entry.entry_end_time), Math.floor(Date.now() / 1000));
+                        if (parseInt(data.personal_entry.entry_end_time) - 3600 > Math.floor(Date.now() / 1000)) {
                             block_for_info.querySelector('.btn_for_disabled').classList.remove('hidden');
                             block_for_info.querySelector('.btn_for_disabled').dataset.client_entry_id = data.client_entry.id;
-                        }
-                        if (data.client_entry.status == 'not_buyed') {
-                            block_for_info.querySelector('.status span').textContent = 'Не оплачень';
-                            block_for_info.querySelector('.link_not_buyed').classList.remove('hidden');
-                            if (data.can_buyed) {
-                                block_for_info.querySelector('.btn_for_buyed').classList.remove('hidden');
-                                block_for_info.querySelector('.btn_for_buyed').dataset.client_entry_id = data.client_entry.id;
-                            }
                         }
                         block_for_info.classList.remove('hidden');
                         bgBlack.classList.remove('hidden');
