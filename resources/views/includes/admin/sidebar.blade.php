@@ -57,7 +57,7 @@
                           <i class="nav-icon fa fa-link"></i>
                           <p>
                               Ссылки
-                              <span class="right badge badge-danger tag_for_count"></span>
+                              <span class="right badge badge-danger tag_for_count hidden"></span>
                           </p>
                       </a>
                   </li>
@@ -70,7 +70,10 @@
           .then(res => {
               return res.json();
           }).then(data => {
-              console.log(data);
-              document.querySelector('.tag_for_count').textContent = data.count;
+              //   console.log(data);
+              if (data.count < 30) {
+                  document.querySelector('.tag_for_count').textContent = data.count;
+                  document.querySelector('.tag_for_count').classList.remove('hidden');
+              }
           })
   </script>

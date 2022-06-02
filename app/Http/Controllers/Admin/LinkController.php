@@ -10,7 +10,7 @@ class LinkController extends Controller
 {
     public function index()
     {
-        $links = Link::where('enable', true)->orderBy('id', 'desc')->paginate(30);
+        $links = Link::orderBy('id', 'desc')->paginate(30);
         return view('admin.link.index', compact('links'));
     }
 
@@ -36,7 +36,7 @@ class LinkController extends Controller
     }
     public function getCount()
     {
-        $count = Link::where('enable', true)->count();
+        $count = Link::all()->count();
         return response()->json(['count' => $count]);
     }
 }

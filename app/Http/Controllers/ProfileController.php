@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Link;
 use App\Models\Personal;
 use App\Models\Service;
 use Carbon\Carbon;
@@ -46,6 +47,7 @@ class ProfileController extends Controller
     }
     public function entries(Request $request)
     {
+        // dd($request);
         try {
             DB::beginTransaction();
             $client = Client::where('phone', session('client_phone'))->first();
@@ -77,6 +79,7 @@ class ProfileController extends Controller
                         $idempotenceKey
                     );
                     $allEntries[$index]->payment_id = $response->id;
+                    DB::table('client_entry')->where('id', $entry->id)->update(['payment_id' => $response->id]);
                 } else if ($entry->status == 'not_buyed' && $entry->payment_id) {
                     $idempotenceKey = Str::uuid();
                     $getPayment = $payment->getPaymentInfo($entry->payment_id);
@@ -92,7 +95,9 @@ class ProfileController extends Controller
                             $idempotenceKey
                         );
                         if ($response->status == 'succeeded') {
-                            DB::table('client_entry')->where('id', $entry->id)->update(['status' => 'buyed']);
+                            $lastLink = Link::orderBy('id', 'desc')->first();
+                            DB::table('client_entry')->where('id', $entry->id)->update(['status' => 'buyed', 'link' => $lastLink->link]);
+                            Link::where('id', $lastLink->id)->delete();
                             DB::table('personal_entries')->where('id', $entry->entry_id)->update(['entry_buyed' => '1']);
                             $allEntries[$index]->status = 'buyed';
                         }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Link;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -78,7 +79,9 @@ class KassaController extends Controller
                 // dd($response);
                 if ($response->status == 'succeeded') {
                     DB::beginTransaction();
-                    DB::table('client_entry')->where('id', $client_entry->id)->update(['status' => 'buyed']);
+                    $lastLink = Link::orderBy('id', 'desc')->first();
+                    DB::table('client_entry')->where('id', $client_entry->id)->update(['status' => 'buyed', 'link' => $lastLink->link]);
+                    Link::where('id', $lastLink->id)->delete();
                     DB::table('personal_entries')->where('id', $client_entry->entry_id)->update(['entry_buyed' => '1']);
                     DB::commit();
                 }
