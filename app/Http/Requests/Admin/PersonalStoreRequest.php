@@ -35,7 +35,9 @@ class PersonalStoreRequest extends FormRequest
             'specialities' => ['required'],
             'publishing' => ['required'],
             'interval' => ['required'],
-            'services' => ['required']
+            'services' => ['required'],
+            'login' => ['required', 'unique:personals,login'],
+            'password' => ['required'],
         ];
     }
 }

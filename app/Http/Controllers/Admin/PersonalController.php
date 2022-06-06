@@ -34,6 +34,7 @@ class PersonalController extends Controller
     public function store(PersonalStoreRequest $request)
     {
         $data = $request->validated();
+        // dd($data);
         try {
             $data['image'] = $data['image']->store('image', 'local');
             $data['chpu'] = Ru2lat::convert($data['fullname']);

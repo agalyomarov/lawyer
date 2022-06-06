@@ -100,6 +100,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>Логин</label>
+                    <input type="text" class="form-control" placeholder="Логин" name="login" value="{{ old('login') }}">
+                </div>
+                <div class="form-group">
+                    <label>Парол</label>
+                    <input type="text" class="form-control" placeholder="Парол" name="password" value="{{ old('password') }}">
+                </div>
+                <div class="form-group">
                     <input type="button" class="btn btn-success" value="Добавить" onClick="getSummerNoteContent()">
                 </div>
             </form>

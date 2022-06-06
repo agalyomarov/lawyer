@@ -107,6 +107,15 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>Логин</label>
+                    <input type="text" class="form-control" placeholder="Логин" name="login" value="{{ old('login', $personal->login) }}">
+                </div>
+                <input type="hidden" name="id" value="{{ $personal->id }}">
+                <div class="form-group">
+                    <label>Парол</label>
+                    <input type="text" class="form-control" placeholder="Парол" name="password" value="{{ old('password', $personal->password) }}">
+                </div>
+                <div class="form-group">
                     <input type="submit" class="btn btn-success" value="Изменить">
                 </div>
             </form>

@@ -8,18 +8,28 @@ use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\KassaController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\PersonalController as ControllersPersonalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceForSimpleClient;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [MainController::class, 'index'])->name('home');
+Route::get('/login_personal', [ControllersPersonalController::class, 'login'])->name('login_personal');
+Route::post('/login_personal', [ControllersPersonalController::class, 'login_store'])->name('login_personal.store');
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
    Route::get('/', [ProfileController::class, 'index'])->name('index');
    Route::post('/update', [ProfileController::class, 'update'])->name('update');
    Route::get('/online_entries', [ProfileController::class, 'entries'])->name('entries');
    Route::post('/get_entry_data', [ProfileController::class, 'entryData'])->name('entry_data');
+});
+
+Route::group(['prefix' => 'personal', 'as' => 'personal.', 'middleware' => ['personal']], function () {
+   Route::get('/', [ControllersPersonalController::class, 'index'])->name('index');
+   // Route::post('/update', [ProfileController::class, 'update'])->name('update');
+   // Route::get('/online_entries', [ProfileController::class, 'entries'])->name('entries');
+   // Route::post('/get_entry_data', [ProfileController::class, 'entryData'])->name('entry_data');
 });
 
 

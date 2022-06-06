@@ -23,6 +23,7 @@ class PersonalUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->id);
         return [
             'image' => [''],
             'chpu' => [''],
@@ -36,7 +37,9 @@ class PersonalUpdateRequest extends FormRequest
             'specialities' => ['required'],
             'publishing' => ['required'],
             'interval' => ['required'],
-            'services' => ['required']
+            'services' => ['required'],
+            'login' => ['required', 'unique:personals,login,' . $this->id],
+            'password' => ['required',],
         ];
     }
 }
