@@ -444,7 +444,7 @@
     </div>
     <div class="bg_black hidden"></div>
     <div class="block_for_info hidden">
-        <i class="fa-solid fa-xmark"></i>
+        <i class="fa-solid fa-xmark btn_for_hide_btn_for_info"></i>
         <h3>12.12.2022 03:00</h3>
         <a href="#" class="usluga">Консультация по гражданскому праву</a>
         <div class="status">Статис : оплачен</div>
@@ -456,6 +456,20 @@
     </div>
     <script>
         const table = document.querySelector('div.table');
+        const btn_for_hide_btn_for_info = document.querySelector('.btn_for_hide_btn_for_info');
+        const bg_black = document.querySelector('.bg_black');
+        if (btn_for_hide_btn_for_info) {
+            btn_for_hide_btn_for_info.addEventListener('click', function(event) {
+                document.querySelector('.bg_black').classList.add('hidden');
+                document.querySelector('.block_for_info').classList.add('hidden');
+            })
+        }
+        if (bg_black) {
+            bg_black.addEventListener('click', function(event) {
+                document.querySelector('.bg_black').classList.add('hidden');
+                document.querySelector('.block_for_info').classList.add('hidden');
+            })
+        }
         if (table) {
             table.addEventListener('click', function(event) {
                 if (event.target.classList.contains('btn_for_info')) {
@@ -465,7 +479,15 @@
                     blockForInfo.querySelector('h3').textContent = blockBodyElement.dataset.entry_start_time;
                     blockForInfo.querySelector('.usluga').textContent = blockBodyElement.dataset.service_title;
                     blockForInfo.querySelector('.usluga').setAttribute('href', blockBodyElement.dataset.service_chpu);
-                    blockForInfo.querySelector('.status').textContent = blockBodyElement.dataset.status;
+                    let status = '';
+                    if (blockBodyElement.dataset.status == 'buyed') {
+                        status = 'Оплачен';
+                    } else if (blockBodyElement.dataset.status == 'not_buyed') {
+                        status = 'Не оплачен';
+                    } else if (blockBodyElement.dataset.status == 'disabled') {
+                        status = 'Отменен';
+                    }
+                    blockForInfo.querySelector('.status').textContent = status;
                     blockForInfo.querySelector('.fio').textContent = 'Фио : ' + blockBodyElement.dataset.client_fio;
                     if (blockBodyElement.dataset.client_email) {
                         blockForInfo.querySelector('.email').textContent = 'Email : ' + blockBodyElement.dataset.client_email;
