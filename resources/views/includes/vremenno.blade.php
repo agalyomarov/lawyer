@@ -327,14 +327,14 @@
 </section>
 <style></style>
 {{-- <div class='toast qa-shake' style='display:none'></div> --}}
-<link rel='stylesheet' id='oz_default-css' href='https://a-advokat.ru/wp-content/plugins/book-appointment-online-pro/css/default.theme.css?ver=3.0.7' type='text/css' media='all' />
-<link rel='stylesheet' id='oz_front_css-css' href='https://a-advokat.ru/wp-content/plugins/book-appointment-online-pro/css/oz_front_css.css?ver=3.0.7' type='text/css' media='all' />
-<script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/hoverintent-js.min.js?ver=2.2.1' id='hoverintent-js-js'></script>
+<link rel='stylesheet' id='oz_default-css' href="{{ asset('css/default.theme.css?ver=3.0.7') }}" type='text/css' media='all' />
+<link rel='stylesheet' id='oz_front_css-css' href="{{ asset('css/oz_front_css.css?ver=3.0.7') }}" type='text/css' media='all' />
+<script type='text/javascript' src="{{ asset('js/hoverintent-js.min.js?ver=2.2.1') }}" id='hoverintent-js-js'></script>
 {{-- <script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/admin-bar.min.js?ver=5.9.3' id='admin-bar-js'></script> --}}
-<script type='text/javascript' src='https://a-advokat.ru/wp-includes/js/jquery/ui/core.min.js?ver=1.13.1' id='jquery-ui-core-js'></script>
+<script type='text/javascript' src="{{ asset('js/core.min.js?ver=1.13.1') }}" id='jquery-ui-core-js'></script>
 
 @include('includes.footer')
-<section class="copyright">
+<section class="  copyright">
     <div class="container">© 2017-2022 - Почётный Адвокатъ. г. Москва, ул. Краснобогатырская, д.90 стр. 22, оф. 112 </div>
 </section>
 <div class="overlay"></div>

@@ -30,7 +30,7 @@
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
     <script src="https://kit.fontawesome.com/aa53675e71.js" crossorigin="anonymous"></script>
     <link rel='dns-prefetch' href='//s.w.org' />
-    <link rel='stylesheet' id='wp-customer-reviews-3-frontend-css' href='https://a-advokat.ru/wp-content/plugins/wp-customer-reviews/css/wp-customer-reviews.css?ver=3.6.2' type='text/css' media='all' />
+    <link rel='stylesheet' id='wp-customer-reviews-3-frontend-css' href='{{ asset('css/wp-customer-reviews.css?ver=3.6.2') }}' type='text/css' media='all' />
 
     <style>
         .hidden {
@@ -181,7 +181,6 @@
             margin-top: 20px;
             margin-bottom: -30px;
         }
-
     </style>
 </head>
 
