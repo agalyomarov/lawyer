@@ -376,7 +376,7 @@
                                 @endif
                             </div>
                             <div class="table_body_element fio">{{ $entry['client']->name }}</div>
-                            <div class="table_body_element service"><a href="{{ $entry['link'] }}">ссылка</a></div>
+                            <div class="table_body_element service"><a target="_blank" href="{{ $entry['link'] }}">ссылка</a></div>
                             {{-- <div class="table_body_element buyed @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false) btn_for_buyed @endif">
                                 @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false)
                                     Оплатить
