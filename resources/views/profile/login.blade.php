@@ -265,6 +265,20 @@
         btn_for_call.addEventListener('click', function(event) {
             if (!this.classList.contains('disable') && !this.classList.contains('wait')) {
                 this.classList.add('wait');
+                const body = {};
+                body.phone = oz_phone_input.value.replace(/\D/g, '');
+                fetch('/verification', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(body)
+                }).then(res => {
+                    return res.json();
+                }).then(data => {
+                    // console.log(data);
+                })
             }
         });
 
@@ -288,8 +302,8 @@
             }
         }, 1000);
         btn_for_confirm.addEventListener('click', function(event) {
-            // const code = input_for_code.value.trim();
-            console.log(!oz_phone_input.value.replace(/\D/g, '').length != 11);
+            const code = input_for_code.value.trim();
+            // console.log(!oz_phone_input.value.replace(/\D/g, '').length != 11);
             if (oz_phone_input.value.replace(/\D/g, '').length != 11) {
                 message.textContent = 'Введите корректный номер телефона';
                 message.classList.remove('hidden');
@@ -305,7 +319,31 @@
                     message.textContent = '';
                 }, 2000);
             } else {
-
+                const body = {};
+                body.phone = oz_phone_input.value.replace(/\D/g, '');
+                body.code = code;
+                fetch('/verification/check', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(body)
+                }).then(res => {
+                    return res.json();
+                }).then(data => {
+                    if (data.status) {
+                        window.location.href = '/profile';
+                    } else {
+                        message.textContent = 'Не правилный данный';
+                        message.classList.remove('hidden');
+                        setTimeout(function() {
+                            message.classList.add('hidden');
+                            message.textContent = '';
+                        }, 2000);
+                    }
+                    console.log(data);
+                })
             }
         })
     </script>

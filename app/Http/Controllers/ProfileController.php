@@ -23,7 +23,7 @@ class ProfileController extends Controller
                 return view('profile.index', compact('client'));
             }
         }
-        return redirect()->route('profile.login');
+        return redirect()->route('home');
     }
     public function update(Request $request)
     {
