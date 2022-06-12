@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use App\Models\Entry;
 use App\Models\Personal;
+use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use stdClass;
+use YooKassa\Client as YooKassaClient;
 
 class EntryController extends Controller
 {
@@ -364,21 +367,75 @@ class EntryController extends Controller
     {
         try {
             $entry_date = strtotime($request->get('date'));
-            $entries = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_date' => $entry_date])->get();
+            $block_count = $request->get('block_count');
+            $entries = DB::table('personal_entries')->where(['personal_id' => $personal->id, 'entry_date' => $entry_date, 'block_count' => $block_count])->get();
             $allHourses = [];
             foreach ($entries as $entry) {
-                $allHourses[date('H:i', $entry->entry_start_time)] = '';
+                $allHourses[date('H:i', $entry->entry_start_time)] = ['status' => ''];
                 if ($entry->entry_enable == false) {
-                    $allHourses[date('H:i', $entry->entry_start_time)] = 'не оплаченный запис';
+                    $allHourses[date('H:i', $entry->entry_start_time)]['status'] = 'Не оплаченный запис';
                 }
                 if ($entry->entry_buyed == true) {
-                    $allHourses[date('H:i', $entry->entry_start_time)] = 'оплаченный запис';
+                    $allHourses[date('H:i', $entry->entry_start_time)]['status'] = 'Оплаченный запис';
+                }
+                $client_entry = DB::table('client_entry')->where(['entry_id' => $entry->id])->first();
+                if ($client_entry) {
+                    $client = Client::find($client_entry->client_id);
+                    $service = Service::find($client_entry->service_id);
+                    $allHourses[date('H:i', $entry->entry_start_time)]['client_entry_id'] =  $client_entry->id;
+                    $allHourses[date('H:i', $entry->entry_start_time)]['client'] =  $client;
+                    $allHourses[date('H:i', $entry->entry_start_time)]['service'] =  $service;
+                    $allHourses[date('H:i', $entry->entry_start_time)]['personal_entry'] =  $entry;
+                    $allHourses[date('H:i', $entry->entry_start_time)]['payment_id'] =  $client_entry->payment_id;
+                    $allHourses[date('H:i', $entry->entry_start_time)]['link'] =  $client_entry->link;
+                    $allHourses[date('H:i', $entry->entry_start_time)]['personal'] =  $personal;
+                    $allHourses[date('H:i', $entry->entry_start_time)]['buyed'] = $entry->entry_buyed == true;
+                    $allHourses[date('H:i', $entry->entry_start_time)]['entry_start_time'] = date('d.m.Y H:i', $entry->entry_start_time);
+                    $allHourses[date('H:i', $entry->entry_start_time)]['disable'] = $entry->entry_start_time > time() ? true : false;
                 }
             }
             return response()->json($allHourses);
             // return response()->json(['status' => true]);
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
+        }
+    }
+    public function disable_entry(Request $request)
+    {
+        $client_entry_id = $request->get('client_entry_id');
+        try {
+            DB::beginTransaction();
+            $client_entry = DB::table('client_entry')->where(['id' => $client_entry_id])->first();
+            if ($client_entry) {
+                $service = Service::find($client_entry->service_id);
+                if ($client_entry->status == 'buyed') {
+                    $payment = new YooKassaClient();
+                    $payment->setAuth(config('app.yoomoney_shop_id'), config('app.yoomoney_shop_key'));
+                    $response = $payment->createRefund(
+                        array(
+                            'amount' => array(
+                                'value' => 2.00,
+                                // 'value' => $service->price,
+                                'currency' => 'RUB',
+                            ),
+                            'payment_id' => $client_entry->payment_id,
+                        ),
+                        Str::uuid()
+                    );
+                    if ($response->status == 'succeeded') {
+                        DB::table('client_entry')->where(['id' => $client_entry->id])->delete();
+                        DB::table('personal_entries')->where('id', $client_entry->entry_id)->update(['entry_enable' => 1, 'entry_buyed' => 0]);
+                    }
+                } else if ($client_entry->status == 'not_buyed') {
+                    DB::table('client_entry')->where(['id' => $client_entry->id])->delete();
+                    DB::table('personal_entries')->where('id', $client_entry->entry_id)->update(['entry_enable' => 1, 'entry_buyed' => 0]);
+                }
+            }
+            DB::commit();
+            return response()->json(['status' => true]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['status' => false]);
         }
     }
 }

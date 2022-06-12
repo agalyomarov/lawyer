@@ -348,7 +348,7 @@
     </header>
 
     <div class="content">
-        <div class="header">Все консултации</div>
+        <div class="header">Все консултации <a href="{{ route('personal.logout') }}" style="margin-left: 20px;color:#fff;text-decoration:underline;"><i class="fa-solid fa-arrow-right-from-bracket" style="margin-right: 5px;"></i>Выйти</a></div>
         @if (isset($entries) && count($entries) > 0)
             <div class="table">
                 <div class="table_header">
@@ -376,7 +376,11 @@
                                 @endif
                             </div>
                             <div class="table_body_element fio">{{ $entry['client']->name }}</div>
-                            <div class="table_body_element service"><a target="_blank" href="{{ $entry['link'] }}">ссылка</a></div>
+                            <div class="table_body_element service">
+                                @if ($entry['link'])
+                                    <a target="_blank" href="{{ $entry['link'] }}">ссылка</a>
+                                @endif
+                            </div>
                             {{-- <div class="table_body_element buyed @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false) btn_for_buyed @endif">
                                 @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false)
                                     Оплатить
@@ -494,7 +498,12 @@
                         blockForInfo.querySelector('.email').classList.hidden;
                     }
                     blockForInfo.querySelector('.phone').textContent = "Телефоне : " + blockBodyElement.dataset.client_phone;
+                    blockForInfo.querySelector('.link').classList.remove('hidden');
                     blockForInfo.querySelector('.link').setAttribute('href', blockBodyElement.dataset.link);
+                    if (!blockBodyElement.dataset.link) {
+                        blockForInfo.querySelector('.link').classList.add('hidden');
+
+                    }
                     blockForInfo.classList.remove('hidden');
                     bg_black.classList.remove('hidden');
                     // console.log(blockBodyElement);

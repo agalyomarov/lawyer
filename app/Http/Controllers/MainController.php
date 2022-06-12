@@ -51,7 +51,7 @@ class MainController extends Controller
                     $thisMonth->week[$i][$j]['currentDay'] = $currentDayThisMonth;
                     $thisMonth->week[$i][$j]['currentDate'] = Carbon::now()->startOfMonth()->addDays($currentDayThisMonth - 1)->format('d.m.Y');
                     if (strtotime($thisMonth->week[$i][$j]['currentDate']) >= strtotime(Carbon::now()->format('d.m.Y'))) {
-                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->first();
+                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->where('entry_start_time', '>', time() + 3600)->first();
                         if ($getEntryForDate) {
                             $thisMonth->week[$i][$j]['entryDay'] = true;
                         }
@@ -64,7 +64,7 @@ class MainController extends Controller
                     $thisMonth->week[$i][$j]['currentDate'] = Carbon::now()->startOfMonth()->addDays($currentDayThisMonth - 1)->format('d.m.Y');
 
                     if (strtotime($thisMonth->week[$i][$j]['currentDate']) >= strtotime(Carbon::now()->format('d.m.Y'))) {
-                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->first();
+                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->where('entry_start_time', '>', time() + 3600)->first();
                         if ($getEntryForDate) {
                             $thisMonth->week[$i][$j]['entryDay'] = true;
                         }
@@ -77,7 +77,7 @@ class MainController extends Controller
                     $thisMonth->week[$i][$j]['currentDate'] = Carbon::now()->startOfMonth()->addDays($currentDayThisMonth - 1)->format('d.m.Y');
 
                     if (strtotime($thisMonth->week[$i][$j]['currentDate']) >= strtotime(Carbon::now()->format('d.m.Y'))) {
-                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->first();
+                        $getEntryForDate = DB::table('personal_entries')->where(['entry_date' => strtotime($thisMonth->week[$i][$j]['currentDate']), 'entry_enable' => true])->where('entry_start_time', '>', time() + 3600)->first();
                         if ($getEntryForDate) {
                             $thisMonth->week[$i][$j]['entryDay'] = true;
                         }
@@ -136,6 +136,8 @@ class MainController extends Controller
                 }
             }
         }
+        // dd(date('Y-m-d H:i:m', time()));
+        // dd($thisMonth);
 
         return view('home', compact('thisMonth', 'nextMonth', 'client_email', 'client_name', 'client_phone'));
     }

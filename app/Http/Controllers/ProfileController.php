@@ -23,7 +23,7 @@ class ProfileController extends Controller
                 return view('profile.index', compact('client'));
             }
         }
-        return redirect()->route('home');
+        return redirect()->route('profile.login');
     }
     public function update(Request $request)
     {
@@ -150,5 +150,16 @@ class ProfileController extends Controller
         }
         $personal_entry->entry_start_time = date('d.m.Y H:i', $personal_entry->entry_start_time);
         return response()->json(['personal' => $personal, 'service' => $service, 'client_entry' => $client_entry, 'app_url' => $app_url, 'personal_entry' => $personal_entry]);
+    }
+    public function logout(Request $request)
+    {
+        session(['client_name' => '']);
+        session(['client_phone' => '']);
+        session(['client_email' => '']);
+        return redirect()->route('home');
+    }
+    public function login()
+    {
+        return view('profile.login');
     }
 }

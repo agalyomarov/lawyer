@@ -236,11 +236,12 @@
             margin-left: 10px;
             margin-top: 10px;
             line-height: 30px;
+            cursor: pointer;
         }
 
         .saved_entry_block .entry_day.last {
             background-color: silver;
-            color: rgba(0, 0, 0, 0.5)
+            color: rgba(0, 0, 0, 0.5) cursor: pointer;
         }
 
         .saved_entry_block .entry_day.buyed.disable {
@@ -377,16 +378,86 @@
 
         .list_entries_of_day {
             position: fixed;
-            width: 250px;
-            height: 450px;
+            width: 500px;
+            height: 800px;
             background: #fff;
-            top: calc(50% - 225px);
-            left: calc(50% - 125px);
+            top: calc(50% - 400px);
+            left: calc(50% - 250px);
             z-index: 3;
             padding: 20px;
+            border-radius: 5px;
         }
 
+        .list_entries_of_day .block {
+            border-bottom: 1px solid silver;
+            float: left;
+            margin: 5px 0;
+            width: 100%;
+        }
+
+        .list_entries_of_day .block .list {
+            display: inline-block;
+            float: left;
+        }
+
+        .list_entries_of_day .block .info {
+            background-color: rgb(14, 160, 238);
+            float: right;
+            color: white;
+            padding: 3px 6px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .block_for_info {
+            position: fixed;
+            width: 500px;
+            height: 650px;
+            top: calc(50% - 325px);
+            left: calc(50% - 250px);
+            background-color: #fff;
+            z-index: 3;
+            border-radius: 5px;
+        }
+
+        .block_for_info img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-left: calc(50% - 50px);
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .block_for_info .fio_porsonal,
+        .block_for_info .service_title,
+        .block_for_info .service_price,
+        .block_for_info .time,
+        .block_for_info .status,
+        .block_for_info .link {
+            text-align: center;
+            margin-top: 5px;
+            font-size: 17px;
+            display: block;
+            width: 100%;
+        }
     </style>
+    <div class="block_for_info hidden">
+        {{-- <img src="{{ asset('image/3KuZOxYLSJ8yQ0ZfYYfN3nh0jCta2TkWHAYvowOB.jpg') }}" alt="">
+        <div class="fio_porsonal">Волоцкая Юлия Владимировна</div>
+        <a href="" class="service_title">Консультация по административному праву</a>
+        <div class="service_price">Цена : 2000</div>
+        <div class="time">Дата и время : 12.12.2022 14:00</div>
+        <div class="status">Статус : Оплачен</div>
+        <a href="#" class="link">Ссылка</a>
+        <div class="status" style="margin-top:30px">Данный клиента :</div>
+        <div class="fio_porsonal">Волоцкая Юлия Владимировна</div>
+        <div class="fio_porsonal">+79871874976</div>
+        <div class="fio_porsonal">omaraly971215@gmail.com</div>
+
+        <div class="link disable" style="color:red;cursor:pointer">Отменить</div> --}}
+
+    </div>
     <div class="row mb-5">
         <div class="col-12 d-flex">
             <h1 class="mr-4">Добавить онлайн запис</h1>
@@ -607,9 +678,12 @@
     <div class="message_for_admin hidden"><span></span><i class="fa-solid fa-xmark"></i></div>
     <div class="bg_black hidden"></div>
     <div class="list_entries_of_day hidden">
-        {{-- <div class="list">08:00 - </div>
-        <div class="list">09:00 - не оплаченный запис</div>
-        <div class="list">10:00 - оплаченный запис</div>
+        {{-- <div class="block">
+            <div class="list">09:00 - не оплаченный запис</div>
+            <div class="info">Информация</div>
+        </div> --}}
+
+        {{-- <div class="list">10:00 - оплаченный запис</div>
         <div class="list">11:00 - </div>
         <div class="list">12:00 - оплаченный запис</div>
         <div class="list">08:00 - </div>
@@ -622,7 +696,6 @@
         <div class="list">10:00 - оплаченный запис</div>
         <div class="list">11:00 - </div>
         <div class="list">12:00 - оплаченный запис</div> --}}
-
     </div>
     <script>
         const messageForAdmin = document.querySelector('.message_for_admin');
@@ -836,42 +909,121 @@
         }
         const bgBlack = document.querySelector('.bg_black');
         const listHourses = document.querySelector('.list_entries_of_day');
+        const block_for_info = document.querySelector('.block_for_info');
         bgBlack.addEventListener('click', function(e) {
             listHourses.classList.add('hidden');
             this.classList.add('hidden');
+            block_for_info.classList.add('hidden');
         })
         if (blockForSavedEntries) {
             blockForSavedEntries.addEventListener('click', function(e) {
                 if (e.target.classList.contains('entry_day')) {
-                    if (e.target.classList.contains('disable') || e.target.classList.contains('buyed')) {
-                        const body = {};
-                        body.personal_id = e.target.closest('.saved_entry_block').dataset.personal_id;
-                        body.date = e.target.textContent;
-                        fetch(`/admin/entry/get_all_hourses/${body.personal_id}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify(body)
-                        }).then(res => {
-                            // res.text().then(data => console.log(data));
-                            return res.json();
-                        }).then(data => {
-                            listHourses.innerHTML = '';
-                            for (let index in data) {
-                                const content = `<div class="list">${index} - ${data[index]}</div>`;
-                                listHourses.insertAdjacentHTML('beforeEnd', content);
-                                // console.log(data[index]);
+                    //if (e.target.classList.contains('disable') || e.target.classList.contains('buyed')) {
+                    const body = {};
+                    body.personal_id = e.target.closest('.saved_entry_block').dataset.personal_id;
+                    body.date = e.target.textContent;
+                    body.block_count = e.target.closest('.saved_entry_block').dataset.block_count;
+                    // console.log(body);
+                    fetch(`/admin/entry/get_all_hourses/${body.personal_id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(body)
+                    }).then(res => {
+                        // res.text().then(data => console.log(data));
+                        return res.json();
+                    }).then(data => {
+                        // console.log(data);
+                        listHourses.innerHTML = '';
+                        for (let index in data) {
+                            let content = '';
+                            if (data[index]['client_entry_id']) {
+                                content = `
+                            <div class="block">
+                                    <div class="list">${index} - ${data[index]['status']}</div>
+                                    <div class="info full"
+                                     data-client_entry_id="${data[index]['client_entry_id']}" 
+                                     data-personal_image="${data[index]['personal']['image']}"
+                                     data-personal_fio="${data[index]['personal']['fullname']}"
+                                     data-service_title="${data[index]['service']['title']}"
+                                     data-service_price="${data[index]['service']['price']}"
+                                     data-entry_start_time="${data[index]['entry_start_time']}"
+                                     data-buyed="${data[index]['buyed']==true ? 'Оплачен' : data[index]['buyed']==false ? 'Не оплачен' : ''}"
+                                     data-disable="${data[index]['disable']}"
+                                     data-link="${data[index]['link']}"
+                                     data-client_fullname="${data[index]['client']['name']}"
+                                     data-client_email="${data[index]['client']['email']}"
+                                     data-client_phone="${data[index]['client']['phone']}"
+                                     >Информация</div>
+                            </div>
+                            `;
+                            } else {
+                                content = `
+                            <div class="block">
+                                    <div class="list">${index} - ${data[index]['status']}</div>
+                            </div>
+                            `;
                             }
-                            listHourses.classList.remove('hidden');
-                            bgBlack.classList.remove('hidden');
-                        })
-                        // console.log(body);
-                    }
+
+                            listHourses.insertAdjacentHTML('beforeEnd', content);
+                            // console.log(data[index]);
+                        }
+                        listHourses.classList.remove('hidden');
+                        bgBlack.classList.remove('hidden');
+                    })
+                    // console.log(body);
+                    //}
                 }
             })
         }
+        listHourses.addEventListener('click', function(event) {
+            if (event.target.classList.contains('full')) {
+                const content = `
+                  <img src="/${event.target.dataset.personal_image}" alt="#">
+                  <div class="fio_porsonal">${event.target.dataset.personal_fio}</div>
+                  <a href="" class="service_title">${event.target.dataset.service_title}</a>
+                  <div class="service_price">Цена : ${event.target.dataset.service_price}</div>
+                  <div class="time">Дата и время : ${event.target.dataset.entry_start_time}</div>
+                  <div class="status">Статус : ${event.target.dataset.buyed}</div>
+                  <a href="${event.target.dataset.link}" class="link">Ссылка</a>
+                  <div class="status" style="margin-top:30px">Данный клиента :</div>
+                  <div class="fio_porsonal">${event.target.dataset.client_fullname}</div>
+                  <div class="fio_porsonal">+${event.target.dataset.client_phone}</div>
+                  <div class="fio_porsonal">${event.target.dataset.client_email}</div>
+                  <div class="link disable ${event.target.dataset.disable=='false' ? 'hidden' : ''} " style="color:red;cursor:pointer" data-client_entry_id="${event.target.dataset.client_entry_id}">Отменить</div>
+                `;
+                block_for_info.innerHTML = content;
+                this.classList.add('hidden');
+                block_for_info.classList.remove('hidden');
+            }
+        })
+        block_for_info.addEventListener('click', function(event) {
+            if (event.target.classList.contains('disable')) {
+                const check = confirm('Вы точно хотите отменить запис?');
+                if (confirm) {
+                    const body = {};
+                    body.client_entry_id = event.target.dataset.client_entry_id;
+                    // console.log(body);
+                    fetch(`/admin/entry/disable_entry`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(body)
+                    }).then(res => {
+                        // res.text().then(data => console.log(data));
+                        return res.json();
+                    }).then(data => {
+                        window.location.reload();
+                        // console.log(data);
+                    })
+                    // console.log(event.target);
+                }
+            }
+        })
     </script>
     <script src="https://kit.fontawesome.com/aa53675e71.js" crossorigin="anonymous"></script>
 @endsection

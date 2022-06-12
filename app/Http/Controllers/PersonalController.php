@@ -58,4 +58,9 @@ class PersonalController extends Controller
         return redirect()->route('personal.index');
         // dd($check_login);
     }
+    public function logout()
+    {
+        session(['personal_id' => '']);
+        return redirect()->route('home');
+    }
 }

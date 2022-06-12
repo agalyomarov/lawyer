@@ -385,8 +385,17 @@
             }
         }
 
-        @media (max-width: 350px) {
+        @media (max-width: 400px) {
             .content .header .list span {
+                display: none;
+                visibility: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .content .header .list.logout span {
                 display: none;
                 visibility: hidden;
                 position: absolute;
@@ -433,7 +442,6 @@
         footer {
             margin-top: 50px;
         }
-
     </style>
 </head>
 
@@ -480,6 +488,7 @@
         <div class="header">
             <a href="{{ route('profile.index') }}" class="list {{ Route::is('profile.index') ? 'active' : '' }}"><i class="fa-solid fa-user"></i><span> Личные данные</span></a>
             <a href="{{ route('profile.entries') }}" class="list {{ Route::is('profile.entries') ? 'active' : '' }}"><i class="fa-solid fa-video"></i><span> Онлайн записи</span></a>
+            <a href="{{ route('profile.logout') }}" class="list"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Выйти</span></a>
         </div>
         @if (isset($entries) && count($entries) > 0)
             <div class="table">

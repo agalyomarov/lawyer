@@ -23,10 +23,13 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
    Route::post('/update', [ProfileController::class, 'update'])->name('update');
    Route::get('/online_entries', [ProfileController::class, 'entries'])->name('entries');
    Route::post('/get_entry_data', [ProfileController::class, 'entryData'])->name('entry_data');
+   Route::get('/logout', [ProfileController::class, 'logout'])->name('logout');
+   Route::get('/login', [ProfileController::class, 'login'])->name('login');
 });
 
 Route::group(['prefix' => 'personal', 'as' => 'personal.', 'middleware' => ['personal']], function () {
    Route::get('/', [ControllersPersonalController::class, 'index'])->name('index');
+   Route::get('/logout', [ControllersPersonalController::class, 'logout'])->name('logout');
    // Route::post('/update', [ProfileController::class, 'update'])->name('update');
    // Route::get('/online_entries', [ProfileController::class, 'entries'])->name('entries');
    // Route::post('/get_entry_data', [ProfileController::class, 'entryData'])->name('entry_data');
@@ -90,6 +93,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::post('/update/{personal}', [EntryController::class, 'update'])->name('update');
       Route::delete('/delete/{personal}', [EntryController::class, 'delete'])->name('delete');
       Route::post('/get_all_hourses/{personal}', [EntryController::class, 'getAllHourses']);
+      Route::post('/disable_entry', [EntryController::class, 'disable_entry']);
    });
 
    Route::group(['prefix' => 'link', 'as' => 'link.'], function () {
