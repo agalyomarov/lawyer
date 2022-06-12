@@ -115,6 +115,29 @@
             width: 100%;
             color: red;
         }
+
+        .btn_for_call {
+            width: 260px;
+            background-color: #6E171E;
+            color: #fff;
+            text-align: center;
+            padding: 5px 10px;
+            margin: 0 0 0 0;
+            margin-left: calc(50% - 140px);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn_for_call.disable,
+        .btn_for_call.wait {
+            color: rgb(192, 190, 190);
+        }
+
+        .message {
+            text-align: center;
+            color: red;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -168,20 +191,24 @@
                     <p>{{ session('message') }}</p>
                 </div>
             @endif
-            <form action="{{ route('login_personal.store') }}" method="post">
-                @csrf
-                <div class="form-control">
-                    <label class="label-control">Номер тел.</label>
-                    <input type="text" class="input-control" value="{{ old('login') }}" name="login">
-                </div>
-                <div class="form-control">
-                    <label class="label-control">Пароль</label>
-                    <input type="text" class="input-control" value="{{ old('password') }}" name="password">
-                </div>
-                <div class="form-control">
-                    <button type="submit" class="button-control">Войти</button>
-                </div>
-            </form>
+            {{-- <form action="{{ route('login_personal.store') }}" method="post"> --}}
+            @csrf
+            <div class="form-control">
+                <label class="label-control">Номер тел.</label>
+                <input id="oz_phone_input" type="text" class="input-control" name="phone" placeholder="+7 (___)___-__-__">
+            </div>
+            <div class="btn_for_call disable" data-second="59000" style="font-size: 15px">
+                Получить звонок
+            </div>
+            <div class="form-control">
+                <label class="label-control">Последный 4 цифры</label>
+                <input type="text" class="input-control input_for_code" name="code">
+            </div>
+            <div class="message hidden"></div>
+            <div class="form-control">
+                <button type="button" class="button-control btn_for_confirm">Войти</button>
+            </div>
+            {{-- </form> --}}
         </div>
     </div>
 
@@ -216,6 +243,72 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
+    <script>
+        $(function() {
+            $('#oz_phone_input').inputmask({
+                mask: "+7 (999)999-99-99",
+                definitions: {
+                    'X': {
+                        validator: "9",
+                        placeholder: "9"
+                    }
+                }
+            });
+        });
+
+        const btn_for_call = document.querySelector('.btn_for_call');
+        const oz_phone_input = document.querySelector('#oz_phone_input');
+        const btn_for_confirm = document.querySelector('.btn_for_confirm');
+        const input_for_code = document.querySelector('.input_for_code');
+        const message = document.querySelector('.message');
+        btn_for_call.addEventListener('click', function(event) {
+            if (!this.classList.contains('disable') && !this.classList.contains('wait')) {
+                this.classList.add('wait');
+            }
+        });
+
+        setInterval(function() {
+            if (oz_phone_input.value.replace(/\D/g, '').length == 11) {
+                btn_for_call.classList.remove('disable');
+            } else {
+                btn_for_call.classList.add('disable');
+            }
+            if (btn_for_call.classList.contains('wait')) {
+                let time = new Date(parseInt(btn_for_call.dataset.second)).getSeconds().toString();
+                time = time.length == 1 ? "0" + time : time;
+                btn_for_call.textContent = `Получить звонок через 00:${time}`;
+                btn_for_call.dataset.second = parseInt(btn_for_call.dataset.second) - 1000;
+                if (parseInt(time) == 0) {
+                    btn_for_call.classList.remove('wait');
+                    btn_for_call.textContent = 'Получить звонок';
+                    btn_for_call.dataset.second = '59000';
+                }
+                // console.log(time);
+            }
+        }, 1000);
+        btn_for_confirm.addEventListener('click', function(event) {
+            // const code = input_for_code.value.trim();
+            console.log(!oz_phone_input.value.replace(/\D/g, '').length != 11);
+            if (oz_phone_input.value.replace(/\D/g, '').length != 11) {
+                message.textContent = 'Введите корректный номер телефона';
+                message.classList.remove('hidden');
+                setTimeout(function() {
+                    message.classList.add('hidden');
+                    message.textContent = '';
+                }, 2000);
+            } else if (code.length < 4) {
+                message.textContent = 'Введите последнюю 4 цифра ';
+                message.classList.remove('hidden');
+                setTimeout(function() {
+                    message.classList.add('hidden');
+                    message.textContent = '';
+                }, 2000);
+            } else {
+
+            }
+        })
+    </script>
 </body>
 
 </html>
