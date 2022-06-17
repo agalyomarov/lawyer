@@ -51,10 +51,35 @@
             height: 40px;
             background: #6E171E;
             border-radius: 3px;
-            color: #fff;
+        }
+
+        .content .header .list {
             line-height: 40px;
-            text-align: center;
-            font-size: 16px;
+            color: #fff;
+            display: inline-block;
+            float: left;
+            margin-left: 20px;
+            font-size: 14px;
+            padding: 0 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .content .header .list i {
+            margin: 0 3px;
+
+        }
+
+        .content .header .list.active {
+            background: #fff;
+            color: #6E171E;
+            /* border: 1px solid #6E171E; */
+            border-left: none;
+            border-right: none;
+            line-height: 30px;
+            margin-top: 5px;
+            /* height: 35px; */
+            border-radius: 5px;
         }
 
         form.data_form .form_input {
@@ -124,7 +149,6 @@
             width: 100%;
             height: auto;
             margin-top: 20px;
-            /* overflow-x: scroll; */
         }
 
         .table_header {
@@ -148,18 +172,11 @@
             width: 350px;
         }
 
-        .table_header .table_header_element.fio {
-            width: 300px;
-            /* overflow: hidden; */
-        }
-
         .table_body {
-            /* min-width: 1200px; */
             width: 100%;
             height: 400px;
             /* float: left; */
             /* padding: 0 15px; */
-            /* background: #000; */
         }
 
         .table_body_element_list {
@@ -190,11 +207,6 @@
             width: 350px;
         }
 
-        .table_body_element.fio {
-            width: 300px;
-            overflow: hidden;
-        }
-
         .footer {
             /* float: left !important; */
         }
@@ -210,6 +222,137 @@
             z-index: 1;
         }
 
+        .block_for_info {
+            width: 350px;
+            height: auto;
+            background-color: #fff;
+            z-index: 2;
+            position: fixed;
+            top: 30px;
+            left: calc(50vw - 175px);
+            border-radius: 5px;
+            padding-bottom: 40px;
+        }
+
+        .block_for_info i {
+            display: inline-block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: #fff;
+            background-color: #6E171E;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            line-height: 25px;
+            font-size: 20px;
+            border-radius: 50%;
+        }
+
+        .block_for_info img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-left: calc(50% - 50px);
+            margin-top: 40px;
+        }
+
+        .block_for_info .fio {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: underline;
+        }
+
+        .block_for_info .usluga {
+            margin-top: 10px;
+            width: 100%;
+            /* height: 30px; */
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .block_for_info .sena {
+            width: 100%;
+            /* height: 30px; */
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .block_for_info .date_time {
+            width: 100%;
+            /* height: 30px; */
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .block_for_info .status {
+            width: 100%;
+            /* height: 30px; */
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .block_for_info .btn_for_disabled,
+        .block_for_info .close_window {
+            width: 80px;
+            line-height: 20px;
+            margin: 0 auto;
+            font-size: 14px;
+            margin-top: 20px;
+            background-color: silver;
+            border-radius: 5px;
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .block_for_info .close_window {
+            width: 120px;
+        }
+
+        .block_for_info .btn_for_buyed {
+            width: 80px;
+            line-height: 20px;
+            margin: 0 auto;
+            font-size: 14px;
+            margin-top: 10px;
+            background-color: #6E171E;
+            border-radius: 5px;
+            padding: 8px;
+            text-align: center;
+            color: #fff
+        }
+
+        .block_for_info .link,
+        .block_for_info .link_not_buyed,
+        .block_for_info .link_buyed,
+        .block_for_info .link_lasted {
+            width: 200px;
+            line-height: 18px;
+            font-size: 14px;
+            text-align: center;
+            background-color: #6E171E;
+            color: #fff;
+            margin-top: 10px;
+            border-radius: 5px;
+            margin-left: calc(50% - 100px);
+            /* margin-bottom: 40px; */
+            cursor: pointer;
+            display: block;
+        }
+
+        .block_for_info .link {
+            line-height: 25px;
+        }
 
         .paginate {
             height: 30px;
@@ -242,73 +385,79 @@
             font-size: 16px;
         }
 
+        @media (max-width: 1200px) {
+            .content {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .content .header .list span {
+                display: none;
+                visibility: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .content .header .list.logout span {
+                display: none;
+                visibility: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
+        @media (max-width: 1150px) {
+
+            .table_header_element.sena,
+            .table_body_element.sena {
+                display: none;
+                visibility: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
+        @media (max-width: 1115px) {
+
+            .table_body_element.usluga,
+            .table_header_element.usluga {
+                display: none;
+                visibility: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
+        @media (max-width: 670px) {
+
+            .table_header_element.status,
+            .table_body_element.buyed,
+            .table_body_element.disabled,
+            .table_body_element.status,
+            .table_header_element.not_name {
+                display: none;
+                visibility: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
         footer {
             margin-top: 50px;
         }
 
-        .block_for_info {
-            width: 350px;
-            height: auto;
-            background-color: #fff;
-            z-index: 2;
-            position: fixed;
-            top: 30px;
-            left: calc(50vw - 175px);
-            border-radius: 5px;
-            padding-bottom: 40px;
-        }
-
-        .block_for_info i {
-            display: inline-block;
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            color: #fff;
-            background-color: #6E171E;
-            width: 25px;
-            height: 25px;
-            text-align: center;
-            line-height: 25px;
-            font-size: 20px;
-            border-radius: 50%;
-        }
-
-        .block_for_info h3 {
-            display: block;
-            height: 20px;
-            line-height: 20px;
-            text-align: center;
+        div.not_entries {
+            width: 100%;
             margin-top: 30px;
-            /* margin-bottom: ; */
-        }
-
-        .block_for_info .usluga {
-            height: auto;
-            line-height: 16px;
-            padding: 0 15px;
             text-align: center;
-            display: block;
-        }
-
-        .block_for_info .status {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .block_for_info .fio,
-        .block_for_info .email,
-        .block_for_info .phone,
-        .block_for_info .link {
-            text-align: center;
-            margin-top: 15px;
-            padding: 0 15px;
-            line-height: 16px;
-            display: block;
         }
     </style>
 </head>
 
-<body class="body ">
+<body class="body">
     <header class="header">
         <div class="header-top">
             <div class="container">
@@ -348,71 +497,11 @@
     </header>
 
     <div class="content">
-        <div class="header">Все консултации <a href="{{ route('personal.logout') }}" style="margin-left: 20px;color:#fff;text-decoration:underline;"><i class="fa-solid fa-arrow-right-from-bracket" style="margin-right: 5px;"></i>Выйти</a></div>
-        @if (isset($entries) && count($entries) > 0)
-            <div class="table">
-                <div class="table_header">
-                    <div class="table_header_element">Дата и время</div>
-                    <div class="table_header_element usluga">Услуга</div>
-                    <div class="table_header_element status">Статус</div>
-                    <div class="table_header_element fio">Фио клиента</div>
-                    <div class="table_header_element">Ссылка </div>
-                    {{-- <div class="table_header_element not_name"></div> --}}
-                    {{-- <div class="table_header_element not_name"></div> --}}
-                </div>
-                <div class="table_body">
-                    @foreach ($entries as $index => $entry)
-                        <div class="table_body_element_list {{ $index % 2 == 0 ? 'active' : '' }}" data-entry_start_time="{{ $entry['entry']->entry_start_time }}" data-service_title="{{ $entry['service']->title }}" data-service_chpu={{ $entry['service']->chpu }}
-                            data-status="{{ $entry['status'] }}" data-client_fio="{{ $entry['client']->name }}" data-client_email="{{ $entry['client']->email }}" data-client_phone="{{ $entry['client']->phone }}" data-link="{{ $entry['link'] }}">
-                            <div class="table_body_element">{{ $entry['entry']->entry_start_time }}</div>
-                            <a href="" class="table_body_element usluga">{{ $entry['service']->title }}</a>
-                            <div class="table_body_element status">
-                                @if ($entry['status'] == 'buyed')
-                                    Оплачен
-                                @elseif($entry['status'] == 'disabled')
-                                    Отменен
-                                @elseif($entry['status'] == 'not_buyed')
-                                    Не оплачен
-                                @endif
-                            </div>
-                            <div class="table_body_element fio">{{ $entry['client']->name }}</div>
-                            <div class="table_body_element service">
-                                @if ($entry['link'])
-                                    <a target="_blank" href="{{ $entry['link'] }}">ссылка</a>
-                                @endif
-                            </div>
-                            {{-- <div class="table_body_element buyed @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false) btn_for_buyed @endif">
-                                @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false)
-                                    Оплатить
-                                @endif
-                            </div> --}}
-                            {{-- <div class="table_body_element disabled @if ($entry['lasted'] == false && $entry['active'] == false && $entry['status'] != 'disabled') btn_for_disabled @endif">
-                                @if ($entry['status'] != 'disabled' && $entry['lasted'] == false && $entry['active'] == false)
-                                    Отменить
-                                @elseif($entry['status'] == 'buyed' && $entry['lasted'] == true)
-                                    Время истек
-                                @elseif($entry['status'] == 'buyed' && $entry['active'] == true)
-                                    Активный
-                                @endif
-                            </div> --}}
-                            <div class="table_body_element btn_for_info">Информация</div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            @if ($client_entries->lastPage() > 1)
-                <div class="paginate">
-                    <a href="?page=1" class="first_page"><i class="fa-solid fa-angles-left"></i></a>
-                    <a href="{{ $client_entries->previousPageUrl() }}" class="prev_page"><i class="fa-solid fa-angle-left"></i></a>
-                    <div class="current_page">{{ $client_entries->currentPage() }}</div>
-                    <a href="{{ $client_entries->nextPageUrl() }}" class="next_page"><i class="fa-solid fa-angle-right"></i></a>
-                    <a href="?page={{ $client_entries->lastPage() }}" class="last_page"><i class="fa-solid fa-angles-right"></i></a>
-                </div>
-            @endif
-        @else
-            <p class="not_entries">У вас нет консултации</p>
-        @endif
-
+        <div class="header">
+            <div class="list"><span>Личный кабинет</span></div>
+            <a href="{{ route('profile.logout') }}" class="list"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Выйти</span></a>
+        </div>
+        <div class="not_entries">У вас нет консултации</div>
     </div>
 
     @include('includes.footer')
@@ -446,72 +535,6 @@
             </div>
         </div>
     </div>
-    <div class="bg_black hidden"></div>
-    <div class="block_for_info hidden">
-        <i class="fa-solid fa-xmark btn_for_hide_btn_for_info"></i>
-        <h3>12.12.2022 03:00</h3>
-        <a href="#" class="usluga">Консультация по гражданскому праву</a>
-        <div class="status">Статис : оплачен</div>
-        <h3>Контакты клиента</h3>
-        <div class="fio">Фио : Omarov Agaly BkbkikiZ seurygflvsv neihlfgil rehgperhiewrh</div>
-        <div class="email hidden">Email : omaraly971215@gmail.com</div>
-        <div class="phone">Номер : +79871874976</div>
-        <a href="#" class="link">Ссылка</a>
-    </div>
-    <script>
-        const table = document.querySelector('div.table');
-        const btn_for_hide_btn_for_info = document.querySelector('.btn_for_hide_btn_for_info');
-        const bg_black = document.querySelector('.bg_black');
-        if (btn_for_hide_btn_for_info) {
-            btn_for_hide_btn_for_info.addEventListener('click', function(event) {
-                document.querySelector('.bg_black').classList.add('hidden');
-                document.querySelector('.block_for_info').classList.add('hidden');
-            })
-        }
-        if (bg_black) {
-            bg_black.addEventListener('click', function(event) {
-                document.querySelector('.bg_black').classList.add('hidden');
-                document.querySelector('.block_for_info').classList.add('hidden');
-            })
-        }
-        if (table) {
-            table.addEventListener('click', function(event) {
-                if (event.target.classList.contains('btn_for_info')) {
-                    const blockBodyElement = event.target.closest('.table_body_element_list');
-                    const bg_black = document.querySelector('.bg_black');
-                    const blockForInfo = document.querySelector('.block_for_info');
-                    blockForInfo.querySelector('h3').textContent = blockBodyElement.dataset.entry_start_time;
-                    blockForInfo.querySelector('.usluga').textContent = blockBodyElement.dataset.service_title;
-                    blockForInfo.querySelector('.usluga').setAttribute('href', blockBodyElement.dataset.service_chpu);
-                    let status = '';
-                    if (blockBodyElement.dataset.status == 'buyed') {
-                        status = 'Оплачен';
-                    } else if (blockBodyElement.dataset.status == 'not_buyed') {
-                        status = 'Не оплачен';
-                    } else if (blockBodyElement.dataset.status == 'disabled') {
-                        status = 'Отменен';
-                    }
-                    blockForInfo.querySelector('.status').textContent = status;
-                    blockForInfo.querySelector('.fio').textContent = 'Фио : ' + blockBodyElement.dataset.client_fio;
-                    if (blockBodyElement.dataset.client_email) {
-                        blockForInfo.querySelector('.email').textContent = 'Email : ' + blockBodyElement.dataset.client_email;
-                        blockForInfo.querySelector('.email').classList.hidden;
-                    }
-                    blockForInfo.querySelector('.phone').textContent = "Телефоне : " + blockBodyElement.dataset.client_phone;
-                    blockForInfo.querySelector('.link').classList.remove('hidden');
-                    blockForInfo.querySelector('.link').setAttribute('href', blockBodyElement.dataset.link);
-                    if (!blockBodyElement.dataset.link) {
-                        blockForInfo.querySelector('.link').classList.add('hidden');
-
-                    }
-                    blockForInfo.classList.remove('hidden');
-                    bg_black.classList.remove('hidden');
-                    // console.log(blockBodyElement);
-                }
-
-            })
-        }
-    </script>
 </body>
 
 </html>

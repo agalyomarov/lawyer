@@ -22,6 +22,7 @@ class ProfileController extends Controller
                 $client_entries = DB::table('client_entry')->where('client_id', $client->id)->get();
                 return view('profile.index', compact('client'));
             }
+            return view('profile.empty');
         }
         return redirect()->route('profile.login');
     }
@@ -148,14 +149,16 @@ class ProfileController extends Controller
         if (intval($personal_entry->entry_start_time) - 3600 > time()) {
             $client_entry->link = '';
         }
+        $link_enable_time = $personal_entry->entry_start_time;
         $personal_entry->entry_start_time = date('d.m.Y H:i', $personal_entry->entry_start_time);
+        $personal_entry->link_enable_time = date('d.m.Y H:i', $link_enable_time - 3600);
         return response()->json(['personal' => $personal, 'service' => $service, 'client_entry' => $client_entry, 'app_url' => $app_url, 'personal_entry' => $personal_entry]);
     }
     public function logout(Request $request)
     {
-        session(['client_name' => '']);
-        session(['client_phone' => '']);
-        session(['client_email' => '']);
+        session()->forget('client_name');
+        session()->forget('client_phone');
+        session()->forget('client_email');
         return redirect()->route('home');
     }
     public function login()

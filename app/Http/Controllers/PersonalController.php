@@ -42,7 +42,7 @@ class PersonalController extends Controller
         // dd($entries);
 
         // dd($client_entries);
-        return view('personal.index', compact('entries'));
+        return view('personal.index', compact('entries', 'client_entries'));
     }
     public function login_store(Request $request)
     {

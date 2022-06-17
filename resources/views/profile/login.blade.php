@@ -342,7 +342,7 @@
                             message.textContent = '';
                         }, 2000);
                     }
-                    console.log(data);
+                    // console.log(data);
                 })
             }
         })

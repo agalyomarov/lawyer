@@ -301,7 +301,8 @@
             text-align: center;
         }
 
-        .block_for_info .btn_for_disabled {
+        .block_for_info .btn_for_disabled,
+        .block_for_info .close_window {
             width: 80px;
             line-height: 20px;
             margin: 0 auto;
@@ -311,6 +312,11 @@
             border-radius: 5px;
             padding: 8px;
             text-align: center;
+            cursor: pointer;
+        }
+
+        .block_for_info .close_window {
+            width: 120px;
         }
 
         .block_for_info .btn_for_buyed {
@@ -522,6 +528,8 @@
                                     Оплатить
                                 @endif
                             </div>
+
+                            <div class="table_body_element btn_for_info">Информация</div>
                             <div class="table_body_element disabled @if ($entry['lasted'] == false && $entry['active'] == false && $entry['status'] != 'disabled') btn_for_disabled @endif">
                                 @if ($entry['status'] != 'disabled' && $entry['lasted'] == false && $entry['active'] == false)
                                     Отменить
@@ -531,7 +539,6 @@
                                     Активный
                                 @endif
                             </div>
-                            <div class="table_body_element btn_for_info">Информация</div>
                         </div>
                     @endforeach
                 </div>
@@ -598,6 +605,7 @@
         <div class="link_buyed hidden">Ссылка на консултацию будет доступно ближаеший время</div>
         <div class="link_lasted hidden">Время истек</div>
         <div class="btn_for_disabled hidden">Отменить</div>
+        <div class="close_window">Закрыт окно</div>
     </div>
     <script>
         const bgBlack = document.querySelector('.bg_black');
@@ -612,6 +620,11 @@
             bgBlack.classList.add('hidden');
             block_for_info.classList.add('hidden');
         })
+
+        block_for_info.querySelector('.close_window').addEventListener('click', function(e) {
+            block_for_info.querySelector('i').click();
+        });
+
         const blockTable = document.querySelector('.table .table_body');
         if (blockTable) {
             blockTable.addEventListener('click', function(e) {
@@ -664,6 +677,7 @@
                                 block_for_info.querySelector('.link').setAttribute('href', data.client_entry.link);
                             } else {
                                 block_for_info.querySelector('.link_buyed').classList.remove('hidden');
+                                block_for_info.querySelector('.link_buyed').textContent = `Ссылка будет доступный в ${data.personal_entry.link_enable_time}`;
                             }
                         } else if (data.client_entry.status == 'not_buyed') {
                             block_for_info.querySelector('.status span').textContent = 'Не оплачен';
@@ -696,6 +710,7 @@
             }
         })
     </script>
+
 </body>
 
 </html>

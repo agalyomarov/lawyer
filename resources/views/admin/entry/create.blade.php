@@ -991,7 +991,7 @@
                   <div class="status" style="margin-top:30px">Данный клиента :</div>
                   <div class="fio_porsonal">${event.target.dataset.client_fullname}</div>
                   <div class="fio_porsonal">+${event.target.dataset.client_phone}</div>
-                  <div class="fio_porsonal">${event.target.dataset.client_email}</div>
+                  <div class="fio_porsonal">${event.target.dataset.client_email !='null' ? event.target.dataset.client_email : ''}</div>
                   <div class="link disable ${event.target.dataset.disable=='false' ? 'hidden' : ''} " style="color:red;cursor:pointer" data-client_entry_id="${event.target.dataset.client_entry_id}">Отменить</div>
                 `;
                 block_for_info.innerHTML = content;
@@ -1002,7 +1002,7 @@
         block_for_info.addEventListener('click', function(event) {
             if (event.target.classList.contains('disable')) {
                 const check = confirm('Вы точно хотите отменить запис?');
-                if (confirm) {
+                if (check) {
                     const body = {};
                     body.client_entry_id = event.target.dataset.client_entry_id;
                     // console.log(body);
