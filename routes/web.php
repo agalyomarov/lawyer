@@ -11,6 +11,9 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\PersonalController as ControllersPersonalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceForSimpleClient;
+use App\Http\Controllers\VariableController;
+use App\Mail\OrderShipped;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 
@@ -101,6 +104,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::post('/store', [LinkController::class, 'store'])->name('store');
       Route::get('/delete/{link}', [LinkController::class, 'delete'])->name('delete');
       Route::get('/get_count', [LinkController::class, 'getCount']);
+   });
+
+   Route::group(['prefix' => 'variable', 'as' => 'variable.'], function () {
+      Route::get('/', [VariableController::class, 'index'])->name('index');
+      // Route::post('/store', [LinkController::class, 'store'])->name('store');
    });
 });
 
