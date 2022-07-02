@@ -9,10 +9,12 @@ use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\KassaController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PersonalController as ControllersPersonalController;
+use App\Http\Controllers\PersonalsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceForSimpleClient;
 use App\Http\Controllers\VariableController;
 use App\Mail\OrderShipped;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -33,11 +35,12 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
 Route::group(['prefix' => 'personal', 'as' => 'personal.', 'middleware' => ['personal']], function () {
    Route::get('/', [ControllersPersonalController::class, 'index'])->name('index');
    Route::get('/logout', [ControllersPersonalController::class, 'logout'])->name('logout');
-   // Route::post('/update', [ProfileController::class, 'update'])->name('update');
-   // Route::get('/online_entries', [ProfileController::class, 'entries'])->name('entries');
-   // Route::post('/get_entry_data', [ProfileController::class, 'entryData'])->name('entry_data');
 });
 
+Route::group(['prefix' => 'personals', 'as' => 'personals.'], function () {
+   Route::get('/', [PersonalsController::class, 'index'])->name('index');
+   Route::get('/{person}', [PersonalsController::class, 'viewPersonal'])->name('view_personal');
+});
 
 Route::group(['prefix' => 'yuridicheskoe-obsluzhivanie-fiz-lic', 'as' => 'serviceForSimpleClient.'], function () {
    Route::get('/', [ServiceForSimpleClient::class, 'index'])->name('index');
@@ -108,7 +111,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
    Route::group(['prefix' => 'variable', 'as' => 'variable.'], function () {
       Route::get('/', [VariableController::class, 'index'])->name('index');
-      // Route::post('/store', [LinkController::class, 'store'])->name('store');
+      Route::post('/', [VariableController::class, 'store'])->name('store');
    });
 });
 
