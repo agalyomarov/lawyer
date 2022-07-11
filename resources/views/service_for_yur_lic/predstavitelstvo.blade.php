@@ -40,60 +40,39 @@
             <!-- Breadcrumb NavXT 6.6.0 -->
             <span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Перейти к Почетный Адвокатъ." href="{{ route('home') }}" class="home"><span property="name">Московская Коллегия Адвокатов</span></a>
                 <meta property="position" content="1">
-            </span> / <span property="itemListElement" typeof="ListItem"><span property="name" class="post post-page current-item">Сотрудники</span>
-                <meta property="url" content="{{ route('personals.index') }}">
+            </span> / <span property="itemListElement" typeof="ListItem"><span property="name" class="post post-page current-item">Юридическим лицам</span>
+                <meta property="url" content="{{ route('serviceForSimpleClient.index') }}">
                 <meta property="position" content="2">
+            </span> / <span property="itemListElement" typeof="ListItem"><span property="name" class="post post-page current-item">Представительство</span>
+                <meta property="url" content="https://a-advokat.ru/obsluzhivanie-yuridicheskih-lic/dosudebnoe-uregulirovanie-sporov/">
+                <meta property="position" content="3">
             </span>
+
         </div>
     </section>
-    <section class="home-three">
+    <section class="page-one">
+
         <div class="page-title">
-            <h1>
-                @if (!request()->query('qa'))
-                    Консультанты
-                @endif
-                @if (request()->query('qa') == 'lawyer')
-                    Юристы
-                @endif
-                @if (request()->query('qa') == 'advocate')
-                    Адвокаты
-                @endif
-            </h1>
+            <h1>Представительство</h1>
         </div>
-        <div class="filter394">
-            <div class="container">
-                <div class="page-title">
-                    Фильтр
-                </div>
-
-                <div class="filter-block">
-                    <select name="qa" onchange="if (this.value) {window.location.href = '?qa='+this.value; }else{ window.location.href = '/personals/'; }">
-                        <option>Все специальности</option>
-                        <option value="advocate">Адвокаты</option>
-                        <option value="lawyer">Юристы</option>
-                    </select>
-
-
-                </div>
-            </div>
-
-        </div>
-
-
-
         <div class="container">
-
-            <div style="clear:both;"></div>
-            @foreach ($personals as $personal)
-                <div class="home-three-item">
-                    <div class="ava" style="background: url({{ asset($personal->image) }}) center center; background-size:cover;"></div>
-                    <h3>{{ $personal->fullname }}</h3>
-                    <span>{{ $personal->speciality->title }}</span>
-                    <span style="margin-top:-60px">{{ $personal->shurt_description }}</span>
-                    <a style="margin-top:-10px" href="{{ route('personals.view_personal', $personal->chpu) }}">Подробнее</a>
-                </div>
-            @endforeach
-
+            <p><img class="aligncenter wp-image-338 size-large" title="Представление интересов юридических лиц в Москве" src="https://cb08590.tmweb.ru/wp-content/uploads/2021/10/predstavitelstvo-1024x438.jpg" alt="Представление интересов юридических лиц" width="1024" height="438"
+                    srcset="https://a-advokat.ru/wp-content/uploads/2021/10/predstavitelstvo-1024x438.jpg 1024w, https://a-advokat.ru/wp-content/uploads/2021/10/predstavitelstvo-300x128.jpg 300w, https://a-advokat.ru/wp-content/uploads/2021/10/predstavitelstvo-768x328.jpg 768w, https://a-advokat.ru/wp-content/uploads/2021/10/predstavitelstvo-1536x657.jpg 1536w, https://a-advokat.ru/wp-content/uploads/2021/10/predstavitelstvo.jpg 2000w"
+                    sizes="(max-width: 1024px) 100vw, 1024px"></p>
+            <p>Представительство — это право вести свои дела в суде лично или через профессиональных представителей, в отсутствие времени у руководителя, а также знаний в той или иной отрасли права.</p>
+            <p>Представительство в суде включает в себя:</p>
+            <ul>
+                <li>ознакомление с материалами дела в суде;</li>
+                <li>правовой анализ (изучение) документов и доказательств;</li>
+                <li>выработка позиции и дальнейшей стратегии совместно с Доверителем;</li>
+                <li>истребование дополнительных документов (доказательств), необходимых для положительного результата в последствии;</li>
+                <li>подготовка к судебным заседаниям (составление встречных исковых требований, ходатайств, запросов, речей (прений) и т.д.)</li>
+                <li>выступления в судебных заседаниях (дача пояснений, аргументированное изложение позиции, заявление ходатайств, выступления в прениях и т.д.);</li>
+                <li>обжалование в апелляционной, кассационной и надзорной инстанциях;</li>
+            </ul>
+            <p>Однако, представительство юридических лиц осуществляется не только при досудебном урегулировании споров и в судах(арбитражное, административное, уголовно-процессуальное судопроизводство.</p>
+            <p>Наши адвокаты окажут услуги по представительству Вашего предприятия в государственных учреждениях, в частности при получении лицензий, заключений и согласовании, при регистрации сделок с недвижимостью и т.д.</p>
+            <p>Наши адвокаты осуществят защиту прав и законных интересов юридического лица в правоохранительных органах в отношении которого ведется административное и уголовное производство, или юридического лица, которое является потерпевшим по делу.</p>
         </div>
     </section>
     @include('includes.footer')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\DatePicker;
 use App\Models\Client;
+use App\Models\Personal;
 use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -16,6 +17,9 @@ class MainController extends Controller
 {
     public function index()
     {
+        $services = Service::all();
+        $clients = Personal::leftJoin('personal_specialities', 'personals.id', 'personal_specialities.personal_id')->leftJoin('specialities', 'personal_specialities.speciality_id', "=", "specialities.id")->take(10)->select('personals.*', 'specialities.title')->get();
+        // dd($clients);
         $client_name = session()->get('client_name');
         $client_phone = session()->get('client_phone');
         $client_email = session()->get('client_email');
@@ -139,7 +143,7 @@ class MainController extends Controller
         // dd(date('Y-m-d H:i:m', time()));
         // dd($thisMonth);
 
-        return view('home', compact('thisMonth', 'nextMonth', 'client_email', 'client_name', 'client_phone'));
+        return view('home', compact('thisMonth', 'nextMonth', 'client_email', 'client_name', 'client_phone', 'services', 'clients'));
     }
     public function getentry(Request $request)
     {

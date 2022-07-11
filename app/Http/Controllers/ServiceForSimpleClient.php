@@ -32,4 +32,20 @@ class ServiceForSimpleClient extends Controller
     {
         return view('service-for-simple-client.advokat-po-zhilishchnym-voprosam');
     }
+    public function pageAdvokatPoNasledstvennymDelam()
+    {
+        return view('service-for-simple-client.advokat-po-nasledstvennym-delam');
+    }
+    public function pageYuristPoTrudovymSporam()
+    {
+        return view('service-for-simple-client.yurist-po-trudovym-sporam');
+    }
+    public function pagePredstavlenieInteresovVArbitrazhnomSude()
+    {
+        return view('service-for-simple-client.predstavlenie-interesov-v-arbitrazhnom-sude');
+    }
+    public function pageProgrammaLoyalnosti()
+    {
+        return view('service-for-simple-client.programma-loyalnosti');
+    }
 }

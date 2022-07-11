@@ -53,17 +53,18 @@
         <div class="container">
             <p>Юридическое обслуживание физических лиц — ключевая услуга, оказываемая специалистами коллегии «Почетный Адовкатъ». Воспользовавшись ею, каждый человек будет иметь персональных помощников, готовых оказать правовую помощь в любой момент.</p>
             <ul>
-                <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoUgalownymDelam') }}">Уголовный адвокат</a></li>
-                <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoAdministrativnymDelam') }}">Услуги адвоката по административным делам</a></li>
-                <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoDtp') }}">Услуги адвокатов по ДТП </a></li>
-                <li><a href="{{ route('serviceForSimpleClient.pageVzyskanieDolgovSFizicheskihLic') }}">Возврат долгов с физических лиц</a></li>
-                <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoZhilishchnymVoprosam') }}">Адвокат по жилищным вопросам</a></li>
-                <li><a href="https://a-advokat.ru/advokat-po-nasledstvennym-delam/">Адвокат по наследственным делам</a></li>
-                <li><a href="https://a-advokat.ru/yurist-po-trudovym-sporam/">Услуги юриста по трудовым вопросам</a></li>
-                <li><a href="https://a-advokat.ru/predstavlenie-interesov-v-arbitrazhnom-sude/">Представительство в Арбитражном суде</a></li>
-                <li><a href="https://a-advokat.ru/programma-loyalnosti/"><strong>Программа лояльности</strong></a></li>
+                <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoUgalownymDelam') }}/">Уголовный адвокат</a></li>
+                <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoAdministrativnymDelam') }}/">Услуги адвоката по административным делам</a></li>
+                <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoDtp') }}/">Услуги адвокатов по ДТП </a></li>
+                <li><a href="{{ route('serviceForSimpleClient.pageVzyskanieDolgovSFizicheskihLic') }}/">Возврат долгов с физических лиц</a></li>
+                <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoZhilishchnymVoprosam') }}/">Адвокат по жилищным вопросам</a></li>
+                <li><a href="{{ route('serviceForSimpleClient.pageAdvokatPoNasledstvennymDelam') }}/">Адвокат по наследственным делам</a></li>
+                <li><a href="{{ route('serviceForSimpleClient.pageYuristPoTrudovymSporam') }}/">Услуги юриста по трудовым вопросам</a></li>
+                <li><a href="{{ route('serviceForSimpleClient.pagePredstavlenieInteresovVArbitrazhnomSude') }}/">Представительство в Арбитражном суде</a></li>
+                <li><a href="{{ route('serviceForSimpleClient.pageProgrammaLoyalnosti') }}/"><strong>Программа лояльности</strong></a></li>
             </ul>
-            <p class="category_footer">Если Вы не нашли здесь нужную категорию, напишите заявку в форме сверху, или перейдите в раздел <a href="https://a-advokat.ru/obsluzhivanie-yuridicheskih-lic">Юридическим лицам</a> или <a href="https://a-advokat.ru/yuridicheskaya-konsultaciya-ip">Индивидуальным
+            <p class="category_footer">Если Вы не нашли здесь нужную категорию, напишите заявку в форме сверху, или перейдите в раздел <a href="https://a-advokat.ru/obsluzhivanie-yuridicheskih-lic">Юридическим лицам</a> или <a
+                    href="https://a-advokat.ru/yuridicheskaya-konsultaciya-ip">Индивидуальным
                     предпринимателям</a></p>
             <div>
                 <h2>Юридическое обслуживание физических лиц необходимо каждому</h2>

@@ -221,8 +221,8 @@
     </section>
     <section class="break">
         <div class="container">
-            <a href="{{ route('serviceForSimpleClient.index') }}" class="button">Физическим лицам</a>
-            <a href="/obsluzhivanie-yuridicheskih-lic/" class="button">Юридическим лицам</a>
+            <a href="{{ route('serviceForSimpleClient.index') }}/" class="button">Физическим лицам</a>
+            <a href="{{ route('serviceForYuridLic.index') }}/" class="button">Юридическим лицам</a>
         </div>
     </section>
     <section class="home-two">
@@ -231,10 +231,12 @@
         </div>
         <div class="container">
             <ul>
-                <li><a href="https://a-advokat.ru/services/konsultacziya-po-grazhdanskomu-pravu/">Консультация по гражданскому праву</a></li>
-                <li><a href="https://a-advokat.ru/services/konsultacziya-po-semejnym-otnosheniyam/">Консультация по семейным отношениям</a></li>
+                @foreach ($services as $service)
+                    <li><a href="{{ route('service.index', $service->chpu) }}/">{{ $service->title }}</a></li>
+                @endforeach
+                {{-- <li><a href="https://a-advokat.ru/services/konsultacziya-po-semejnym-otnosheniyam/">Консультация по семейным отношениям</a></li>
                 <li><a href="https://a-advokat.ru/services/konsultacziya-po-ugolovnomu-pravu/">Консультация по уголовному праву</a></li>
-                <li><a href="https://a-advokat.ru/services/administrativnoe-pravo/">Консультация по административному праву</a></li>
+                <li><a href="https://a-advokat.ru/services/administrativnoe-pravo/">Консультация по административному праву</a></li> --}}
             </ul>
         </div>
     </section>
@@ -247,320 +249,18 @@
                 <div class="ava" style="background: url({{ asset('images/Снимок-экрана-2021-06-22-в-13.23.40.png') }}) center center; background-size:cover;"></div>
                 <h3>Личное: Архарова Яна Германовна</h3>
                 <span class="specialnost">Юрист</span>
-                <div class="rating">
-                    <div id="post-ratings-16" class="post-ratings" itemscope itemtype="http://schema.org/Article"><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img
-                            src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5"
-                            class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5"
-                            title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" />
-                        <meta itemprop="name" content="Личное: Архарова Яна Германовна" />
-                        <meta itemprop="headline" content="Личное: Архарова Яна Германовна" />
-                        <meta itemprop="description" content="" />
-                        <meta itemprop="datePublished" content="2030-06-29T13:18:45+03:00" />
-                        <meta itemprop="dateModified" content="2022-01-30T20:39:58+03:00" />
-                        <meta itemprop="url" content="https://a-advokat.ru/personal/arharova-yana-germanovna/" />
-                        <meta itemprop="author" content="Яна Архарова" />
-                        <meta itemprop="mainEntityOfPage" content="https://a-advokat.ru/personal/arharova-yana-germanovna/" />
-                        <div style="display: none;" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                            <meta itemprop="url" content="{{ asset('images/Снимок-экрана-2021-06-22-в-13.23.40-150x150.png') }}" />
-                            <meta itemprop="width" content="150" />
-                            <meta itemprop="height" content="150" />
-                        </div>
-                        <div style="display: none;" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                            <meta itemprop="name" content="Почетный Адвокатъ" />
-                            <meta itemprop="url" content="https://a-advokat.ru" />
-                            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                                <meta itemprop="url" content="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <span>Небольшой текст об специалисте</span>
                 <a href="https://a-advokat.ru/personal/arharova-yana-germanovna/">Подробнее</a>
             </div>
-            <div class="home-three-item">
-                <div class="ava" style="background: url({{ asset('images/voloczkaya-yuliya-vladimirovna-200.jpg') }}) center center; background-size:cover;"></div>
-                <h3>Волоцкая Юлия Владимировна</h3>
-                <span class="specialnost">Адвокат</span>
-                <div class="rating">
-                    <div id="post-ratings-181" class="post-ratings" itemscope itemtype="http://schema.org/Article"><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img
-                            src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5"
-                            class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5"
-                            title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" />
-                        <meta itemprop="name" content="Волоцкая Юлия Владимировна" />
-                        <meta itemprop="headline" content="Волоцкая Юлия Владимировна" />
-                        <meta itemprop="description" content="Юридический стаж около 20 лет. В настоящее время успешно осуществляет защиту по уголовным делам высокой сложности, как общеуголовной, так и экономической направленности.Свою карьеру начинала в д..." />
-                        <meta itemprop="datePublished" content="2021-09-15T15:54:58+03:00" />
-                        <meta itemprop="dateModified" content="2022-04-05T23:11:16+03:00" />
-                        <meta itemprop="url" content="https://a-advokat.ru/personal/voloczkaya-yuliya-vladimirovna/" />
-                        <meta itemprop="author" content="Юлия Волоцкая" />
-                        <meta itemprop="mainEntityOfPage" content="https://a-advokat.ru/personal/voloczkaya-yuliya-vladimirovna/" />
-                        <div style="display: none;" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                            <meta itemprop="url" content="{{ asset('images/voloczkaya-yuliya-vladimirovna-200-150x150.jpg') }}" />
-                            <meta itemprop="width" content="150" />
-                            <meta itemprop="height" content="150" />
-                        </div>
-                        <div style="display: none;" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                            <meta itemprop="name" content="Почетный Адвокатъ" />
-                            <meta itemprop="url" content="https://a-advokat.ru" />
-                            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                                <meta itemprop="url" content="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <span>Председатель Московской Коллегии Адвокатов, адвокат</span>
-                <a href="https://a-advokat.ru/personal/voloczkaya-yuliya-vladimirovna/">Подробнее</a>
-            </div>
-            <div class="home-three-item">
-                <div class="ava" style="background: url({{ asset('images/trofimuk-aleksandr-nikolaevich-200-1.jpg') }}) center center; background-size:cover;"></div>
-                <h3>Трофимук Александр Николаевич</h3>
-                <span class="specialnost">Адвокат</span>
-                <div class="rating">
-                    <div id="post-ratings-163" class="post-ratings" itemscope itemtype="http://schema.org/Article"><img src="{{ asset('img/rating_on.gif') }}" alt="1 оценка, среднее: 4,00 из 5" title="1 оценка, среднее: 4,00 из 5" class="post-ratings-image" /><img
-                            src="{{ asset('img/rating_on.gif') }}" alt="1 оценка, среднее: 4,00 из 5" title="1 оценка, среднее: 4,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_on.gif') }}" alt="1 оценка, среднее: 4,00 из 5" title="1 оценка, среднее: 4,00 из 5"
-                            class="post-ratings-image" /><img src="{{ asset('img/rating_on.gif') }}" alt="1 оценка, среднее: 4,00 из 5" title="1 оценка, среднее: 4,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="1 оценка, среднее: 4,00 из 5"
-                            title="1 оценка, среднее: 4,00 из 5" class="post-ratings-image" />
-                        <meta itemprop="name" content="Трофимук Александр Николаевич" />
-                        <meta itemprop="headline" content="Трофимук Александр Николаевич" />
-                        <meta itemprop="description" content="Осуществляет юридическую деятельность более 20-ти лет. В настоящее время успешно практикует по уголовным делам различной сложности, как общеуголовной, так и экономической направленности.Карьеру начи..." />
-                        <meta itemprop="datePublished" content="2021-09-14T15:54:03+03:00" />
-                        <meta itemprop="dateModified" content="2022-01-30T20:43:47+03:00" />
-                        <meta itemprop="url" content="https://a-advokat.ru/personal/trofimuk-aleksandr-nikolaevich/" />
-                        <meta itemprop="author" content="Александр Трофимук" />
-                        <meta itemprop="mainEntityOfPage" content="https://a-advokat.ru/personal/trofimuk-aleksandr-nikolaevich/" />
-                        <div style="display: none;" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                            <meta itemprop="url" content="{{ asset('images/trofimuk-aleksandr-nikolaevich-200-1-150x150.jpg') }}" />
-                            <meta itemprop="width" content="150" />
-                            <meta itemprop="height" content="150" />
-                        </div>
-                        <div style="display: none;" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                            <meta itemprop="name" content="Почетный Адвокатъ" />
-                            <meta itemprop="url" content="https://a-advokat.ru" />
-                            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                                <meta itemprop="url" content="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <span>Защита по уголовным делам, общеуголовной и экономической направленности.</span>
-                <a href="https://a-advokat.ru/personal/trofimuk-aleksandr-nikolaevich/">Подробнее</a>
-            </div>
-            <div class="home-three-item">
-                <div class="ava" style="background: url({{ asset('images/samohina-irina-evgenevna-200.jpg') }}) center center; background-size:cover;"></div>
-                <h3>Самохина Ирина Евгеньевна</h3>
-                <span class="specialnost">Адвокат</span>
-                <div class="rating">
-                    <div id="post-ratings-164" class="post-ratings" itemscope itemtype="http://schema.org/Article"><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img
-                            src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5"
-                            class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5"
-                            title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" />
-                        <meta itemprop="name" content="Самохина Ирина Евгеньевна" />
-                        <meta itemprop="headline" content="Самохина Ирина Евгеньевна" />
-                        <meta itemprop="description" content="Успешно осуществляет защиту по уголовным делам общеуголовной и экономической направленности.Общий стаж в уголовном судопроизводстве 8 лет, стаж по юридической специальности более 10 лет...." />
-                        <meta itemprop="datePublished" content="2021-09-13T21:59:50+03:00" />
-                        <meta itemprop="dateModified" content="2022-04-05T23:11:50+03:00" />
-                        <meta itemprop="url" content="https://a-advokat.ru/personal/samohina-irina-evgenevna/" />
-                        <meta itemprop="author" content="Ирина Самохина" />
-                        <meta itemprop="mainEntityOfPage" content="https://a-advokat.ru/personal/samohina-irina-evgenevna/" />
-                        <div style="display: none;" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                            <meta itemprop="url" content="{{ asset('images/samohina-irina-evgenevna-200-150x150.jpg') }}" />
-                            <meta itemprop="width" content="150" />
-                            <meta itemprop="height" content="150" />
-                        </div>
-                        <div style="display: none;" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                            <meta itemprop="name" content="Почетный Адвокатъ" />
-                            <meta itemprop="url" content="https://a-advokat.ru" />
-                            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                                <meta itemprop="url" content="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <span>Защита по уголовным делам, общеуголовной и экономической направленности.</span>
-                <a href="https://a-advokat.ru/personal/samohina-irina-evgenevna/">Подробнее</a>
-            </div>
-            <div class="home-three-item">
-                <div class="ava" style="background: url({{ asset('images/makeeva-anna-vladimirovna-200.jpg') }}) center center; background-size:cover;"></div>
-                <h3>Макеева Анна Владимировна</h3>
-                <span class="specialnost">Адвокат</span>
-                <div class="rating">
-                    <div id="post-ratings-165" class="post-ratings" itemscope itemtype="http://schema.org/Article"><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img
-                            src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5"
-                            class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5"
-                            title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" />
-                        <meta itemprop="name" content="Макеева Анна Владимировна" />
-                        <meta itemprop="headline" content="Макеева Анна Владимировна" />
-                        <meta itemprop="description" content="Стаж адвокатской деятельности более 10 лет, общий юридический стаж более 16 лет.В адвокатской деятельности специализируется на оказании юридической помощи по семейным, жилищным и наследственны..." />
-                        <meta itemprop="datePublished" content="2021-09-12T21:59:42+03:00" />
-                        <meta itemprop="dateModified" content="2022-04-05T23:12:34+03:00" />
-                        <meta itemprop="url" content="https://a-advokat.ru/personal/makeeva-anna-vladimirovna/" />
-                        <meta itemprop="author" content="Анна Макеева" />
-                        <meta itemprop="mainEntityOfPage" content="https://a-advokat.ru/personal/makeeva-anna-vladimirovna/" />
-                        <div style="display: none;" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                            <meta itemprop="url" content="{{ asset('images/makeeva-anna-vladimirovna-200-150x150.jpg') }}" />
-                            <meta itemprop="width" content="150" />
-                            <meta itemprop="height" content="150" />
-                        </div>
-                        <div style="display: none;" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                            <meta itemprop="name" content="Почетный Адвокатъ" />
-                            <meta itemprop="url" content="https://a-advokat.ru" />
-                            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                                <meta itemprop="url" content="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <span>Оказание юридической помощи по семейным, жилищным и наследственным делам.</span>
-                <a href="https://a-advokat.ru/personal/makeeva-anna-vladimirovna/">Подробнее</a>
-            </div>
-            <div class="home-three-item">
-                <div class="ava" style="background: url({{ asset('images/alekseev-a-a-200.jpg') }}) center center; background-size:cover;"></div>
-                <h3>Алексеев Александр Анатольевич</h3>
-                <span class="specialnost">Адвокат</span>
-                <div class="rating">
-                    <div id="post-ratings-133" class="post-ratings" itemscope itemtype="http://schema.org/Article"><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img
-                            src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5"
-                            class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5"
-                            title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" />
-                        <meta itemprop="name" content="Алексеев Александр Анатольевич" />
-                        <meta itemprop="headline" content="Алексеев Александр Анатольевич" />
-                        <meta itemprop="description" content="Успешно осуществляет защиту по уголовным делам высокой сложности, как общеуголовной, так и экономической направленности.Дополнительное направление деятельности - представительство в арбитражных су..." />
-                        <meta itemprop="datePublished" content="2021-09-12T21:38:24+03:00" />
-                        <meta itemprop="dateModified" content="2022-04-25T18:21:57+03:00" />
-                        <meta itemprop="url" content="https://a-advokat.ru/personal/alekseev-aleksandr-anatolevich/" />
-                        <meta itemprop="author" content="Александр Алексеев" />
-                        <meta itemprop="mainEntityOfPage" content="https://a-advokat.ru/personal/alekseev-aleksandr-anatolevich/" />
-                        <div style="display: none;" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                            <meta itemprop="url" content="{{ asset('images/alekseev-a-a-200-150x150.jpg') }}" />
-                            <meta itemprop="width" content="150" />
-                            <meta itemprop="height" content="150" />
-                        </div>
-                        <div style="display: none;" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                            <meta itemprop="name" content="Почетный Адвокатъ" />
-                            <meta itemprop="url" content="https://a-advokat.ru" />
-                            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                                <meta itemprop="url" content="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <span>Защита по уголовным делам высокой сложности, общеуголовной и экономической направленности.</span>
-                <a href="https://a-advokat.ru/personal/alekseev-aleksandr-anatolevich/">Подробнее</a>
-            </div>
-            <div class="home-three-item">
-                <div class="ava" style="background: url({{ asset('images/yastrebova-anna-ivanovna.jpg') }}) center center; background-size:cover;"></div>
-                <h3>Ястребова Анна Ивановна</h3>
-                <span class="specialnost">Юрист</span>
-                <div class="rating">
-                    <div id="post-ratings-132" class="post-ratings" itemscope itemtype="http://schema.org/Article"><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img
-                            src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5"
-                            class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5"
-                            title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" />
-                        <meta itemprop="name" content="Ястребова Анна Ивановна" />
-                        <meta itemprop="headline" content="Ястребова Анна Ивановна" />
-                        <meta itemprop="description" content="Общий стаж по юридической специальности более 20 лет.Основное направление юридической практики: защита интеллектуальной собственности и авторских прав.Составление договоров авторского заказа, ли..." />
-                        <meta itemprop="datePublished" content="2021-09-11T21:38:41+03:00" />
-                        <meta itemprop="dateModified" content="2022-04-25T18:22:15+03:00" />
-                        <meta itemprop="url" content="https://a-advokat.ru/personal/yastrebova-anna-ivanovna/" />
-                        <meta itemprop="author" content="Анна Ястребова" />
-                        <meta itemprop="mainEntityOfPage" content="https://a-advokat.ru/personal/yastrebova-anna-ivanovna/" />
-                        <div style="display: none;" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                            <meta itemprop="url" content="{{ asset('images/yastrebova-anna-ivanovna-150x150.jpg') }}" />
-                            <meta itemprop="width" content="150" />
-                            <meta itemprop="height" content="150" />
-                        </div>
-                        <div style="display: none;" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                            <meta itemprop="name" content="Почетный Адвокатъ" />
-                            <meta itemprop="url" content="https://a-advokat.ru" />
-                            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                                <meta itemprop="url" content="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <span>Защита интеллектуальной собственности и авторских прав.</span>
-                <a href="https://a-advokat.ru/personal/yastrebova-anna-ivanovna/">Подробнее</a>
-            </div>
-            <div class="home-three-item">
-                <div class="ava" style="background: url({{ asset('images/bedareva-natalya-gennadevna-200.jpg) center center; background-siz') }}e:cover;"></div>
-                <h3>Бедарева Наталья Геннадьевна</h3>
-                <span class="specialnost">Юрист</span>
-                <div class="rating">
-                    <div id="post-ratings-17" class="post-ratings" itemscope itemtype="http://schema.org/Article"><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img
-                            src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5"
-                            class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5"
-                            title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" />
-                        <meta itemprop="name" content="Бедарева Наталья Геннадьевна" />
-                        <meta itemprop="headline" content="Бедарева Наталья Геннадьевна" />
-                        <meta itemprop="description" content="Общий стаж в юридической профессии - более 27 лет. Основное направление - представительство в арбитражных судах на всех стадиях судопроизводства.С 2004 года по настоящее время - юрист в строительн..." />
-                        <meta itemprop="datePublished" content="2021-09-10T13:19:18+03:00" />
-                        <meta itemprop="dateModified" content="2021-11-03T15:01:59+03:00" />
-                        <meta itemprop="url" content="https://a-advokat.ru/personal/bedareva-natalya-gennadevna/" />
-                        <meta itemprop="author" content="Наталья Бедарева" />
-                        <meta itemprop="mainEntityOfPage" content="https://a-advokat.ru/personal/bedareva-natalya-gennadevna/" />
-                        <div style="display: none;" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                            <meta itemprop="url" content="{{ asset('images/bedareva-natalya-gennadevna-200-150x150.jpg') }}" />
-                            <meta itemprop="width" content="150" />
-                            <meta itemprop="height" content="150" />
-                        </div>
-                        <div style="display: none;" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                            <meta itemprop="name" content="Почетный Адвокатъ" />
-                            <meta itemprop="url" content="https://a-advokat.ru" />
-                            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                                <meta itemprop="url" content="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <span>Представительство в арбитражных судах на всех стадиях судопроизводства.</span>
-                <a href="https://a-advokat.ru/personal/bedareva-natalya-gennadevna/">Подробнее</a>
-            </div>
-            <div class="home-three-item">
-                <div class="ava" style="background: url({{ asset('images/sherbatenko-yirii-viktorovich-200-1.jpg') }}) center center; background-size:cover;"></div>
-                <h3>Щербатенко Юрий Викторович</h3>
-                <span class="specialnost">Адвокат</span>
-                <div class="rating">
-                    <div id="post-ratings-162" class="post-ratings" itemscope itemtype="http://schema.org/Article"><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img
-                            src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5"
-                            class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5" title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" /><img src="{{ asset('img/rating_off.gif') }}" alt="0 оценок, среднее: 0,00 из 5"
-                            title="0 оценок, среднее: 0,00 из 5" class="post-ratings-image" />
-                        <meta itemprop="name" content="Щербатенко Юрий Викторович" />
-                        <meta itemprop="headline" content="Щербатенко Юрий Викторович" />
-                        <meta itemprop="description" content="" />
-                        <meta itemprop="datePublished" content="2021-09-08T13:58:14+03:00" />
-                        <meta itemprop="dateModified" content="2022-01-30T20:40:39+03:00" />
-                        <meta itemprop="url" content="https://a-advokat.ru/personal/shherbatenko-yurij-viktorovich/" />
-                        <meta itemprop="author" content="Юрий Щербатенко" />
-                        <meta itemprop="mainEntityOfPage" content="https://a-advokat.ru/personal/shherbatenko-yurij-viktorovich/" />
-                        <div style="display: none;" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                            <meta itemprop="url" content="{{ asset('images/sherbatenko-yirii-viktorovich-200-1-150x150.jpg') }}" />
-                            <meta itemprop="width" content="150" />
-                            <meta itemprop="height" content="150" />
-                        </div>
-                        <div style="display: none;" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                            <meta itemprop="name" content="Почетный Адвокатъ" />
-                            <meta itemprop="url" content="https://a-advokat.ru" />
-                            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                                <meta itemprop="url" content="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <span></span>
-                <a href="https://a-advokat.ru/personal/shherbatenko-yurij-viktorovich/">Подробнее</a>
-            </div>
         </div>
         <div class="button-container">
-            <a href="https://a-advokat.ru/personal/" class="button">Полный каталог консультантов </a>
+            <a href="{{ route('personals.index') }}" class="button">Полный каталог консультантов</a>
         </div>
     </section>
     <section class="home-four home-oz">
         <div class="page-title">
             <h2>Расписание консультаций</h2>
         </div>
-        {{-- <div class="container">
-            <div data-atts='[]' id='oz_appointment'></div>
-        </div> --}}
         <div class="container">
             <div data-atts="[]" id="oz_appointment">
                 <div class="oz_container  container-default-theme ">

@@ -11,7 +11,9 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\PersonalController as ControllersPersonalController;
 use App\Http\Controllers\PersonalsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController as ControllersServiceController;
 use App\Http\Controllers\ServiceForSimpleClient;
+use App\Http\Controllers\ServiceForYuridLic;
 use App\Http\Controllers\VariableController;
 use App\Mail\OrderShipped;
 use Illuminate\Support\Facades\Artisan;
@@ -42,14 +44,29 @@ Route::group(['prefix' => 'personals', 'as' => 'personals.'], function () {
    Route::get('/{person}', [PersonalsController::class, 'viewPersonal'])->name('view_personal');
 });
 
-Route::group(['prefix' => 'yuridicheskoe-obsluzhivanie-fiz-lic', 'as' => 'serviceForSimpleClient.'], function () {
+Route::group(['prefix' => 'yuridicheskoe-obsluzhivanie-fiz-lic/', 'as' => 'serviceForSimpleClient.'], function () {
    Route::get('/', [ServiceForSimpleClient::class, 'index'])->name('index');
    Route::get('/advokat-po-ugolovnym-delam', [ServiceForSimpleClient::class, 'pageAdvokatPoUgalownymDelam'])->name('pageAdvokatPoUgalownymDelam');
    Route::get('/advokat-po-administrativnym-delam', [ServiceForSimpleClient::class, 'pageAdvokatPoAdministrativnymDelam'])->name('pageAdvokatPoAdministrativnymDelam');
-   Route::get('/advokat-po-dtp', [ServiceForSimpleClient::class, 'pageAdvokatPoDtp'])->name('pageAdvokatPoDtp');
+   Route::get('/advokat-po-dtp\/', [ServiceForSimpleClient::class, 'pageAdvokatPoDtp'])->name('pageAdvokatPoDtp');
    Route::get('/vzyskanie-dolgov-s-fizicheskih-lic', [ServiceForSimpleClient::class, 'pageVzyskanieDolgovSFizicheskihLic'])->name('pageVzyskanieDolgovSFizicheskihLic');
    Route::get('/advokat-po-zhilishchnym-voprosam', [ServiceForSimpleClient::class, 'pageAdvokatPoZhilishchnymVoprosam'])->name('pageAdvokatPoZhilishchnymVoprosam');
+   Route::get('/advokat-po-nasledstvennym-delam', [ServiceForSimpleClient::class, 'pageAdvokatPoNasledstvennymDelam'])->name('pageAdvokatPoNasledstvennymDelam');
+   Route::get('/yurist-po-trudovym-sporam', [ServiceForSimpleClient::class, 'pageYuristPoTrudovymSporam'])->name('pageYuristPoTrudovymSporam');
+   Route::get('/predstavlenie-interesov-v-arbitrazhnom-sude', [ServiceForSimpleClient::class, 'pagePredstavlenieInteresovVArbitrazhnomSude'])->name('pagePredstavlenieInteresovVArbitrazhnomSude');
+   Route::get('/programma-loyalnosti', [ServiceForSimpleClient::class, 'pageProgrammaLoyalnosti'])->name('pageProgrammaLoyalnosti');
 });
+
+Route::group(['prefix' => 'obsluzhivanie-yuridicheskih-lic', 'as' => 'serviceForYuridLic.'], function () {
+   Route::get('/', [ServiceForYuridLic::class, 'index'])->name('index');
+   Route::get('/dosudebnoe-uregulirovanie-sporov', [ServiceForYuridLic::class, 'pageDosudebnoeUregulirovanieSporov'])->name('pageDosudebnoeUregulirovanieSporov');
+   Route::get('/advokat-po-arbitrazhnym-delam', [ServiceForYuridLic::class, 'pageAdvokatPoArbitrazhnymDelam'])->name('pageAdvokatPoArbitrazhnymDelam');
+   Route::get('/predstavitelstvo', [ServiceForYuridLic::class, 'pagePredstavitelstvo'])->name('pagePredstavitelstvo');
+   Route::get('/professionalnie-konsultatsii-advokata', [ServiceForYuridLic::class, 'pageProfessionalnieKonsultatsiiAdvokata'])->name('pageProfessionalnieKonsultatsiiAdvokata');
+   Route::get('/yuridicheskaya-konsultaciya-ip', [ServiceForYuridLic::class, 'pageYuridicheskayaKonsultaciyaIp'])->name('pageYuridicheskayaKonsultaciyaIp');
+});
+
+Route::get('/uslugi/{service}', [ControllersServiceController::class, 'index'])->name('service.index');
 
 Route::post('/getentry', [MainController::class, 'getentry']);
 // Route::get('/getentry', [MainController::class, 'getentry']);

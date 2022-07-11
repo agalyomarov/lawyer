@@ -37,63 +37,22 @@
     @include('includes.header')
     <section class="bread">
         <div class="container">
-            <!-- Breadcrumb NavXT 6.6.0 -->
             <span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Перейти к Почетный Адвокатъ." href="{{ route('home') }}" class="home"><span property="name">Московская Коллегия Адвокатов</span></a>
                 <meta property="position" content="1">
-            </span> / <span property="itemListElement" typeof="ListItem"><span property="name" class="post post-page current-item">Сотрудники</span>
-                <meta property="url" content="{{ route('personals.index') }}">
+            </span> / <span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Перейти к Физическим лицам." href="{{ route('home') }}" class="post post-page"><span property="name">Услуги</span></a>
                 <meta property="position" content="2">
+            </span> / <span property="itemListElement" typeof="ListItem"><span property="name" class="post post-page current-item">{{ $service->title }}</span>
+                <meta property="url" content="{{ route('serviceForSimpleClient.pageAdvokatPoAdministrativnymDelam') }}">
+                <meta property="position" content="3">
             </span>
         </div>
     </section>
-    <section class="home-three">
+    <section class="page-one">
         <div class="page-title">
-            <h1>
-                @if (!request()->query('qa'))
-                    Консультанты
-                @endif
-                @if (request()->query('qa') == 'lawyer')
-                    Юристы
-                @endif
-                @if (request()->query('qa') == 'advocate')
-                    Адвокаты
-                @endif
-            </h1>
+            <h1>{{ $service->title }}</h1>
         </div>
-        <div class="filter394">
-            <div class="container">
-                <div class="page-title">
-                    Фильтр
-                </div>
-
-                <div class="filter-block">
-                    <select name="qa" onchange="if (this.value) {window.location.href = '?qa='+this.value; }else{ window.location.href = '/personals/'; }">
-                        <option>Все специальности</option>
-                        <option value="advocate">Адвокаты</option>
-                        <option value="lawyer">Юристы</option>
-                    </select>
-
-
-                </div>
-            </div>
-
-        </div>
-
-
-
         <div class="container">
-
-            <div style="clear:both;"></div>
-            @foreach ($personals as $personal)
-                <div class="home-three-item">
-                    <div class="ava" style="background: url({{ asset($personal->image) }}) center center; background-size:cover;"></div>
-                    <h3>{{ $personal->fullname }}</h3>
-                    <span>{{ $personal->speciality->title }}</span>
-                    <span style="margin-top:-60px">{{ $personal->shurt_description }}</span>
-                    <a style="margin-top:-10px" href="{{ route('personals.view_personal', $personal->chpu) }}">Подробнее</a>
-                </div>
-            @endforeach
-
+            {!! $service->content !!}
         </div>
     </section>
     @include('includes.footer')
