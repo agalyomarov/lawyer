@@ -18,8 +18,7 @@ class MainController extends Controller
     public function index()
     {
         $services = Service::all();
-        $clients = Personal::leftJoin('personal_specialities', 'personals.id', 'personal_specialities.personal_id')->leftJoin('specialities', 'personal_specialities.speciality_id', "=", "specialities.id")->take(10)->select('personals.*', 'specialities.title')->get();
-        // dd($clients);
+        $personals = Personal::leftJoin('personal_specialities', 'personals.id', 'personal_specialities.personal_id')->leftJoin('specialities', 'personal_specialities.speciality_id', "=", "specialities.id")->take(10)->select('personals.*', 'specialities.title')->get();
         $client_name = session()->get('client_name');
         $client_phone = session()->get('client_phone');
         $client_email = session()->get('client_email');
@@ -143,7 +142,7 @@ class MainController extends Controller
         // dd(date('Y-m-d H:i:m', time()));
         // dd($thisMonth);
 
-        return view('home', compact('thisMonth', 'nextMonth', 'client_email', 'client_name', 'client_phone', 'services', 'clients'));
+        return view('home', compact('thisMonth', 'nextMonth', 'client_email', 'client_name', 'client_phone', 'services', 'personals'));
     }
     public function getentry(Request $request)
     {

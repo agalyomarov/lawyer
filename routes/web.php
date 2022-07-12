@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\EntryController;
 use App\Http\Controllers\Admin\LinkController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PersonalController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SpecialityController;
@@ -129,6 +130,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
    Route::group(['prefix' => 'variable', 'as' => 'variable.'], function () {
       Route::get('/', [VariableController::class, 'index'])->name('index');
       Route::post('/', [VariableController::class, 'store'])->name('store');
+   });
+
+   Route::group(['prefix' => 'news', 'as' => 'news.'], function () {
+      Route::get('/', [NewsController::class, 'index'])->name('index');
+      Route::get('/create', [NewsController::class, 'create'])->name('create');
+      Route::post('/', [NewsController::class, 'store'])->name('store');
    });
 });
 

@@ -245,16 +245,18 @@
             <h2>Выберите консультанта</h2>
         </div>
         <div class="container">
-            <div class="home-three-item">
-                <div class="ava" style="background: url({{ asset('images/Снимок-экрана-2021-06-22-в-13.23.40.png') }}) center center; background-size:cover;"></div>
-                <h3>Личное: Архарова Яна Германовна</h3>
-                <span class="specialnost">Юрист</span>
-                <span>Небольшой текст об специалисте</span>
-                <a href="https://a-advokat.ru/personal/arharova-yana-germanovna/">Подробнее</a>
-            </div>
+            @foreach ($personals as $personal)
+                <div class="home-three-item">
+                    <div class="ava" style="background: url({{ asset($personal->image) }}) center center; background-size:cover;"></div>
+                    <h3>{{ $personal->fullname }}</h3>
+                    <span class="specialnost">{{ $personal->title }}</span>
+                    <span>{{ $personal->shurt_description }}</span>
+                    <a href="{{ route('personals.view_personal', $personal->chpu) }}/">Подробнее</a>
+                </div>
+            @endforeach
         </div>
         <div class="button-container">
-            <a href="{{ route('personals.index') }}" class="button">Полный каталог консультантов</a>
+            <a href="{{ route('personals.index') }}/" class="button">Полный каталог консультантов</a>
         </div>
     </section>
     <section class="home-four home-oz">

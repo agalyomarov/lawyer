@@ -14,7 +14,7 @@
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <li class="nav-item">
                       <a href="{{ route('home') }}" class="nav-link">
-                          <i class="nav-icon fa fa-home"></i>
+                          {{-- <i class="nav-icon fa fa-home"></i> --}}
                           <p>
                               Главная
                           </p>
@@ -22,7 +22,7 @@
                   </li>
                   <li class="nav-item">
                       <a href="{{ route('admin.service.index') }}" class="nav-link">
-                          <i class="nav-icon fas fa-undo"></i>
+                          {{-- <i class="nav-icon fas fa-undo"></i> --}}
                           <p>
                               Услуги
                           </p>
@@ -30,7 +30,7 @@
                   </li>
                   <li class="nav-item">
                       <a href="{{ route('admin.speciality.index') }}" class="nav-link">
-                          <i class="nav-icon fas fa-user-tag"></i>
+                          {{-- <i class="nav-icon fas fa-user-tag"></i> --}}
                           <p>
                               Специальности
                           </p>
@@ -38,7 +38,7 @@
                   </li>
                   <li class="nav-item">
                       <a href="{{ route('admin.personal.index') }}" class="nav-link">
-                          <i class="nav-icon fas fa-users"></i>
+                          {{-- <i class="nav-icon fas fa-users"></i> --}}
                           <p>
                               Сотрудники
                           </p>
@@ -46,7 +46,7 @@
                   </li>
                   <li class="nav-item">
                       <a href="{{ route('admin.entry.index') }}" class="nav-link">
-                          <i class="nav-icon fas fa-calendar-check"></i>
+                          {{-- <i class="nav-icon fas fa-calendar-check"></i> --}}
                           <p>
                               Онлайн записи
                           </p>
@@ -54,7 +54,7 @@
                   </li>
                   <li class="nav-item">
                       <a href="{{ route('admin.link.index') }}" class="nav-link">
-                          <i class="nav-icon fa fa-link"></i>
+                          {{-- <i class="nav-icon fa fa-link"></i> --}}
                           <p>
                               Ссылки
                               <span class="right badge badge-danger tag_for_count hidden"></span>
@@ -63,9 +63,18 @@
                   </li>
                   <li class="nav-item">
                       <a href="{{ route('admin.variable.index') }}" class="nav-link">
-                          <i class="nav-icon fa fa-share"></i>
+                          {{-- <i class="nav-icon fa fa-share"></i> --}}
                           <p>
                               Период уведомлении
+                              <span class="right badge badge-danger tag_for_count hidden"></span>
+                          </p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ route('admin.news.index') }}" class="nav-link">
+                          {{-- <i class="nav-icon fa fa-share"></i> --}}
+                          <p>
+                              Новости
                               <span class="right badge badge-danger tag_for_count hidden"></span>
                           </p>
                       </a>
