@@ -562,7 +562,7 @@
 
         </div>
         <div class="button-container">
-            <a href="https://a-advokat.ru/news" class="button">Все новости</a>
+            <a href="{{ route('news.index') }}" class="button">Все новости</a>
         </div>
     </section>
     <section class="home-six">

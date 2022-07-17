@@ -59,9 +59,12 @@
     <section class="page-one">
         <div class="container">
             {!! $news->content !!}
-            <video id="video" preload="metadata" src="{{ asset('video/1.mp4') }}" controls="" style="max-width:100%;height:auto">
-                <source type="video/mp4" src=" {{ asset('video/1.mp4') }}">
-            </video>
+            @if ($news->media)
+                <video id="video" preload="metadata" src="{{ asset($news->media) }}" controls="" style="max-width:100%;height:auto">
+                    <source type="video/mp4" src=" {{ asset($news->media) }}">
+                </video>
+            @endif
+
         </div>
     </section>
     <section class="home-six news-three">
@@ -69,51 +72,27 @@
             <h2>Другие новости</h2>
         </div>
         <div class="container">
-            <div class="home-six-item item-564 ">
-                <a class="nounderline" href="https://a-advokat.ru/news/dialog-v-studii/">
+            @foreach ($otherNews as $news)
+                <div class="home-six-item item-564 ">
+                    <a class="nounderline" href="{{ route('news.view', $news->chpu) }}">
 
-                    <div class="home-six-item-img" style="background: url(https://a-advokat.ru/wp-content/uploads/2021/02/dialog.jpg) center; background-size: cover;">
-                        <div class="date">21.02.21</div>
+                        <div class="home-six-item-img" style="background: url({{ asset($news->image) }}) center; background-size: cover;">
+                            <div class="date">{{ Date::parse($news->created_at)->format('d-m-Y') }}</div>
+                        </div>
+
+                    </a>
+                    <div class="home-six-item-box">
+                        <h3> <a class="nounderline" href="{{ route('news.view', $news->chpu) }}"> {{ $news->title }}</a></h3>
+                        <span>{{ $news->short_description }} </span>
+                        <a href="{{ route('news.view', $news->chpu) }}">Подробнее</a>
                     </div>
-
-                </a>
-                <div class="home-six-item-box">
-                    <h3> <a class="nounderline" href="https://a-advokat.ru/news/dialog-v-studii/"> Диалог в студии с адвокатом Волоцкой Ю.В.</a></h3>
-                    <span>Детали дела Главы Фурмановского района Ивановской области стали доступны. </span>
-                    <a href="https://a-advokat.ru/news/dialog-v-studii/">Подробнее</a>
                 </div>
-            </div>
-            <div class="home-six-item item-561 ">
-                <a class="nounderline" href="https://a-advokat.ru/news/3-goda-do-opravdatelnogo-prigovora/">
+            @endforeach
 
-                    <div class="home-six-item-img" style="background: url(https://a-advokat.ru/wp-content/uploads/2021/11/3-goda-do-opravdatelnogo-prigovora-1.jpg) center; background-size: cover;">
-                        <div class="date">22.01.21</div>
-                    </div>
 
-                </a>
-                <div class="home-six-item-box">
-                    <h3> <a class="nounderline" href="https://a-advokat.ru/news/3-goda-do-opravdatelnogo-prigovora/"> 3 года до оправдательного приговора</a></h3>
-                    <span>Перед законом все равны, будь то чиновник или простой рабочий, но предвзятость - один из факторов,который может сыграть злую шутку. Опытный адвокат по уголовным делам - реальная помощь и поддержка в трудной жизненной ситуации.</span>
-                    <a href="https://a-advokat.ru/news/3-goda-do-opravdatelnogo-prigovora/">Подробнее</a>
-                </div>
-            </div>
-            <div class="home-six-item item-558 ">
-                <a class="nounderline" href="https://a-advokat.ru/news/bankrotstvo-reshenie-problemi/">
-
-                    <div class="home-six-item-img" style="background: url(https://a-advokat.ru/wp-content/uploads/2021/11/bankrotstvo-fiz-lic.jpg) center; background-size: cover;">
-                        <div class="date">17.06.20</div>
-                    </div>
-
-                </a>
-                <div class="home-six-item-box">
-                    <h3> <a class="nounderline" href="https://a-advokat.ru/news/bankrotstvo-reshenie-problemi/"> Банкротство — решение проблемы!</a></h3>
-                    <span>С 1 июня 2020 года наша коллегия адвокатов «Почетный Адвокатъ» возобновила работу по делам по банкротству физических лиц.</span>
-                    <a href="https://a-advokat.ru/news/bankrotstvo-reshenie-problemi/">Подробнее</a>
-                </div>
-            </div>
         </div>
         <div class="button-container">
-            <a href="https://a-advokat.ru/news" class="button">Все новости</a>
+            <a href="{{ route('news.index') }}" class="button">Все новости</a>
         </div>
     </section>
     @include('includes.footer')

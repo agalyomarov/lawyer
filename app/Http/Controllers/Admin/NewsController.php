@@ -44,10 +44,46 @@ class NewsController extends Controller
 
         $validated = $validator->validated();
         $validated['chpu'] = Ru2lat::convert($validated['title']);
-        $uuid_image = Str::uuid();
         $validated['image'] = $data['image']->store('image', 'local');
         $validated['created_at'] = Carbon::now();
         News::create($validated);
+        return redirect()->route('admin.news.index');
+    }
+    public function edit(News $news)
+    {
+        return view('admin.news.edit', compact('news'));
+        // dd($news);
+    }
+    public function update(News $news, Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make(
+            $data,
+            [
+                'title' => ['required'],
+                'short_description' => ['required'],
+                'image' => [],
+                'content' => ['required'],
+                'media' => [],
+            ]
+        );
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $validated = $validator->validated();
+        $validated['chpu'] = Ru2lat::convert($validated['title']);
+        if (isset($validated['image'])) {
+            $validated['image'] = $data['image']->store('image', 'local');
+        }
+        News::where('id', $news->id)->update($validated);
+        return redirect()->route('admin.news.index');
+    }
+    public function delete(News $news)
+    {
+        $news->delete();
         return redirect()->route('admin.news.index');
     }
 }

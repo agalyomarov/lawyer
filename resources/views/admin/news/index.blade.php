@@ -25,13 +25,13 @@
                                     <th colspan="2">Действие</th>
                                 </tr>
                             </thead>
-                            <tbody class="delete-personal">
+                            <tbody class="delete-news">
                                 @foreach ($news as $new)
                                     <tr>
                                         <td>{{ $new->id }}</td>
                                         <td>{{ $new->title }}</td>
                                         <td>{{ $new->created_at }}</td>
-                                        <td><a href="{{ route('admin.personal.edit', $new->id) }}"><i class="fas fa-pen"></i></a></td>
+                                        <td><a href="{{ route('admin.news.edit', $new->id) }}"><i class="fas fa-pen"></i></a></td>
                                         <td><i class="delete-news-el text-danger fas fa-trash" data-id="{{ $new->id }}"></i></td>
                                     </tr>
                                 @endforeach
@@ -44,4 +44,15 @@
             @endif
         </div>
     </div>
+    <script>
+        const table = document.querySelector('tbody.delete-news');
+        table.addEventListener('click', function(event) {
+            if (event.target.classList.contains('delete-news-el')) {
+                const check = confirm('Вы действительно хотите удалить ');
+                if (check) {
+                    window.location.href = `/admin/news/delete/${event.target.dataset.id}`;
+                }
+            }
+        })
+    </script>
 @endsection

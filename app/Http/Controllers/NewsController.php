@@ -10,13 +10,12 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::paginate(9);
-        // dd($news);
         return view('news', compact('news'));
     }
     public function view($chpu)
     {
         $news = News::where('chpu', $chpu)->first();
-        // dd($news);
-        return view('news_view', compact('news'));
+        $otherNews = News::where('id', '!=', $news->id)->inRandomOrder()->limit(3)->get();
+        return view('news_view', compact('news', 'otherNews'));
     }
 }

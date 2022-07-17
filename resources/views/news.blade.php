@@ -70,14 +70,9 @@
 
         </div>
 
-        <div class="button-container pagination-container">
-            <span aria-current="page" class="page-numbers current">1</span>
-            <a class="page-numbers" href="https://a-advokat.ru/news//page/2/">2</a>
-            <a class="page-numbers" href="https://a-advokat.ru/news//page/3/">3</a>
-            <span class="page-numbers dots">…</span>
-            <a class="page-numbers" href="https://a-advokat.ru/news//page/9/">9</a>
-            <a class="next page-numbers" href="https://a-advokat.ru/news//page/2/">Следующая »</a>
-        </div>
+
+
+        {{ $news->links('pagination', compact('news')) }}
     </section>
     @include('includes.footer')
     <section class="copyright">

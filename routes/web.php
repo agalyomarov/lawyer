@@ -137,6 +137,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::get('/', [NewsController::class, 'index'])->name('index');
       Route::get('/create', [NewsController::class, 'create'])->name('create');
       Route::post('/', [NewsController::class, 'store'])->name('store');
+      Route::get('/{news}', [NewsController::class, 'edit'])->name('edit');
+      Route::put('/{news}', [NewsController::class, 'update'])->name('update');
+      Route::get('delete/{news}', [NewsController::class, 'delete'])->name('delete');
    });
 });
 
