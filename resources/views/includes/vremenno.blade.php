@@ -7,7 +7,7 @@
     <div class="container">
         <div class="home-five-item">
             <div class="icon-cont">
-                <img src="https://a-advokat.ru/wp-content/uploads/2021/07/001.svg">
+                <img src="{{ asset('img/001.svg') }}">
             </div>
             <h3>Доверие</h3>
             <span>Ваше доверие к коллегии <br />
@@ -15,7 +15,7 @@
         </div>
         <div class="home-five-item">
             <div class="icon-cont">
-                <img src="https://a-advokat.ru/wp-content/uploads/2021/07/002.svg">
+                <img src="{{ asset('img/002.svg') }}">
             </div>
             <h3>Профессионализм</h3>
             <span>Мы - команда<br />
@@ -23,7 +23,7 @@
         </div>
         <div class="home-five-item">
             <div class="icon-cont">
-                <img src="https://a-advokat.ru/wp-content/uploads/2021/07/003.svg">
+                <img src="{{ asset('img/003.svg') }}">
             </div>
             <h3>Активность</h3>
             <span>Мы всегда находим<br />
@@ -31,7 +31,7 @@
         </div>
         <div class="home-five-item">
             <div class="icon-cont">
-                <img src="https://a-advokat.ru/wp-content/uploads/2021/07/004.svg">
+                <img src="{{ asset('img/004.svg') }}">
             </div>
             <h3>Конфиденциальность</h3>
             <span>Гарантируем сохранность<br />
@@ -39,7 +39,7 @@
         </div>
         <div class="home-five-item">
             <div class="icon-cont">
-                <img src="https://a-advokat.ru/wp-content/uploads/2021/07/005.svg">
+                <img src="{{ asset('img/005.svg') }}">
             </div>
             <h3>Результативность</h3>
             <span>Мы гарантируем<br />

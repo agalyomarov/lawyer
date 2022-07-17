@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\KassaController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\NewsController as ControllersNewsController;
 use App\Http\Controllers\PersonalController as ControllersPersonalController;
 use App\Http\Controllers\PersonalsController;
 use App\Http\Controllers\ProfileController;
@@ -144,3 +145,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 Route::get('/kassa/buy', [KassaController::class, 'oplataUslugi']);
 Route::get('/kassa/check', [KassaController::class, 'checkOplata']);
 Route::get('/kassa/disabled', [KassaController::class, 'disabledOplata']);
+
+Route::get('/news', [ControllersNewsController::class, 'index'])->name('news.index');
+Route::get('news/{chpu}', [ControllersNewsController::class, 'view'])->name('news.view');

@@ -17,9 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('short_description');
+            $table->string('image');
             $table->text('content');
             $table->string('media')->nullable();
-            $table->boolean('publish');
+            $table->string('chpu');
+            $table->timestamp('created_at');
         });
     }
 

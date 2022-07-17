@@ -19,8 +19,20 @@
                     </ul>
                 </div>
             @endif
-            <form method="post" action="{{ route('admin.news.store') }}">
+            <form method="post" action="{{ route('admin.news.store') }}" enctype="multipart/form-data">
                 @csrf
+                <div class="form-group col-6">
+                    <label for="exampleInputFile">Изображение</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="image">
+                            <label class="custom-file-label">Выберите файл</label>
+                        </div>
+                        {{-- <div class="input-group-append">
+                            <span class="input-group-text"></span>
+                        </div> --}}
+                    </div>
+                </div>
                 <div class="form-group">
                     <label>Заголовок</label>
                     <input type="text" class="form-control col-6" placeholder="" name="title">
@@ -31,20 +43,17 @@
                 </div>
                 <div class="form-group">
                     <label>Контент</label>
-                    <textarea name="content" id="summernote">
-
+                    <textarea id="summernote">
                     </textarea>
                 </div>
+
                 <div class="form-group">
                     <label>Медиа</label>
                     <input type="text" class="form-control col-6" placeholder="" name="media">
                 </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="publish">
-                    <label class="form-check-label">Опубликовано</label>
-                </div>
+                <input type="hidden" name="content" value="" id="content">
                 <div class="form-group mt-3">
-                    <button type="submit" class="btn btn-primary">Добавить</button>
+                    <button type="submit" class="btn btn-primary" onclick="document.querySelector('#content').value=$('#summernote').summernote('code')">Добавить</button>
                 </div>
             </form>
         </div>
@@ -67,16 +76,4 @@
             ]
         });
     </script>
-    {{-- <script>
-        if (document.querySelector('.delete-personal')) {
-            document.querySelector('.delete-personal').addEventListener('click', (e) => {
-                if (e.target.classList.contains('delete-personal-el')) {
-                    const check = confirm('Удалить сотрудника?');
-                    if (check) {
-                        window.location = `/admin/personal/${e.target.dataset.id}/delete`;
-                    }
-                }
-            });
-        };
-    </script> --}}
 @endsection

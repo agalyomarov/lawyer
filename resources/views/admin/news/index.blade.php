@@ -13,34 +13,26 @@
     </div>
     <div class="row">
         <div class="col-12">
-            @if (isset($personals) && count($personals) > 0)
+            @if (isset($news) && count($news) > 0)
                 <div class="card">
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Ф.И.О</th>
-                                    <th>ЧПУ</th>
-                                    <th>Рег.номер</th>
-                                    <th>Специальности</th>
-                                    <th>Интервал</th>
-                                    <th>Опубликовано</th>
+                                    <th>Заголовок</th>
+                                    <th>Дата</th>
                                     <th colspan="2">Действие</th>
                                 </tr>
                             </thead>
                             <tbody class="delete-personal">
-                                @foreach ($personals as $personal)
+                                @foreach ($news as $new)
                                     <tr>
-                                        <td>{{ $personal->id }}</td>
-                                        <td>{{ $personal->fullname }}</td>
-                                        <td>{{ $personal->chpu }}</td>
-                                        <td>{{ $personal->regnumber }}</td>
-                                        <td>{{ $personal->personal_specialities }}</td>
-                                        <td>{{ $personal->interval }} минут</td>
-                                        <td>{{ $personal->publishing ? 'Да' : 'Нет' }}</td>
-                                        <td><a href="{{ route('admin.personal.edit', $personal->id) }}"><i class="fas fa-pen"></i></a></td>
-                                        <td><i class="delete-personal-el text-danger fas fa-trash" data-id="{{ $personal->id }}"></i></td>
+                                        <td>{{ $new->id }}</td>
+                                        <td>{{ $new->title }}</td>
+                                        <td>{{ $new->created_at }}</td>
+                                        <td><a href="{{ route('admin.personal.edit', $new->id) }}"><i class="fas fa-pen"></i></a></td>
+                                        <td><i class="delete-news-el text-danger fas fa-trash" data-id="{{ $new->id }}"></i></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -52,16 +44,4 @@
             @endif
         </div>
     </div>
-    {{-- <script>
-        if (document.querySelector('.delete-personal')) {
-            document.querySelector('.delete-personal').addEventListener('click', (e) => {
-                if (e.target.classList.contains('delete-personal-el')) {
-                    const check = confirm('Удалить сотрудника?');
-                    if (check) {
-                        window.location = `/admin/personal/${e.target.dataset.id}/delete`;
-                    }
-                }
-            });
-        };
-    </script> --}}
 @endsection
