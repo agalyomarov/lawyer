@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\DatePicker;
 use App\Models\Client;
+use App\Models\Dostizheniya;
 use App\Models\News;
 use App\Models\Personal;
 use App\Models\Service;
@@ -19,6 +20,7 @@ class MainController extends Controller
     public function index()
     {
         $news = News::all()->take(3);
+        $dosts = Dostizheniya::all()->take(3);
         $services = Service::all();
         $personals = Personal::leftJoin('personal_specialities', 'personals.id', 'personal_specialities.personal_id')->leftJoin('specialities', 'personal_specialities.speciality_id', "=", "specialities.id")->take(10)->select('personals.*', 'specialities.title')->get();
         $client_name = session()->get('client_name');
@@ -144,7 +146,7 @@ class MainController extends Controller
         // dd(date('Y-m-d H:i:m', time()));
         // dd($thisMonth);
 
-        return view('home', compact('thisMonth', 'nextMonth', 'client_email', 'client_name', 'client_phone', 'services', 'personals', 'news'));
+        return view('home', compact('thisMonth', 'nextMonth', 'client_email', 'client_name', 'client_phone', 'services', 'personals', 'news', 'dosts'));
     }
     public function getentry(Request $request)
     {

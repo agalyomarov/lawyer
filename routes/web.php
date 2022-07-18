@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\DostController;
 use App\Http\Controllers\Admin\EntryController;
 use App\Http\Controllers\Admin\LinkController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
@@ -7,6 +9,7 @@ use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PersonalController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SpecialityController;
+use App\Http\Controllers\DostController as ControllersDostController;
 use App\Http\Controllers\KassaController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\NewsController as ControllersNewsController;
@@ -141,6 +144,25 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::put('/{news}', [NewsController::class, 'update'])->name('update');
       Route::get('delete/{news}', [NewsController::class, 'delete'])->name('delete');
    });
+
+   Route::group(['prefix' => 'dostizheniya', 'as' => 'dost.'], function () {
+      Route::get('/', [DostController::class, 'index'])->name('index');
+      Route::get('/create', [DostController::class, 'create'])->name('create');
+      Route::post('/', [DostController::class, 'store'])->name('store');
+      Route::get('/{dost}', [DostController::class, 'edit'])->name('edit');
+      Route::put('/{dost}', [DostController::class, 'update'])->name('update');
+      Route::get('delete/{dost}', [DostController::class, 'delete'])->name('delete');
+   });
+
+
+   Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
+      Route::get('/', [ArticleController::class, 'index'])->name('index');
+      Route::get('/create', [ArticleController::class, 'create'])->name('create');
+      Route::post('/', [ArticleController::class, 'store'])->name('store');
+      Route::get('/{article}', [ArticleController::class, 'edit'])->name('edit');
+      Route::put('/{article}', [ArticleController::class, 'update'])->name('update');
+      Route::get('delete/{article}', [ArticleController::class, 'delete'])->name('delete');
+   });
 });
 
 
@@ -151,3 +173,6 @@ Route::get('/kassa/disabled', [KassaController::class, 'disabledOplata']);
 
 Route::get('/news', [ControllersNewsController::class, 'index'])->name('news.index');
 Route::get('news/{chpu}', [ControllersNewsController::class, 'view'])->name('news.view');
+
+Route::get('/dostizheniye', [ControllersDostController::class, 'index'])->name('dost.index');
+Route::get('dostizheniye/{chpu}', [ControllersDostController::class, 'view'])->name('dost.view');

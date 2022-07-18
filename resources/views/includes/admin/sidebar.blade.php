@@ -79,6 +79,15 @@
                           </p>
                       </a>
                   </li>
+                  <li class="nav-item">
+                      <a href="{{ route('admin.dost.index') }}" class="nav-link">
+                          {{-- <i class="nav-icon fa fa-share"></i> --}}
+                          <p>
+                              Достижении
+                              <span class="right badge badge-danger tag_for_count hidden"></span>
+                          </p>
+                      </a>
+                  </li>
               </ul>
           </nav>
       </div>

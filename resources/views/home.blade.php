@@ -570,46 +570,25 @@
             <h2>Достижения</h2>
         </div>
         <div class="container">
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/dostizheniya/sbyt-ili-hranenie-vot-v-chyom-vopros/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/sbyt-ili-hranenie-vot-v-chyom-vopros.jpg') }}) center; background-size: cover;">
-                        <div class="date">20.04.22</div>
+            @foreach ($dosts as $dost)
+                <div class="home-six-item">
+                    <a class="nounderline" href="{{ route('dost.view', $dost->chpu) }}/">
+                        <div class="home-six-item-img" style="background: url({{ asset($dost->image) }}) center; background-size: cover;">
+                            <div class="date">{{ Date::parse($dost->created_at)->format('d-m-Y') }}</div>
+                        </div>
+                    </a>
+                    <div class="home-six-item-box">
+                        <h3><a class="nounderline" href="{{ route('dost.view', $dost->chpu) }}/"> {{ $dost->title }}</a></h3>
+                        <span>{{ $dost->short_description }}</span>
+                        <a href="{{ route('dost.view', $dost->chpu) }}/">Подробнее</a>
                     </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/dostizheniya/sbyt-ili-hranenie-vot-v-chyom-vopros/"> Сбыт или хранение – вот в чём вопрос!</a></h3>
-                    <span>Судом переквалифицировано действия по сбору закладок со сбыта на хранение наркотических средств.</span>
-                    <a href="https://a-advokat.ru/dostizheniya/sbyt-ili-hranenie-vot-v-chyom-vopros/">Подробнее</a>
                 </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/dostizheniya/verdikt-prisyazhnih-ne-panatseya/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/ovp5m4xwqu9ysbre.jpg') }}) center; background-size: cover;">
-                        <div class="date">19.03.21</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/dostizheniya/verdikt-prisyazhnih-ne-panatseya/"> Вердикт присяжных &#8212; не панацея.</a></h3>
-                    <span>Обвинительный приговор постановленный судом присяжных заседателей отменен.</span>
-                    <a href="https://a-advokat.ru/dostizheniya/verdikt-prisyazhnih-ne-panatseya/">Подробнее</a>
-                </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/dostizheniya/esli-ne-poluchilos-vernites-k-nachalu/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/cw41baj0dsu5len3.jpg') }}) center; background-size: cover;">
-                        <div class="date">17.03.21</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/dostizheniya/esli-ne-poluchilos-vernites-k-nachalu/"> Если не получилось, вернитесь к началу!</a></h3>
-                    <span>Апелляция даёт еще один шанс адвокату добиться желаемого результата. Так воспользуйтесь им.
-                    </span>
-                    <a href="https://a-advokat.ru/dostizheniya/esli-ne-poluchilos-vernites-k-nachalu/">Подробнее</a>
-                </div>
-            </div>
+            @endforeach
+
+
         </div>
         <div class="button-container">
-            <a href="https://a-advokat.ru/dostizheniya/" class="button">Все достижения</a>
+            <a href="{{ route('dost.index') }}" class="button">Все достижения</a>
         </div>
     </section>
     <section class="home-six home-article">
