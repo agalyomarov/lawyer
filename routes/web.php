@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PersonalController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SpecialityController;
+use App\Http\Controllers\ArticleController as ControllersArticleController;
 use App\Http\Controllers\DostController as ControllersDostController;
 use App\Http\Controllers\KassaController;
 use App\Http\Controllers\MainController;
@@ -176,3 +177,7 @@ Route::get('news/{chpu}', [ControllersNewsController::class, 'view'])->name('new
 
 Route::get('/dostizheniye', [ControllersDostController::class, 'index'])->name('dost.index');
 Route::get('dostizheniye/{chpu}', [ControllersDostController::class, 'view'])->name('dost.view');
+
+
+Route::get('/article', [ControllersArticleController::class, 'index'])->name('article.index');
+Route::get('article/{chpu}', [ControllersArticleController::class, 'view'])->name('article.view');

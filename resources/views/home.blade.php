@@ -584,8 +584,6 @@
                     </div>
                 </div>
             @endforeach
-
-
         </div>
         <div class="button-container">
             <a href="{{ route('dost.index') }}" class="button">Все достижения</a>
@@ -596,57 +594,23 @@
             <h2>Статьи</h2>
         </div>
         <div class="container">
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/article/obzhalovanie-prigovora-apelyaciya/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/advokat-po-ugolovnym-delam.jpg') }}) center; background-size: cover;">
-                        <div class="date">6.04.22</div>
+            @foreach ($articles as $article)
+                <div class="home-six-item">
+                    <a class="nounderline" href="{{ route('article.view', $article->chpu) }}/">
+                        <div class="home-six-item-img" style="background: url({{ asset($article->image) }}) center; background-size: cover;">
+                            <div class="date">{{ Date::parse($article->created_at)->format('d-m-Y') }}</div>
+                        </div>
+                    </a>
+                    <div class="home-six-item-box">
+                        <h3><a class="nounderline" href="{{ route('article.view', $article->chpu) }}/">{{ $article->title }}</a></h3>
+                        <span>{{ $article->short_description }}</span>
+                        <a href="{{ route('article.view', $article->chpu) }}/">Подробнее</a>
                     </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/article/obzhalovanie-prigovora-apelyaciya/">Обжалование приговора в апелляции</a></h3>
-                    <span>Если Вас не устроил постановленный судом приговор, обжалуйте его! Зная все тонкости и нюансы апелляции, можно добиться желаемого результата.</span>
-                    <a href="https://a-advokat.ru/article/obzhalovanie-prigovora-apelyaciya/">Подробнее</a>
                 </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/article/advokat-po-alimentam/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/alimenty.jpg') }}) center; background-size: cover;">
-                        <div class="date">9.12.20</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/article/advokat-po-alimentam/">Юрист по взысканию алиментов &#8212; работа с неплательщиками</a></h3>
-                    <span>Не платят алименты? Не знаете, как исправить ситуацию? Адвокат по алиментам в Москве поможет решить проблему. Обращайтесь в коллегию «Почетный Адвокатъ», и ваш вопрос в оперативном порядке будет решен. </span>
-                    <a href="https://a-advokat.ru/article/advokat-po-alimentam/">Подробнее</a>
-                </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/article/advokat-po-bankrotstvu/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/yurist-po-trudovym-sporam.jpg') }}) center; background-size: cover;">
-                        <div class="date">3.12.20</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/article/advokat-po-bankrotstvu/">Адвокат в деле о банкротстве &#8212; ваш персональный представитель</a></h3>
-                    <span>Специалист в деле о банкротстве - ключевое звено, от квалификации которого зависит исход всей процедуры в целом. Профессионалы соответствующего направления состоят в штате коллегии «Почетный Адвокатъ». Обращайтесь, и получайте квалифицированную помощь.</span>
-                    <a href="https://a-advokat.ru/article/advokat-po-bankrotstvu/">Подробнее</a>
-                </div>
-            </div>
-            <div class="home-six-item">
-                <a class="nounderline" href="https://a-advokat.ru/article/advokat-po-bankrotstvu-fizicheskih-lic/">
-                    <div class="home-six-item-img" style="background: url({{ asset('images/bankrotstvo-fiz-lic.jpg') }}) center; background-size: cover;">
-                        <div class="date">29.11.20</div>
-                    </div>
-                </a>
-                <div class="home-six-item-box">
-                    <h3><a class="nounderline" href="https://a-advokat.ru/article/advokat-po-bankrotstvu-fizicheskih-lic/">Адвокат по банкротству физических лиц &#8212; ваш персональный помощник</a></h3>
-                    <span>Адвокат по банкротству физических лиц на профессиональном уровне обеспечит проведение всех обязательных процедур. Приходите в коллегию «Почетный Адвокатъ» - здесь окажут квалифицированную помощь.</span>
-                    <a href="https://a-advokat.ru/article/advokat-po-bankrotstvu-fizicheskih-lic/">Подробнее</a>
-                </div>
-            </div>
+            @endforeach
         </div>
         <div class="button-container">
-            <a href="https://a-advokat.ru/article" class="button">Все статьи</a>
+            <a href="{{ route('article.index') }}/" class="button">Все статьи</a>
         </div>
     </section>
 
