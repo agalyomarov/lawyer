@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\LinkController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PersonalController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\ArticleController as ControllersArticleController;
@@ -163,6 +164,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
       Route::get('/{article}', [ArticleController::class, 'edit'])->name('edit');
       Route::put('/{article}', [ArticleController::class, 'update'])->name('update');
       Route::get('delete/{article}', [ArticleController::class, 'delete'])->name('delete');
+   });
+
+   Route::group(['prefix' => 'review', 'as' => 'review.'], function () {
+      Route::get('/', [ReviewController::class, 'index'])->name('index');
+      Route::get('/create', [ReviewController::class, 'create'])->name('create');
+      Route::post('/', [ReviewController::class, 'store'])->name('store');
+      Route::get('/{review}', [ReviewController::class, 'edit'])->name('edit');
+      Route::put('/{review}', [ReviewController::class, 'update'])->name('update');
+      Route::get('delete/{review}', [ReviewController::class, 'delete'])->name('delete');
    });
 });
 
