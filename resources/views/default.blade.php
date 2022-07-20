@@ -1,13 +1,13 @@
 @if ($paginator->hasPages())
     <div class="wpcr3_pagination">
-        <a href="#" class="wpcr3_pagination_page">Страница 1 из 5: </a>
+        <div class="wpcr3_pagination_page">Страница {{ $paginator->currentPage() }} из {{ $paginator->lastPage() }}: </div>
 
         @if ($paginator->onFirstPage())
-            <div class="wpcr3_a">&laquo;</div>&nbsp;
-            <div class="wpcr3_a">&lsaquo;</div>&nbsp;
+            <div class="wpcr3_a wpcr3_disabled">&laquo;</div>&nbsp;
+            <div class="wpcr3_a wpcr3_disabled">&lsaquo;</div>&nbsp;
         @else
-            <div href="{{ $paginator->url(1) }}" class="wpcr3_a">&laquo;</div>&nbsp;
-            <div href="{{ $paginator->previousPageUrl() }}" class="wpcr3_a">&lsaquo;</div>&nbsp;
+            <a style="display: block" href="{{ $paginator->url(1) }}" class="wpcr3_a">&laquo;</a>&nbsp;
+            <a style="display: block" href="{{ $paginator->previousPageUrl() }}" class="wpcr3_a">&lsaquo;</a>&nbsp;
         @endif
         @foreach ($elements as $element)
             @if (is_string($element))
@@ -17,20 +17,20 @@
             @if (is_array($element))
                 @foreach ($element as $page => $url)
                     @if ($page == $paginator->currentPage())
-                        <div class="wpcr3_a">{{ $page }}</div>
+                        <div class="wpcr3_a wpcr3_current">{{ $page }}</div>
                     @else
-                        <div href="{{ $url }}" class="wpcr3_a">{{ $page }}</div>
+                        <a style="display: block" href="{{ $url }}" class="wpcr3_a">{{ $page }}</a>
                     @endif
                 @endforeach
             @endif
         @endforeach
 
         @if ($paginator->hasMorePages())
-            <div href="{{ $paginator->nextPageUrl() }}" class="wpcr3_a">&rsaquo;</div>&nbsp;
-            <div href="{{ $paginator->url($paginator->lastPage()) }}" data-page="5" class="wpcr3_a">&raquo;</div>&nbsp;
+            <a style="display: block" href="{{ $paginator->nextPageUrl() }}" class="wpcr3_a">&rsaquo;</a>&nbsp;
+            <a style="display: block" href="{{ $paginator->url($paginator->lastPage()) }}" data-page="5" class="wpcr3_a">&raquo;</a>&nbsp;
         @else
-            <div class="wpcr3_a">&rsaquo;</div>&nbsp;
-            <div class="wpcr3_a ">&raquo;</div>&nbsp;
+            <div class="wpcr3_a wpcr3_disabled">&rsaquo;</div>&nbsp;
+            <div class="wpcr3_a wpcr3_disabled">&raquo;</div>&nbsp;
         @endif
     </div>
 @endif
