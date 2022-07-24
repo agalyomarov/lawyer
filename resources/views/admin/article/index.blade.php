@@ -7,7 +7,7 @@
         </div>
         <div class="col-2">
             <a href="{{ route('admin.article.create') }}" type="button" class="btn btn-block btn-info">
-                Добавить статя
+                Добавить статью
             </a>
         </div>
     </div>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             @else
-                <h6>статии не добавлены</h6>
+                <h6>Статьи не добавлены</h6>
             @endif
         </div>
     </div>

@@ -303,7 +303,7 @@
 
         .block_for_info .btn_for_disabled,
         .block_for_info .close_window {
-            width: 80px;
+            width: 150px;
             line-height: 20px;
             margin: 0 auto;
             font-size: 14px;
@@ -512,9 +512,9 @@
                     @foreach ($entries as $index => $entry)
                         <div class="table_body_element_list {{ $index % 2 == 0 ? 'active' : '' }}" data-client_entry_id="{{ $entry['client_entry_id'] }}">
                             <div class="table_body_element">{{ $entry['entry_start_time'] }}</div>
-                            <a href="" class="table_body_element usluga">{{ $entry['service_title'] }}</a>
-                            <div class="table_body_element sena">{{ $entry['service_price'] }}</div>
-                            <div class="table_body_element status">
+                            <a href="/uslugi/{{ $entry['service_chpu'] }}/" class="table_body_element usluga">{{ $entry['service_title'] }}</a>
+                            <div class="table_body_element sena" style="cursor:unset">{{ $entry['service_price'] }}</div>
+                            <div class="table_body_element status" style="cursor:unset">
                                 @if ($entry['status'] == 'buyed')
                                     Оплачен
                                 @elseif($entry['status'] == 'disabled')
@@ -532,7 +532,7 @@
                             <div class="table_body_element btn_for_info">Информация</div>
                             <div class="table_body_element disabled @if ($entry['lasted'] == false && $entry['active'] == false && $entry['status'] != 'disabled') btn_for_disabled @endif">
                                 @if ($entry['status'] != 'disabled' && $entry['lasted'] == false && $entry['active'] == false)
-                                    Отменить
+                                    Отменить запись
                                 @elseif($entry['status'] == 'buyed' && $entry['lasted'] == true)
                                     Время истек
                                 @elseif($entry['status'] == 'buyed' && $entry['active'] == true)
@@ -594,8 +594,8 @@
         <i class="fa-solid fa-xmark"></i>
         <img src="{{ asset('image/5qdfnlRJSAuuCIahQA4j36Ud5u142c4etarZErsb.jpg') }}" alt="#">
         {{-- <div class="img" style="background-image: url(http://localhost:8000/)"></div> --}}
-        <a class="fio">Волоцкая Юлия Владимировна</a>
-        <div class="usluga">Услуга : <span>Консультация по семейным отношениям </span></div>
+        <a href="" class="fio" target="_blank">Волоцкая Юлия Владимировна</a>
+        <div class="usluga">Услуга : <a href="#" style="color:black">Консультация по семейным отношениям </a></div>
         <div class="sena">Цена(руб) : <span>4000</span></div>
         <div class="date_time">Время и дате : <span>28.02.2022 10:00</span></div>
         <div class="status">Статус : <span>Оплачен</span></div>
@@ -604,7 +604,7 @@
         <div class="link_not_buyed">Ссылка на консултацию будет доступно после оплаты</div>
         <div class="link_buyed hidden">Ссылка на консултацию будет доступно ближаеший время</div>
         <div class="link_lasted hidden">Время истек</div>
-        <div class="btn_for_disabled hidden">Отменить</div>
+        <div class="btn_for_disabled hidden">Отменить запись</div>
         <div class="close_window">Закрыт окно</div>
     </div>
     <script>
@@ -660,7 +660,9 @@
                         // console.log(data, Math.floor(Date.now() / 1000));
                         block_for_info.querySelector('img').src = `${data.app_url}/${data.personal.image}`;
                         block_for_info.querySelector('.fio').textContent = data.personal.fullname;
-                        block_for_info.querySelector('.usluga span').textContent = data.service.title;
+                        block_for_info.querySelector('.fio').setAttribute('href', `/personals/${data.personal.chpu}/`);
+                        block_for_info.querySelector('.usluga a').textContent = data.service.title;
+                        block_for_info.querySelector('.usluga a').setAttribute('href', `/uslugi/${ data.service.chpu}/`);
                         block_for_info.querySelector('.sena span').textContent = data.service.price;
                         block_for_info.querySelector('.date_time span').textContent = data.personal_entry.entry_start_time;
                         block_for_info.querySelector('.link_buyed').classList.add('hidden');

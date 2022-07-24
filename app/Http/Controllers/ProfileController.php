@@ -111,7 +111,7 @@ class ProfileController extends Controller
                 $personalEntry = DB::table('personal_entries')->where('id', $entry->entry_id)->first();
                 $entryStartTime = date('d.m.Y H:i', $personalEntry->entry_start_time);
                 $entries[$index]['entry_start_time'] = $entryStartTime;
-
+                $entries[$index]['service_chpu'] = $service->chpu;
                 $entries[$index]['service_title'] = $service->title;
                 $entries[$index]['service_id'] = $service->id;
                 $entries[$index]['client_entry_id'] = $entry->id;

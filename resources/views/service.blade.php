@@ -3,8 +3,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Юридическое обслуживание физических лиц в Москве</title>
-    <meta name="description" content="Основой деятельности нашей коллегии является помощь физическим лицам в деле соблюдения их прав. В работе мы ориентируемся на индивидуальный подход и внимание к деталям, что позволяет успешно разрешать сложные вопросы.">
+    <title>Услуги онлайн косултаций от Московской Коллегии Адвокатов &laquo;Почетный Адвокатъ&raquo;.</title>
+    <meta name="description" content="Список услуг онлайн косултаций от лучших адвокатов и юристов Московской Коллегии Адвокатов &laquo;Почетный Адвокатъ&raquo;.">
     <meta name="keywords" content="юридическое обслуживание физических лиц, Москва">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">

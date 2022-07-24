@@ -357,8 +357,6 @@
                     <div class="table_header_element status">Статус</div>
                     <div class="table_header_element fio">Фио клиента</div>
                     <div class="table_header_element">Ссылка </div>
-                    {{-- <div class="table_header_element not_name"></div> --}}
-                    {{-- <div class="table_header_element not_name"></div> --}}
                 </div>
                 <div class="table_body">
                     @foreach ($entries as $index => $entry)
@@ -381,20 +379,6 @@
                                     <a target="_blank" href="{{ $entry['link'] }}">ссылка</a>
                                 @endif
                             </div>
-                            {{-- <div class="table_body_element buyed @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false) btn_for_buyed @endif">
-                                @if ($entry['status'] == 'not_buyed' && $entry['lasted'] == false && $entry['active'] == false)
-                                    Оплатить
-                                @endif
-                            </div> --}}
-                            {{-- <div class="table_body_element disabled @if ($entry['lasted'] == false && $entry['active'] == false && $entry['status'] != 'disabled') btn_for_disabled @endif">
-                                @if ($entry['status'] != 'disabled' && $entry['lasted'] == false && $entry['active'] == false)
-                                    Отменить
-                                @elseif($entry['status'] == 'buyed' && $entry['lasted'] == true)
-                                    Время истек
-                                @elseif($entry['status'] == 'buyed' && $entry['active'] == true)
-                                    Активный
-                                @endif
-                            </div> --}}
                             <div class="table_body_element btn_for_info">Информация</div>
                         </div>
                     @endforeach

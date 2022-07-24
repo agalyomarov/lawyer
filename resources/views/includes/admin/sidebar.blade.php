@@ -65,7 +65,7 @@
                       <a href="{{ route('admin.variable.index') }}" class="nav-link">
                           {{-- <i class="nav-icon fa fa-share"></i> --}}
                           <p>
-                              Период уведомлении
+                              Период уведомлений
                               <span class="right badge badge-danger tag_for_count hidden"></span>
                           </p>
                       </a>

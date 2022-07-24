@@ -37,7 +37,7 @@
                     <input type="text" class="form-control col-6" placeholder="" name="title" value="{{ $news->title }}">
                 </div>
                 <div class="form-group">
-                    <label>Короткий описание</label>
+                    <label>Краткое описание</label>
                     <input type="text" class="form-control col-6" placeholder="" name="short_description" value="{{ $news->short_description }}">
                 </div>
                 <div class="form-group">

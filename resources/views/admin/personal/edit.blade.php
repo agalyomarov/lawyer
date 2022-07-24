@@ -112,7 +112,7 @@
                 </div>
                 <input type="hidden" name="id" value="{{ $personal->id }}">
                 <div class="form-group">
-                    <label>Парол</label>
+                    <label>Пароль</label>
                     <input type="text" class="form-control" placeholder="Парол" name="password" value="{{ old('password', $personal->password) }}">
                 </div>
                 <div class="form-group">

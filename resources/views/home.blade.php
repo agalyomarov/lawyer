@@ -414,7 +414,8 @@
                                 <div class="oz_form_wrap">
                                     <div class="oz_zapis_info">
                                         <p>
-                                            <span class="oz_spec_info">Сотрудник:
+                                            <span class="oz_spec_info">
+                                                <font></font>:
                                                 <span class="data_before_buy_fullname"></span>
                                             </span>
                                             <span class="oz_datetime_info">
@@ -425,14 +426,14 @@
                                                     <span class="oz_time_info data_before_buy_time"></span>
                                                 </span>
                                             </span>
-                                            <span class="oz_usluga_info">Сервис: <span>
+                                            <span class="oz_usluga_info">Услуга: <span>
                                                     <span class="oz_nodeposit data_before_buy_service"></span>
                                                 </span>
                                             </span>
-                                            <span class="oz_amount_info">Итого:
+                                            <span class="oz_amount_info">Сумма к оплате:
                                                 <span class="data_before_buy_price"></span>
                                             </span>
-                                            <span class="oz_itog_mess">Оставьте Ваши контактные данные!</span>
+                                            <span class="oz_itog_mess" style="margin-top:20px">Оставьте Ваши контактные данные!</span>
                                         </p>
                                     </div>
                                     <form action="#" method="post" class="oz-form false" novalidate="novalidate">
@@ -473,8 +474,8 @@
                             <div class="block_for_phone_verify">
                                 <div class="block">
                                     <p class="block_title">ПОДВЕРЖДЕНИЕ ВХОДА</з>
-                                    <p class="block_description">мы отправили код с SMS</p>
-                                    <label>Последный 4 цифры </label>
+                                    <p class="block_description">Сейчас к Вам на телефон поступит звонок и голос продиктует 4 цифры которые Вам необходимо будет ввести в ниже приведенное поле. </p>
+                                    {{-- <label>Последный 4 цифры </label> --}}
                                     <input type="text" class="result">
                                     <p class="block_turn disabled">
                                         <i class="fa-solid fa-arrows-rotate"></i>
@@ -638,19 +639,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div data-page-opts="{&quot;postid&quot;:790,&quot;num&quot;:4,&quot;paginate&quot;:1,&quot;perpage&quot;:4,&quot;hidecustom&quot;:0,&quot;snippet&quot;:0,&quot;more&quot;:&quot;&quot;,&quot;showform&quot;:1,&quot;hidereviews&quot;:0,&quot;hideresponse&quot;:0,&quot;morelink&quot;:&quot;&quot;,&quot;showsupport&quot;:1,&quot;wrapper&quot;:1,&quot;classes&quot;:&quot;&quot;,&quot;on_postid&quot;:8,&quot;ajax&quot;:0,&quot;thispage&quot;:1}"
-                        class="wpcr3_pagination">
-                        <div class="wpcr3_pagination_page">Страница 1 из 5: </div>
-                        <div data-page="1" class="wpcr3_a wpcr3_disabled">&laquo;</div>&nbsp;
-                        <div data-page="1" class="wpcr3_a wpcr3_ls wpcr3_disabled">&lsaquo;</div>&nbsp;
-                        <div data-page="1" class="wpcr3_a wpcr3_current">1</div>
-                        <div data-page="2" class="wpcr3_a ">2</div>
-                        <div data-page="3" class="wpcr3_a ">3</div>
-                        <div data-page="4" class="wpcr3_a ">4</div>
-                        <div data-page="5" class="wpcr3_a ">5</div>
-                        <div data-page="2" class="wpcr3_a wpcr3_rs ">&rsaquo;</div>&nbsp;
-                        <div data-page="5" class="wpcr3_a ">&raquo;</div>&nbsp;
-                    </div> --}}
                 {{ $reviews->links('default', compact('reviews')) }}
 
                 <div class="wpcr3_clear"></div>
@@ -887,13 +875,14 @@
                                         </div>
                                         <div class="pers-content">
                                             <p class="pname with-description">${data.personals[id].fullname}</p>
-                                            <p class="special">${data.personals[id].specialities}</p><br>
-                                            <div class="oz_text_cont">
+                                            <p class="special" style="color:black">${data.personals[id].specialities}</p><br>
+                                            <div class="oz_text_cont" style="height:150px">
                                                 <div class="oz_text_cont_wrap">
-                                                    <p>${data.personals[id].content}</p>
+                                                    <p>${data.personals[id].shurt_description}</p>
                                                 </div>
                                             </div>
-                                            <div class="btn_select_personal oz_select_btn oz_btn">Выбрать</div><a href="https://a-advokat.ru/personal/voloczkaya-yuliya-vladimirovna/" class="oz_btn oz_btn_link">Больше</a>
+                                            <a style="margin-bottom:20px" href="/personals/${data.personals[id].chpu}/" class="oz_btn oz_btn_link">Подробное</a>
+                                            <div class="btn_select_personal oz_select_btn oz_btn">Выбрать</div>
                                         </div>
                                     </li>`);
                             }
@@ -929,11 +918,14 @@
                         oz_container.querySelector('h3.stepname').textContent = 'КОНТАКТНАЯ ИНФОРМАЦИЯ';
                         oz_container.querySelector('.oz_employees').classList.remove('active');
                         timeForm.classList.add('active');
+                        timeForm.dataset.speciality = data.body.speciality;
                         timeForm.dataset.personal_id = data.body.personal_id;
                         timeForm.dataset.date = data.body.date;
                         timeForm.dataset.time = data.body.time;
                         timeForm.dataset.service_id = data.body.service_id;
+
                         timeForm.querySelector('span.data_before_buy_date').innerText = data.body.day;
+                        timeForm.querySelector('span.oz_spec_info font').innerText = data.body.speciality;
                         timeForm.querySelector('span.data_before_buy_fullname').innerText = data.body.fullname;
                         timeForm.querySelector('span.data_before_buy_price').innerText = data.body.price + '  руб';
                         timeForm.querySelector('span.data_before_buy_service').innerText = data.body.service;
@@ -975,8 +967,8 @@
                         }
                         setInterval(timeFormFunction, 500);
                         // console.log();
+                        // console.log(data);
                     }
-                    // console.log(data);
                 })
                 // console.log(e.target);
                 // console.log(body);

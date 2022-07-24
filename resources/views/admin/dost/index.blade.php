@@ -3,7 +3,7 @@
 @section('content')
     <div class="row mb-2">
         <div class="mr-3">
-            <h1>Достижении</h1>
+            <h1>Достижения</h1>
         </div>
         <div class="col-2">
             <a href="{{ route('admin.dost.create') }}" type="button" class="btn btn-block btn-info">

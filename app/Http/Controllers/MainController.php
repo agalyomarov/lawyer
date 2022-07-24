@@ -10,6 +10,7 @@ use App\Models\News;
 use App\Models\Personal;
 use App\Models\Review;
 use App\Models\Service;
+use App\Models\Speciality;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -232,6 +233,8 @@ class MainController extends Controller
                 $body['personal_id'] = $data['personal_id'];
                 $body['service_id'] = $data['service_id'];
                 $body['fullname'] = DB::table('personals')->where('id', $data['personal_id'])->select('fullname')->first()->fullname;
+                $body['speciality'] = DB::table('personal_specialities')->where('personal_id', $data['personal_id'])->select('speciality_id')->first()->speciality_id;
+                $body['speciality'] = Speciality::find($body['speciality'])->title;
                 $body['date'] = strtotime($data['date']);
                 $body['day'] =  $data['date'];
                 $body['time'] = $data['time'];

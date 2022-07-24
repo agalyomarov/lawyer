@@ -443,19 +443,6 @@
         }
     </style>
     <div class="block_for_info hidden">
-        {{-- <img src="{{ asset('image/3KuZOxYLSJ8yQ0ZfYYfN3nh0jCta2TkWHAYvowOB.jpg') }}" alt="">
-        <div class="fio_porsonal">Волоцкая Юлия Владимировна</div>
-        <a href="" class="service_title">Консультация по административному праву</a>
-        <div class="service_price">Цена : 2000</div>
-        <div class="time">Дата и время : 12.12.2022 14:00</div>
-        <div class="status">Статус : Оплачен</div>
-        <a href="#" class="link">Ссылка</a>
-        <div class="status" style="margin-top:30px">Данный клиента :</div>
-        <div class="fio_porsonal">Волоцкая Юлия Владимировна</div>
-        <div class="fio_porsonal">+79871874976</div>
-        <div class="fio_porsonal">omaraly971215@gmail.com</div>
-
-        <div class="link disable" style="color:red;cursor:pointer">Отменить</div> --}}
 
     </div>
     <div class="row mb-5">
@@ -464,13 +451,13 @@
             <a href="{{ route('admin.entry.index') }}" class="btn btn-success">Главная</a>
         </div>
         <div class="empty_entry_day">
-            <div></div> - Дни которыми нет не одного записа
+            <div></div> - Дни в которых нет ни одной записи
         </div>
         <div class="not_buyed_entry_day">
-            <div></div>- Дни которыми есть не оплаченный записи
+            <div></div>- Дни в которых есть неоплаченные записи
         </div>
         <div class="buyed_entry_day">
-            <div></div>- Дни которыми есть оплаченный записи
+            <div></div>- Дни в которых есть оплаченные записи
         </div>
         <div class="col-12 mt-3">
             @if ($errors->any())
@@ -485,7 +472,7 @@
                 <input type="text" class="form-control bg-white w-50 fullName" placeholder="Ф.И.О" name="fullname" value="{{ $personal->fullname }}" disabled data-personal_id={{ $personal->id }}>
             </div>
             <div class="form-group">
-                <input type="button" class="btn btn-success add_entry_first_btn" value="Добавить запис">
+                <input type="button" class="btn btn-success add_entry_first_btn" value="Добавить запись">
             </div>
             <div class="form-group">
                 <div class="block_for_add_entry hidden">
@@ -519,16 +506,6 @@
                                     @endforeach
                                 </div>
                             @endforeach
-                            {{-- <div class="table_row">
-                                <div class="day"></div>
-                                <div class="day online_entry"></div>
-                                <div class="day last">1</div>
-                                <div class="day last">2</div>
-                                <div class="day entry">3</div>
-                                <div class="day click">4</div>
-                                <div class="day click">5</div>
-                                <div class="day online_entry">5</div>
-                            </div> --}}
                         </div>
                     </div>
                     <div class="calendar calendar_next hidden">
@@ -678,24 +655,6 @@
     <div class="message_for_admin hidden"><span></span><i class="fa-solid fa-xmark"></i></div>
     <div class="bg_black hidden"></div>
     <div class="list_entries_of_day hidden">
-        {{-- <div class="block">
-            <div class="list">09:00 - не оплаченный запис</div>
-            <div class="info">Информация</div>
-        </div> --}}
-
-        {{-- <div class="list">10:00 - оплаченный запис</div>
-        <div class="list">11:00 - </div>
-        <div class="list">12:00 - оплаченный запис</div>
-        <div class="list">08:00 - </div>
-        <div class="list">09:00 - не оплаченный запис</div>
-        <div class="list">10:00 - оплаченный запис</div>
-        <div class="list">11:00 - </div>
-        <div class="list">12:00 - оплаченный запис</div>
-        <div class="list">08:00 - </div>
-        <div class="list">09:00 - не оплаченный запис</div>
-        <div class="list">10:00 - оплаченный запис</div>
-        <div class="list">11:00 - </div>
-        <div class="list">12:00 - оплаченный запис</div> --}}
     </div>
     <script>
         const messageForAdmin = document.querySelector('.message_for_admin');
@@ -983,11 +942,10 @@
                 const content = `
                   <img src="/${event.target.dataset.personal_image}" alt="#">
                   <div class="fio_porsonal">${event.target.dataset.personal_fio}</div>
-                  <a href="" class="service_title">${event.target.dataset.service_title}</a>
+                  <div class="service_title">${event.target.dataset.service_title}</div>
                   <div class="service_price">Цена : ${event.target.dataset.service_price}</div>
                   <div class="time">Дата и время : ${event.target.dataset.entry_start_time}</div>
                   <div class="status">Статус : ${event.target.dataset.buyed}</div>
-                  <a href="${event.target.dataset.link}" class="link">Ссылка</a>
                   <div class="status" style="margin-top:30px">Данный клиента :</div>
                   <div class="fio_porsonal">${event.target.dataset.client_fullname}</div>
                   <div class="fio_porsonal">+${event.target.dataset.client_phone}</div>

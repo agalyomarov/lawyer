@@ -42,7 +42,7 @@
                     <input type="number" class="form-control" id="price" placeholder="Цена" name="price" value="{{ $service->price }}">
                 </div>
                 <div class="form-group">
-                    <label>Длительност услуги</label>
+                    <label>Длительность услуги</label>
                     <select class="form-control col-3" name="duration">
                         @for ($i = 0; $i <= 60; $i += 15)
                             <option value="{{ $i }}" {{ $i == $service->duration ? 'selected' : '' }}>{{ $i }}</option>
